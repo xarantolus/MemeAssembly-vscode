@@ -70,7 +70,7 @@
 				{
 					"comment": "Decimal number constants",
 					"name": "constant.numeric.decimal",
-					"match": "\\d+"
+					"match": "\\b\\d+\\b"
 				}
 			]
 		},
@@ -79,17 +79,17 @@
 				{
 					"comment": "Space",
 					"name": "constant.character.escape",
-					"match": "space\\b"
+					"match": "\\bspace\\b"
 				},
 				{
 					"comment": "Escape sequences",
 					"name": "constant.character.escape",
-					"match": "\\\\[nstfbv\\\"\\?\\\\]\\b"
+					"match": "\\b\\\\[nstfbv\\\"\\?\\\\]\\b"
 				},
 				{
 					"comment": "ASCII Chars",
 					"name": "string.quoted.single",
-					"match": "[[:ascii:]]\\b"
+					"match": "\\b[[:ascii:]]\\b"
 				},
 				{
 					"name": "invalid.illegal",
@@ -109,13 +109,17 @@
 			"patterns": [
 				{
 					"name": "storage.type",
-					"match": "(I like to have fun, fun, fun, fun, fun, fun, fun, fun, fun, fun )\\S*",
+					"match": "I like to have fun, fun, fun, fun, fun, fun, fun, fun, fun, fun (.*)",
 					"captures": {
 						"1": {
 							"patterns": [
 								{
 									"name": "entity.name.function",
-									"match": "I like to have fun, fun, fun, fun, fun, fun, fun, fun, fun, fun (\\S*)"
+									"match": "\\S+"
+								},
+								{
+									"name": "invalid.illegal",
+									"match": ".+"
 								}
 							]
 						}
@@ -139,7 +143,7 @@
 			"patterns": [
 				{
 					"name": "entity.name.function",
-					"match": "(stonks \\w+)",
+					"match": "stonks (\\w+)",
 					"captures": {
 						"1": {
 							"patterns": [
@@ -155,7 +159,7 @@
 				},
 				{
 					"name": "entity.name.function",
-					"match": "(not stonks \\w+)",
+					"match": "not stonks (\\w+)",
 					"captures": {
 						"1": {
 							"patterns": [
@@ -257,6 +261,62 @@
 								},
 								{
 									"include": "#8bit-registers"
+								},
+								{
+									"name": "invalid.illegal",
+									"match": ".+"
+								}
+							]
+						}
+					}
+				},
+				{
+					"name": "entity.name.function",
+					"match": "(\\w+) is brilliant, but I like (\\w+)",
+					"captures": {
+						"1": {
+							"patterns": [
+								{
+									"include": "#64bit-registers"
+								},
+								{
+									"include": "#32bit-registers"
+								},
+								{
+									"include": "#16bit-registers"
+								},
+								{
+									"include": "#8bit-registers"
+								},
+								{
+									"name": "invalid.illegal",
+									"match": ".+"
+								}
+							]
+						},
+						"2": {
+							"patterns": [
+								{
+									"include": "#64bit-registers"
+								},
+								{
+									"include": "#32bit-registers"
+								},
+								{
+									"include": "#16bit-registers"
+								},
+								{
+									"include": "#8bit-registers"
+								},
+								{
+									"include": "#decimal-number"
+								},
+								{
+									"include": "#ascii-character"
+								},
+								{
+									"name": "invalid.illegal",
+									"match": ".+"
 								}
 							]
 						}
