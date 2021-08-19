@@ -32,6 +32,12 @@
 				},
 				{
 					"include": "#io-operations"
+				},
+				{
+					"include": "#random-commands"
+				},
+				{
+					"include": "#debug-commands"
 				}
 			]
 		},
@@ -568,6 +574,34 @@
 							]
 						}
 					}
+				}
+			]
+		},
+		"random-commands": {
+			"patterns": [
+				{
+					"name": "entity.name.function",
+					"match": "guess I'll die"
+				},
+				{
+					"name": "entity.name.function",
+					"match": "confused stonks"
+				},
+				{
+					"name": "entity.name.function",
+					"match": "perfectly balanced as all things should be"
+				},
+				{
+					"name": "entity.name.function",
+					"match": "wait, that's illegal"
+				}
+			]
+		},
+		"debug-commands": {
+			"patterns": [
+				{
+					"name": "entity.name.function",
+					"match": "it's a trap"
 				}
 			]
 		},
