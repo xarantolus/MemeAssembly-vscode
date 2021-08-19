@@ -29,6 +29,9 @@
 				},
 				{
 					"include": "#arithmetic-operations"
+				},
+				{
+					"include": "#io-operations"
 				}
 			]
 		},
@@ -87,7 +90,12 @@
 				{
 					"comment": "Escape sequences",
 					"name": "constant.character.escape",
-					"match": "\\b\\\\[nstfbv\\\"\\?\\\\]\\b"
+					"match": "\\\\[nstfbv\\\"\\?\\\\]\\b"
+				},
+				{
+					"comment": "Code point",
+					"name": "constant.numeric.decimal",
+					"match": "\\d{1,3}\\b"
 				},
 				{
 					"comment": "ASCII Chars",
@@ -528,6 +536,30 @@
 								},
 								{
 									"include": "#8bit-registers"
+								},
+								{
+									"name": "invalid.illegal",
+									"match": ".+"
+								}
+							]
+						}
+					}
+				}
+			]
+		},
+		"io-operations": {
+			"patterns": [
+				{
+					"name": "entity.name.function",
+					"match": "what can I say except (.+)",
+					"captures": {
+						"1": {
+							"patterns": [
+								{
+									"include": "#8bit-registers"
+								},
+								{
+									"include": "#ascii-character"
 								},
 								{
 									"name": "invalid.illegal",
