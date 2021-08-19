@@ -31,7 +31,7 @@
     },
     "return": {
         "scope": "memeasm",
-        "body": "right back at ya, buckaroo",
+        "body": "right back at ya, buckaroo\n",
         "prefix": [
             "right back at ya, buckaroo",
             "return from function"
@@ -50,6 +50,34 @@
             "monke loop"
         ],
         "description": "monke do loop"
+    },
+    "banana loop": {
+        "scope": "memeasm",
+        "body": [
+            "banana",
+            "",
+            "$0",
+            "",
+            "where banana",
+        ],
+        "prefix": [
+            "banana loop"
+        ],
+        "description": "banan"
+    },
+    "upgrade loop": {
+        "scope": "memeasm",
+        "body": [
+            "upgrade",
+            "",
+            "$0",
+            "",
+            "fuck go back"
+        ],
+        "prefix": [
+            "upgrade loop",
+            "fuck go back"
+        ]
     },
     "who would win": {
         "scope": "memeasm",
@@ -71,9 +99,24 @@
         ],
         "description": "Compares two registers or values and jumps to appropriate point in code"
     },
+    "equality check": {
+        "scope": "memeasm",
+        "body": [
+            "corporate needs you to find the difference between ${1:rax} and ${2:69}",
+            "",
+            "$0",
+            "",
+            "they're the same picture",
+        ],
+        "prefix": [
+            "corporate needs you to find the difference between ...",
+            "same picture",
+            "equality check",
+        ]
+    },
     "return 1": {
         "scope": "memeasm",
-        "body": "no, I don't think I will",
+        "body": "no, I don't think I will\n",
         "prefix": [
             "no, I don't think I will",
             "return 1",
@@ -82,7 +125,7 @@
     },
     "return 0": {
         "scope": "memeasm",
-        "body": "I see this as an absolute win",
+        "body": "I see this as an absolute win\n",
         "prefix": [
             "I see this as an absolute win",
             "return 0",
@@ -91,7 +134,7 @@
     },
     "push": {
         "scope": "memeasm",
-        "body": "stonks ${1:rax}",
+        "body": "stonks ${1:rax}\n",
         "prefix": [
             "stonks",
             "push to stack"
@@ -99,7 +142,7 @@
     },
     "pop": {
         "scope": "memeasm",
-        "body": "not stonks ${1:rax}",
+        "body": "not stonks ${1:rax}\n",
         "prefix": [
             "not stonks",
             "pop from stack"
@@ -107,28 +150,145 @@
     },
     "logical and": {
         "scope": "memeasm",
-        "body": "bitconneeeeeeect ${1:rax} ${2:15}",
+        "body": "bitconneeeeeeect ${1:rax} ${1:15}\n",
         "prefix": [
             "bitconneeeeeeect",
             "and"
         ],
         "description": "ANDs the first register with the second value/register"
     },
-    "logical or": {
+    "logical not": {
         "scope": "memeasm",
-        "body": "${1:rax} \\s",
+        "body": "${1:rax} \\s\n",
         "prefix": [
-            "or",
+            "not",
             "\\s"
         ],
     },
     "zero register": {
         "scope": "memeasm",
-        "body": "sneak 100 ${1:rax}",
+        "body": "sneak 100 ${1:rax}\n",
         "prefix": [
             "sneak 100",
-            "xor rax, rax",
-            "zero rax"
+            "zero/clear register",
+            "xor",
+        ]
+    },
+    "mov value to register": {
+        "scope": "memeasm",
+        "body": "${1:rax} is brilliant, but I like ${2:69420}\n",
+        "prefix": [
+            "... is brilliant, but I like ...",
+            "mov",
+            "set register"
+        ]
+    },
+    "increment": {
+        "scope": "memeasm",
+        "body": "upvote ${1:rax}\n",
+        "prefix": [
+            "upvote",
+            "increment"
+        ]
+    },
+    "decrement": {
+        "scope": "memeasm",
+        "body": "downvote ${1:rax}\n",
+        "prefix": [
+            "downvote",
+            "decrement"
+        ]
+    },
+    "subtraction": {
+        "scope": "memeasm",
+        "body": "parry ${1:69} you filthy casual ${2:rax}\n",
+        "prefix": [
+            "parry ... you filthy casual ...",
+            "subtract",
+            "minus"
+        ]
+    },
+    "shift-right": {
+        "scope": "memeasm",
+        "body": "they had us in the first half, not gonna lie ${1:rax}\n",
+        "prefix": [
+            "they had us in the first half, not gonna lie",
+            "divide by 2",
+            "bit shift right"
+        ]
+    },
+    "shift-left": {
+        "scope": "memeasm",
+        "body": "upgrades, people. Upgrades ${1:rax}\n",
+        "prefix": [
+            "upgrades, people. Upgrades ...",
+            "multiply by 2",
+            "bit shift left"
+        ]
+    },
+    "addition": {
+        "scope": "memeasm",
+        "body": "${1:rax} units are ready, with ${2:42} well on the way\n",
+        "prefix": [
+            "... units are ready, with ... units well on the way",
+            "add",
+            "plus"
+        ]
+    },
+    "print": {
+        "scope": "memeasm",
+        "body": "what can I say except ${1:al}\n",
+        "prefix": [
+            "what can I say except ...",
+            "print character to stdout"
+        ]
+    },
+    "fancy exit": {
+        "scope": "memeasm",
+        "body": "guess I'll die\n",
+        "prefix": [
+            "segfault",
+            "violent exit"
+        ]
+    },
+    "random jump": {
+        "scope": "memeasm",
+        "body": "confused stonks\n",
+        "prefix": [
+            "confused stonks",
+            "jump to random line"
+        ]
+    },
+    "delete code": {
+        "scope": "memeasm",
+        "body": "perfectly balanced as all things should be\n",
+        "prefix": [
+            "perfectly balanced as all things should be",
+            "delete code"
+        ]
+    },
+    "violate abi": {
+        "scope": "memeasm",
+        "body": "wait, that's illegal\n",
+        "prefix": [
+            "wait, that's illegal",
+            "violate ABI"
+        ]
+    },
+    "debug trap": {
+        "scope": "memeasm",
+        "body": "it's a trap\n",
+        "prefix": [
+            "it's a trap",
+            "debug trap / exit"
+        ]
+    },
+    "draw 25": {
+        "scope": "memeasm",
+        "body": "or draw 25",
+        "prefix": [
+            "or draw 25",
+            "add 25"
         ]
     },
     "comment": {
@@ -141,5 +301,5 @@
             "Comment",
             "//"
         ]
-    }
+    },
 }
