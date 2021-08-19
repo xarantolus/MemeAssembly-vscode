@@ -38,6 +38,9 @@
 				},
 				{
 					"include": "#debug-commands"
+				},
+				{
+					"include": "#jumps-and-markers"
 				}
 			]
 		},
@@ -577,14 +580,53 @@
 				}
 			]
 		},
+		"jumps-and-markers": {
+			"patterns": [
+				{
+					"name": "keyword.control",
+					"match": "upgrade"
+				},
+				{
+					"name": "keyword.control",
+					"match": "fuck go back"
+				},
+				{
+					"name": "keyword.control",
+					"match": "banana"
+				},
+				{
+					"name": "keyword.control",
+					"match": "where banana"
+				},
+				{
+					"name": "keyword.control",
+					"match": "(?:return to )?monke (\\w+)",
+					"captures": {
+						"1": {
+							"patterns": [
+								{
+									"comment": "Must include both an 'a' and an 'u' to be valid",
+									"match": "((?:a|u)*(?:au|ua)+(?:a|u)*)",
+									"name": "keyword.control.less"
+								},
+								{
+									"match": ".+",
+									"name": "invalid.illegal"
+								}
+							]
+						}
+					}
+				}
+			]
+		},
 		"random-commands": {
 			"patterns": [
 				{
-					"name": "entity.name.function",
+					"name": "keyword.control",
 					"match": "guess I'll die"
 				},
 				{
-					"name": "entity.name.function",
+					"name": "keyword.control",
 					"match": "confused stonks"
 				},
 				{
@@ -600,7 +642,7 @@
 		"debug-commands": {
 			"patterns": [
 				{
-					"name": "entity.name.function",
+					"name": "keyword.control",
 					"match": "it's a trap"
 				}
 			]
@@ -608,7 +650,6 @@
 		"additions": {
 			"patterns": [
 				{
-					"comment": "Make sure the beginning is a valid command that we know",
 					"match": "(.+) (or draw 25)",
 					"captures": {
 						"1": {
@@ -619,7 +660,7 @@
 							]
 						},
 						"2": {
-							"name": "keyword.control"
+							"name": "keyword.operator"
 						}
 					}
 				}
