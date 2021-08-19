@@ -3,9 +3,6 @@
 	"name": "MemeAssembly",
 	"patterns": [
 		{
-			"include": "#registers"
-		},
-		{
 			"include": "#commands"
 		},
 		{
@@ -19,27 +16,62 @@
 		}
 	],
 	"repository": {
-		"registers": {
+		"64bit-registers": {
 			"patterns": [
 				{
 					"comment": "64 bit registers",
 					"name": "constant.language",
 					"match": "(?i)\\b(RAX|RBX|RCX|RDX|RSI|RDI|RSP|RBP|R8|R9|R10|R11|R12|R13|R14|R15)\\b"
-				},
+				}
+			]
+		},
+		"32bit-registers": {
+			"patterns": [
 				{
 					"comment": "32 bit registers",
 					"name": "constant.language",
 					"match": "(?i)\\b(EAX|EBX|ECX|EDX|ESI|EDI|ESP|EBP|R8D|R9D|R10D|R11D|R12D|R13D|R14D|R15D)\\b"
-				},
+				}
+			]
+		},
+		"16bit-registers": {
+			"patterns": [
 				{
 					"comment": "16 bit registers",
 					"name": "constant.language",
 					"match": "(?i)\\b(AX|BX|CX|DX|SI|DI|SP|BP|R8W|R9W|R10W|R11W|R12W|R13W|R14W|R15W)\\b"
-				},
+				}
+			]
+		},
+		"8bit-registers": {
+			"patterns": [
 				{
 					"comment": "8 bit registers",
 					"name": "constant.language",
 					"match": "(?i)\\b(AH|AL|BH|BL|CH|CL|DH|DL|SIL|DIL|SPL|BPL|R8B|R9B|R10B|R11B|R12B|R13B|R14B|R15B)\\b"
+				}
+			]
+		},
+		"decimal-number": {
+			"patterns": [
+				{
+					"comment": "Decimal number constants",
+					"name": "constant.numeric.decimal",
+					"match": "\\d+"
+				}
+			]
+		},
+		"ascii-character": {
+			"patterns": [
+				{
+					"comment": "Code points",
+					"name": "string.quoted.single",
+					"match": "\\d{1,3}"
+				},
+				{
+					"comment": "Single characters, 0 to 255",
+					"name": "string.quoted.single",
+					"match": "[\\x00-\\xFF]"
 				}
 			]
 		},
@@ -66,6 +98,10 @@
 							]
 						}
 					}
+				},
+				{
+					"name": "keyword.control",
+					"match": "(right back at ya, buckaroo)"
 				}
 			]
 		},
@@ -102,15 +138,20 @@
 						"1": {
 							"patterns": [
 								{
-									"include": "#registers"
+									"include": "#64bit-registers"
+								},
+								{
+									"include": "#32bit-registers"
+								},
+								{
+									"include": "#16bit-registers"
+								},
+								{
+									"include": "#8bit-registers"
 								}
 							]
 						}
 					}
-				},
-				{
-					"name": "keyword.control",
-					"match": "(right back at ya, buckaroo)"
 				}
 			]
 		}
