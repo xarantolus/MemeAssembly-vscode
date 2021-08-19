@@ -32,7 +32,7 @@
             "who would win? ${1:eax} or ${2:ebx}",
             "",
             "What the hell happened here? $1 is equal to $2",
-            "",
+            "$0",
             "$1 wins",
             "What the hell happened here? $1 > $2",
             "",
