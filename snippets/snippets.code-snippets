@@ -96,6 +96,7 @@
             "who would win",
             "Compare registers",
             "if",
+            "condition",
         ],
         "description": "Compares two registers or values and jumps to appropriate point in code"
     },
