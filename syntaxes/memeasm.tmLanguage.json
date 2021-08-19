@@ -213,6 +213,28 @@
 							]
 						}
 					}
+				},
+				{
+					"name": "entity.name.function",
+					"match": "(\\w+) \\\\s",
+					"captures": {
+						"1": {
+							"patterns": [
+								{
+									"include": "#64bit-registers"
+								},
+								{
+									"include": "#32bit-registers"
+								},
+								{
+									"include": "#16bit-registers"
+								},
+								{
+									"include": "#8bit-registers"
+								}
+							]
+						}
+					}
 				}
 			]
 		},
@@ -220,7 +242,7 @@
 			"patterns": [
 				{
 					"name": "entity.name.function",
-					"match": "(sneak 100 \\w+)",
+					"match": "sneak 100 (\\w+)",
 					"captures": {
 						"1": {
 							"patterns": [
