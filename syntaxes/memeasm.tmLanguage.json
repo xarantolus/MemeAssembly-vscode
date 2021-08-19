@@ -6,22 +6,29 @@
 			"include": "#commands"
 		},
 		{
-			"include": "#stack-operations"
-		},
-		{
-			"include": "#register-manipulation"
-		},
-		{
 			"include": "#comments"
-		},
-		{
-			"include": "#functions"
 		},
 		{
 			"include": "#additions"
 		}
 	],
 	"repository": {
+		"commands": {
+			"patterns": [
+				{
+					"include": "#stack-operations"
+				},
+				{
+					"include": "#register-manipulation"
+				},
+				{
+					"include": "#functions"
+				},
+				{
+					"include": "#logical-operations"
+				}
+			]
+		},
 		"64bit-registers": {
 			"patterns": [
 				{
@@ -69,6 +76,16 @@
 		},
 		"ascii-character": {
 			"patterns": [
+				{
+					"comment": "Space",
+					"name": "constant.character.escape",
+					"match": "space"
+				},
+				{
+					"comment": "Escape sequences",
+					"name": "constant.character.escape",
+					"match": "\\\\[nstfbv\\\"\\?\\\\]"
+				},
 				{
 					"comment": "Code points",
 					"name": "string.quoted.single",
@@ -152,6 +169,54 @@
 				}
 			]
 		},
+		"logical-operations": {
+			"patterns": [
+				{
+					"name": "entity.name.function",
+					"match": "bitconneeeeeeect (\\w+) (.+)",
+					"captures": {
+						"1": {
+							"patterns": [
+								{
+									"include": "#64bit-registers"
+								},
+								{
+									"include": "#32bit-registers"
+								},
+								{
+									"include": "#16bit-registers"
+								},
+								{
+									"include": "#8bit-registers"
+								}
+							]
+						},
+						"2": {
+							"patterns": [
+								{
+									"include": "#64bit-registers"
+								},
+								{
+									"include": "#32bit-registers"
+								},
+								{
+									"include": "#16bit-registers"
+								},
+								{
+									"include": "#8bit-registers"
+								},
+								{
+									"include": "#decimal-number"
+								},
+								{
+									"include": "#ascii-character"
+								}
+							]
+						}
+					}
+				}
+			]
+		},
 		"register-manipulation": {
 			"patterns": [
 				{
@@ -181,9 +246,8 @@
 		"additions": {
 			"patterns": [
 				{
-					"comment": "TODO: Make sure the beginning is a valid command that we know!",
-					"name": "keyword.control",
-					"match": "(.+ or draw 25)",
+					"comment": "Make sure the beginning is a valid command that we know",
+					"match": "(.+) (or draw 25)",
 					"captures": {
 						"1": {
 							"patterns": [
@@ -193,11 +257,7 @@
 							]
 						},
 						"2": {
-							"patterns": [
-								{
-									"match": "\\s( or draw 25)"
-								}
-							]
+							"name": "keyword.control"
 						}
 					}
 				}
