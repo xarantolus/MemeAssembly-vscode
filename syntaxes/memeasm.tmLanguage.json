@@ -72,23 +72,20 @@
 		"additions": {
 			"patterns": [
 				{
-					"begin": "(.+ or draw 25)\\s",
-					"end": "\\n",
-					"beginCaptures": {
+					"name": "keyword.control",
+					"match": "(.+ or draw 25)",
+					"captures": {
 						"1": {
 							"patterns": [
 								{
 									"include": "#commands"
 								}
 							]
-						}
-					},
-					"endCaptures": {
-						"1": {
+						},
+						"2": {
 							"patterns": [
 								{
-									"name": "keyword.operator.new",
-									"match": "( or draw 25)\b"
+									"match": "\\s( or draw 25)"
 								}
 							]
 						}
@@ -100,7 +97,7 @@
 			"patterns": [
 				{
 					"name": "entity.name.function",
-					"begin": "(sneak 100 \\S+\\b)",
+					"match": "(sneak 100 \\w+)",
 					"captures": {
 						"1": {
 							"patterns": [
@@ -109,8 +106,7 @@
 								}
 							]
 						}
-					},
-					"end": "\n"
+					}
 				},
 				{
 					"name": "keyword.control",
