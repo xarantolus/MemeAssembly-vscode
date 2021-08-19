@@ -15,7 +15,7 @@
     // 	],
     // 	"description": "Log output to console"
     // }
-    "Monke snippet": {
+    "monke loop": {
         "scope": "memeasm",
         "body": [
             "monke ${1:uaaauaa}",
@@ -24,9 +24,10 @@
             "",
             "return to monke $1"
         ],
-        "prefix": "Monke loop"
+        "prefix": "monke loop",
+        "description": "monke do loop"
     },
-    "Compare registers": {
+    "who would win": {
         "scope": "memeasm",
         "body": [
             "who would win? ${1:eax} or ${2:ebx}",
@@ -39,6 +40,14 @@
             "$2 wins",
             "What the hell happened here? $1 < $2"
         ],
-        "prefix": "Compare registers"
+        "prefix": "Compare registers",
+        "description": "Compares two registers or values and jumps to appropriate point in code"
+    },
+    "comment": {
+        "scope": "memeasm",
+        "body": [
+            "What the hell happened here? $0"
+        ],
+        "prefix": "Comment"
     }
 }
