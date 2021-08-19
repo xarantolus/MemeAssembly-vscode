@@ -380,6 +380,162 @@
 							]
 						}
 					}
+				},
+				{
+					"name": "entity.name.function",
+					"match": "parry (\\w+) you filthy casual (\\w+)",
+					"captures": {
+						"1": {
+							"patterns": [
+								{
+									"include": "#64bit-registers"
+								},
+								{
+									"include": "#32bit-registers"
+								},
+								{
+									"include": "#16bit-registers"
+								},
+								{
+									"include": "#8bit-registers"
+								},
+								{
+									"include": "#decimal-number"
+								},
+								{
+									"include": "#ascii-character"
+								},
+								{
+									"name": "invalid.illegal",
+									"match": ".+"
+								}
+							]
+						},
+						"2": {
+							"patterns": [
+								{
+									"include": "#64bit-registers"
+								},
+								{
+									"include": "#32bit-registers"
+								},
+								{
+									"include": "#16bit-registers"
+								},
+								{
+									"include": "#8bit-registers"
+								},
+								{
+									"name": "invalid.illegal",
+									"match": ".+"
+								}
+							]
+						}
+					}
+				},
+				{
+					"name": "entity.name.function",
+					"match": "(\\w+) units are ready, with (\\w+) more well on the way",
+					"captures": {
+						"1": {
+							"patterns": [
+								{
+									"include": "#64bit-registers"
+								},
+								{
+									"include": "#32bit-registers"
+								},
+								{
+									"include": "#16bit-registers"
+								},
+								{
+									"include": "#8bit-registers"
+								},
+								{
+									"name": "invalid.illegal",
+									"match": ".+"
+								}
+							]
+						},
+						"2": {
+							"patterns": [
+								{
+									"include": "#64bit-registers"
+								},
+								{
+									"include": "#32bit-registers"
+								},
+								{
+									"include": "#16bit-registers"
+								},
+								{
+									"include": "#8bit-registers"
+								},
+								{
+									"include": "#decimal-number"
+								},
+								{
+									"include": "#ascii-character"
+								},
+								{
+									"name": "invalid.illegal",
+									"match": ".+"
+								}
+							]
+						}
+					}
+				},
+				{
+					"name": "entity.name.function",
+					"match": "upgrades, people. Upgrades (\\w+)",
+					"captures": {
+						"1": {
+							"patterns": [
+								{
+									"include": "#64bit-registers"
+								},
+								{
+									"include": "#32bit-registers"
+								},
+								{
+									"include": "#16bit-registers"
+								},
+								{
+									"include": "#8bit-registers"
+								},
+								{
+									"name": "invalid.illegal",
+									"match": ".+"
+								}
+							]
+						}
+					}
+				},
+				{
+					"name": "entity.name.function",
+					"match": "they had us in the first half, not gonna lie (\\w+)",
+					"captures": {
+						"1": {
+							"patterns": [
+								{
+									"include": "#64bit-registers"
+								},
+								{
+									"include": "#32bit-registers"
+								},
+								{
+									"include": "#16bit-registers"
+								},
+								{
+									"include": "#8bit-registers"
+								},
+								{
+									"name": "invalid.illegal",
+									"match": ".+"
+								}
+							]
+						}
+					}
 				}
 			]
 		},
