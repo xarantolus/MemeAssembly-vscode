@@ -8,5 +8,8 @@
     // symbols that are auto closed when typing
     "autoClosingPairs": [],
     // symbols that can be used to surround a selection
-    "surroundingPairs": []
+    "surroundingPairs": [],
+
+    // If we don't add a pattern that includes "//", the comment suggestion snippet won't work
+    "wordPattern": "\\S+"
 }

@@ -15,6 +15,28 @@
     // 	],
     // 	"description": "Log output to console"
     // }
+    "function": {
+        "scope": "memeasm",
+        "body": [
+            "I like to have fun, fun, fun, fun, fun, fun, fun, fun, fun, fun ${1:main}",
+            "    $0",
+            "",
+            "    right back at ya, buckaroo"
+        ],
+        "prefix": [
+            "main",
+            "function"
+        ],
+        "description": "Declares a function"
+    },
+    "return": {
+        "scope": "memeasm",
+        "body": "right back at ya, buckaroo",
+        "prefix": [
+            "right back at ya, buckaroo",
+            "return from function"
+        ]
+    },
     "monke loop": {
         "scope": "memeasm",
         "body": [
@@ -24,7 +46,9 @@
             "",
             "return to monke $1"
         ],
-        "prefix": "monke loop",
+        "prefix": [
+            "monke loop"
+        ],
         "description": "monke do loop"
     },
     "who would win": {
@@ -40,14 +64,82 @@
             "$2 wins",
             "What the hell happened here? $1 < $2"
         ],
-        "prefix": "Compare registers",
+        "prefix": [
+            "who would win",
+            "Compare registers",
+            "if",
+        ],
         "description": "Compares two registers or values and jumps to appropriate point in code"
+    },
+    "return 1": {
+        "scope": "memeasm",
+        "body": "no, I don't think I will",
+        "prefix": [
+            "no, I don't think I will",
+            "return 1",
+            "exit with failure"
+        ]
+    },
+    "return 0": {
+        "scope": "memeasm",
+        "body": "I see this as an absolute win",
+        "prefix": [
+            "I see this as an absolute win",
+            "return 0",
+            "exit successfully"
+        ]
+    },
+    "push": {
+        "scope": "memeasm",
+        "body": "stonks ${1:rax}",
+        "prefix": [
+            "stonks",
+            "push to stack"
+        ]
+    },
+    "pop": {
+        "scope": "memeasm",
+        "body": "not stonks ${1:rax}",
+        "prefix": [
+            "not stonks",
+            "pop from stack"
+        ]
+    },
+    "logical and": {
+        "scope": "memeasm",
+        "body": "bitconneeeeeeect ${1:rax} ${2:15}",
+        "prefix": [
+            "bitconneeeeeeect",
+            "and"
+        ],
+        "description": "ANDs the first register with the second value/register"
+    },
+    "logical or": {
+        "scope": "memeasm",
+        "body": "${1:rax} \\s",
+        "prefix": [
+            "or",
+            "\\s"
+        ],
+    },
+    "zero register": {
+        "scope": "memeasm",
+        "body": "sneak 100 ${1:rax}",
+        "prefix": [
+            "sneak 100",
+            "xor rax, rax",
+            "zero rax"
+        ]
     },
     "comment": {
         "scope": "memeasm",
         "body": [
             "What the hell happened here? $0"
         ],
-        "prefix": "Comment"
+        "prefix": [
+            "What the hell happened here?",
+            "Comment",
+            "//"
+        ]
     }
 }
