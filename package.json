@@ -1,0 +1,25 @@
+{
+    "name": "memeassembly",
+    "displayName": "MemeAssembly",
+    "description": "A Meme-based programming language",
+    "version": "0.0.1",
+    "engines": {
+        "vscode": "^1.59.0"
+    },
+    "categories": [
+        "Programming Languages"
+    ],
+    "contributes": {
+        "languages": [{
+            "id": "memeasm",
+            "aliases": ["MemeAssembly", "memeasm"],
+            "extensions": ["memeasm"],
+            "configuration": "./language-configuration.json"
+        }],
+        "grammars": [{
+            "language": "memeasm",
+            "scopeName": "source.memeasm",
+            "path": "./syntaxes/memeasm.tmLanguage.json"
+        }]
+    }
+}

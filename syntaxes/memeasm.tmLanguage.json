@@ -1,0 +1,123 @@
+{
+	"$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+	"name": "MemeAssembly",
+	"patterns": [
+		{
+			"include": "#registers"
+		},
+		{
+			"include": "#commands"
+		},
+		{
+			"include": "#comments"
+		},
+		{
+			"include": "#functions"
+		},
+		{
+			"include": "#additions"
+		}
+	],
+	"repository": {
+		"registers": {
+			"patterns": [
+				{
+					"comment": "64 bit registers",
+					"name": "constant.language",
+					"match": "(?i)\\b(RAX|RBX|RCX|RDX|RSI|RDI|RSP|RBP|R8|R9|R10|R11|R12|R13|R14|R15)\\b"
+				},
+				{
+					"comment": "32 bit registers",
+					"name": "constant.language",
+					"match": "(?i)\\b(EAX|EBX|ECX|EDX|ESI|EDI|ESP|EBP|R8D|R9D|R10D|R11D|R12D|R13D|R14D|R15D)\\b"
+				},
+				{
+					"comment": "16 bit registers",
+					"name": "constant.language",
+					"match": "(?i)\\b(AX|BX|CX|DX|SI|DI|SP|BP|R8W|R9W|R10W|R11W|R12W|R13W|R14W|R15W)\\b"
+				},
+				{
+					"comment": "8 bit registers",
+					"name": "constant.language",
+					"match": "(?i)\\b(AH|AL|BH|BL|CH|CL|DH|DL|SIL|DIL|SPL|BPL|R8B|R9B|R10B|R11B|R12B|R13B|R14B|R15B)\\b"
+				}
+			]
+		},
+		"comments": {
+			"patterns": [
+				{
+					"name": "comment.line",
+					"match": "(What the hell happened here\\?.*?\\n)"
+				}
+			]
+		},
+		"functions": {
+			"patterns": [
+				{
+					"name": "storage.type",
+					"match": "(I like to have fun, fun, fun, fun, fun, fun, fun, fun, fun, fun )\\S*",
+					"captures": {
+						"1": {
+							"patterns": [
+								{
+									"name": "entity.name.function",
+									"match": "I like to have fun, fun, fun, fun, fun, fun, fun, fun, fun, fun (\\S*)"
+								}
+							]
+						}
+					}
+				}
+			]
+		},
+		"additions": {
+			"patterns": [
+				{
+					"begin": "(.+ or draw 25)\\s",
+					"end": "\\n",
+					"beginCaptures": {
+						"1": {
+							"patterns": [
+								{
+									"include": "#commands"
+								}
+							]
+						}
+					},
+					"endCaptures": {
+						"1": {
+							"patterns": [
+								{
+									"name": "keyword.operator.new",
+									"match": "( or draw 25)\b"
+								}
+							]
+						}
+					}
+				}
+			]
+		},
+		"commands": {
+			"patterns": [
+				{
+					"name": "entity.name.function",
+					"begin": "(sneak 100 \\S+\\b)",
+					"captures": {
+						"1": {
+							"patterns": [
+								{
+									"include": "#registers"
+								}
+							]
+						}
+					},
+					"end": "\n"
+				},
+				{
+					"name": "keyword.control",
+					"match": "(right back at ya, buckaroo)"
+				}
+			]
+		}
+	},
+	"scopeName": "source.memeasm"
+}
