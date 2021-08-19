@@ -6,6 +6,12 @@
 			"include": "#commands"
 		},
 		{
+			"include": "#stack-operations"
+		},
+		{
+			"include": "#register-manipulation"
+		},
+		{
 			"include": "#comments"
 		},
 		{
@@ -102,26 +108,43 @@
 				{
 					"name": "keyword.control",
 					"match": "(right back at ya, buckaroo)"
+				},
+				{
+					"name": "keyword.control",
+					"match": "(no, I don't think I will)"
+				},
+				{
+					"name": "keyword.control",
+					"match": "(I see this as an absolute win)"
 				}
 			]
 		},
-		"additions": {
+		"stack-operations": {
 			"patterns": [
 				{
-					"name": "keyword.control",
-					"match": "(.+ or draw 25)",
+					"name": "entity.name.function",
+					"match": "(stonks \\w+)",
 					"captures": {
 						"1": {
 							"patterns": [
 								{
-									"include": "#commands"
+									"include": "#64bit-registers"
+								},
+								{
+									"include": "#decimal-number"
 								}
 							]
-						},
-						"2": {
+						}
+					}
+				},
+				{
+					"name": "entity.name.function",
+					"match": "(not stonks \\w+)",
+					"captures": {
+						"1": {
 							"patterns": [
 								{
-									"match": "\\s( or draw 25)"
+									"include": "#64bit-registers"
 								}
 							]
 						}
@@ -129,7 +152,7 @@
 				}
 			]
 		},
-		"commands": {
+		"register-manipulation": {
 			"patterns": [
 				{
 					"name": "entity.name.function",
@@ -148,6 +171,31 @@
 								},
 								{
 									"include": "#8bit-registers"
+								}
+							]
+						}
+					}
+				}
+			]
+		},
+		"additions": {
+			"patterns": [
+				{
+					"comment": "TODO: Make sure the beginning is a valid command that we know!",
+					"name": "keyword.control",
+					"match": "(.+ or draw 25)",
+					"captures": {
+						"1": {
+							"patterns": [
+								{
+									"include": "#commands"
+								}
+							]
+						},
+						"2": {
+							"patterns": [
+								{
+									"match": "\\s( or draw 25)"
 								}
 							]
 						}
