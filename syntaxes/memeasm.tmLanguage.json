@@ -26,6 +26,9 @@
 				},
 				{
 					"include": "#logical-operations"
+				},
+				{
+					"include": "#arithmetic-operations"
 				}
 			]
 		},
@@ -313,6 +316,62 @@
 								},
 								{
 									"include": "#ascii-character"
+								},
+								{
+									"name": "invalid.illegal",
+									"match": ".+"
+								}
+							]
+						}
+					}
+				}
+			]
+		},
+		"arithmetic-operations": {
+			"patterns": [
+				{
+					"name": "entity.name.function",
+					"match": "upvote (\\w+)",
+					"captures": {
+						"1": {
+							"patterns": [
+								{
+									"include": "#64bit-registers"
+								},
+								{
+									"include": "#32bit-registers"
+								},
+								{
+									"include": "#16bit-registers"
+								},
+								{
+									"include": "#8bit-registers"
+								},
+								{
+									"name": "invalid.illegal",
+									"match": ".+"
+								}
+							]
+						}
+					}
+				},
+				{
+					"name": "entity.name.function",
+					"match": "downvote (\\w+)",
+					"captures": {
+						"1": {
+							"patterns": [
+								{
+									"include": "#64bit-registers"
+								},
+								{
+									"include": "#32bit-registers"
+								},
+								{
+									"include": "#16bit-registers"
+								},
+								{
+									"include": "#8bit-registers"
 								},
 								{
 									"name": "invalid.illegal",
