@@ -129,7 +129,12 @@
 				{
 					"comment": "Escape sequences",
 					"name": "constant.character.escape",
-					"match": "\\\\[nstfbv\\\"\\?\\\\]\\b"
+					"match": "\\\\[nstfbv\\\"\\?]\\b"
+				},
+				{
+					"comment": "Backslash doesn't seem to work with a \\b at the end, so put it in extra thing",
+					"name": "constant.character.escape",
+					"match": "\\\\\\\\"
 				},
 				{
 					"comment": "Code point",
@@ -632,15 +637,22 @@
 					"match": "where banana"
 				},
 				{
-					"name": "keyword.control",
-					"match": "(?:return to )?monke (.+)",
+					"match": "((?:return to )?monke) (.+)",
 					"captures": {
 						"1": {
 							"patterns": [
 								{
+									"match": ".*",
+									"name": "keyword.control"
+								}
+							]
+						},
+						"2": {
+							"patterns": [
+								{
 									"comment": "Must include both an 'a' and an 'u' to be valid",
-									"match": "((?:a|u)*(?:au|ua)+(?:a|u)*)",
-									"name": "keyword.control.less"
+									"match": "\\b((?:a|u)*(?:au|ua)+(?:a|u)*)\\b",
+									"name": "entity.name.type"
 								},
 								{
 									"match": ".+",
