@@ -3,6 +3,7 @@ This [extension](https://marketplace.visualstudio.com/items?itemName=xarantolus.
 
 ### Features
 * Syntax highlighting
+  * also marks/highlights invalid usages of commands
 * Autocomplete snippets for most commands
 * Comment toggling using shortcuts (<kbd>Ctrl</kbd>+<kbd>K</kbd>, <kbd>Ctrl</kbd>+<kbd>C</kbd> to comment current line out,  <kbd>Ctrl</kbd>+<kbd>K</kbd>, <kbd>Ctrl</kbd>+<kbd>U</kbd> to remove a comment from current line)
 
