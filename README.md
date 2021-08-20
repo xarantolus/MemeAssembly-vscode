@@ -1,10 +1,5 @@
-# MemeAssembly-vscode
-
-Work in progress. Currently provides snippets and syntax highlighting.
-
-See [vsc-extension-quickstart.md](vsc-extension-quickstart.md) on how to use. 
-
-TL;DR: Clone, open in VSCode; then press F5 to start VSCode with this extension for debugging. A new window should open. From there, open some MemeAssembly files/directories, e.g. the one from [here](https://github.com/xarantolus/memeasm).
+# MemeAssembly Extension for Visual Studio Code
+This [extension](https://marketplace.visualstudio.com/items?itemName=xarantolus.memeassembly) provides snippets and syntax highlighting for [MemeAssembly](https://github.com/kammt/MemeAssembly), a highly advanced x86-Assembly based programming language that uses only memes as commands.
 
 ### Features
 * Syntax highlighting
@@ -17,5 +12,10 @@ TL;DR: Clone, open in VSCode; then press F5 to start VSCode with this extension 
 
 ![](img/screenshot-syntax-highlighting.png)
 
-### TODO
-* Maybe support debugging using `gdb`?
+
+### Help develop this extension
+* Clone from [GitHub](https://github.com/xarantolus/MemeAssembly-vscode)
+* Open directory in VSCode
+* Press F5 to start VSCode with this extension for debugging
+* A new window should open. From there, open some MemeAssembly files/directories, e.g. the ones from [here](https://github.com/xarantolus/memeasm).
+* Do changes and reload the window with the extension
