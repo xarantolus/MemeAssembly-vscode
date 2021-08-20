@@ -17,11 +17,6 @@ jobs:
           npm install -g vsce
           npm install
 
-      - name: Log in to Marketplace
-        run: vsce login xarantolus <<< "$TOKEN"
-        env:
-          TOKEN: ${{ secrets.VSCODE_MARKETPLACE_TOKEN }}
-
       - name: Publish
         run: vsce publish -p "$TOKEN"
         env:
