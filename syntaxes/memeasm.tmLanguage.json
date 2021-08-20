@@ -47,7 +47,7 @@
 		"64bit-registers": {
 			"patterns": [
 				{
-					"match": "\\s*(.+) (do you know de wey)\\b",
+					"match": "(\\w.+) (do you know de wey)\\b",
 					"captures": {
 						"1": {
 							"patterns": [
@@ -285,7 +285,7 @@
 				},
 				{
 					"name": "entity.name.function",
-					"match": "\\s*(.+) \\\\s",
+					"match": "(\\w.+) \\\\s",
 					"captures": {
 						"1": {
 							"patterns": [
@@ -341,7 +341,7 @@
 				},
 				{
 					"name": "entity.name.function",
-					"match": "\\s*(.+) is brilliant, but I like (.+)",
+					"match": "(\\w.+) is brilliant, but I like (.+)",
 					"captures": {
 						"1": {
 							"patterns": [
@@ -501,7 +501,7 @@
 				},
 				{
 					"name": "entity.name.function",
-					"match": "\\s*(.+) units are ready, with (.+) more well on the way",
+					"match": "(\\w.+) units are ready, with (.+) more well on the way",
 					"captures": {
 						"1": {
 							"patterns": [
@@ -727,7 +727,7 @@
 				},
 				{
 					"name": "keyword.control",
-					"match": "\\s*(.+) wins",
+					"match": "(\\w.+) wins",
 					"captures": {
 						"1": {
 							"patterns": [
@@ -852,6 +852,10 @@
 							"patterns": [
 								{
 									"include": "#commands"
+								},
+								{
+									"name": "invalid.illegal",
+									"match": ".+"
 								}
 							]
 						},
