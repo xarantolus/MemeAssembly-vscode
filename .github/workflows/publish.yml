@@ -17,6 +17,6 @@ jobs:
           npm install -g vsce
           npm install
           vsce login xarantolus <<< "$TOKEN"
-          vsce publish
+          vsce publish -p "$TOKEN"
         env:
           TOKEN: ${{ secrets.VSCODE_MARKETPLACE_TOKEN }}
