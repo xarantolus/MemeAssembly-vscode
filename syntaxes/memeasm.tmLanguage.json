@@ -64,6 +64,10 @@
 								},
 								{
 									"include": "#8bit-registers"
+								},
+								{
+									"name": "invalid.illegal",
+									"match": ".+"
 								}
 							]
 						},
