@@ -9,15 +9,15 @@ jobs:
   publish:
     runs-on: ubuntu-latest
 
-    steps:
+    steps:     
       - uses: actions/checkout@v2
-
-      - name: Install dependencies
-        run: |
-          npm install -g vsce
-          npm install
-
-      - name: Publish
-        run: vsce publish -p "$TOKEN"
-        env:
-          TOKEN: ${{ secrets.VSCODE_MARKETPLACE_TOKEN }}
+      - uses: actions/setup-node@v1
+        with:
+          node-version: 12
+          
+      - name: Publish to Visual Studio Marketplace
+        uses: HaaLeo/publish-vscode-extension@v0
+        with:
+          pat: ${{ secrets.VSCODE_MARKETPLACE_TOKEN }}
+          registryUrl: https://marketplace.visualstudio.com
+          
