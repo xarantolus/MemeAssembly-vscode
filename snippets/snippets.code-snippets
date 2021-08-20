@@ -294,6 +294,15 @@
             "add 25"
         ]
     },
+    "do you know de wey": {
+        "scope": "memeasm",
+        "body": "do you know de wey",
+        "prefix": [
+            "do you know de wey",
+            "dereference pointer"
+        ],
+        "description": "Dereferences the register written before it"
+    },
     "comment": {
         "scope": "memeasm",
         "body": [

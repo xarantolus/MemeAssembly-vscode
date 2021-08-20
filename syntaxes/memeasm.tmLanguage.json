@@ -47,6 +47,32 @@
 		"64bit-registers": {
 			"patterns": [
 				{
+					"match": "\\s*(.+) (do you know de wey)\\b",
+					"captures": {
+						"1": {
+							"patterns": [
+								{
+									"comment": "64 bit registers",
+									"name": "constant.language",
+									"match": "(?i)\\b(RAX|RBX|RCX|RDX|RSI|RDI|RSP|RBP|R8|R9|R10|R11|R12|R13|R14|R15)\\b"
+								},
+								{
+									"include": "#32bit-registers"
+								},
+								{
+									"include": "#16bit-registers"
+								},
+								{
+									"include": "#8bit-registers"
+								}
+							]
+						},
+						"2": {
+							"name": "keyword.operator"
+						}
+					}
+				},
+				{
 					"comment": "64 bit registers",
 					"name": "constant.language",
 					"match": "(?i)\\b(RAX|RBX|RCX|RDX|RSI|RDI|RSP|RBP|R8|R9|R10|R11|R12|R13|R14|R15)\\b"
@@ -163,7 +189,7 @@
 			"patterns": [
 				{
 					"name": "entity.name.function",
-					"match": "stonks (\\w+)",
+					"match": "stonks (.+)",
 					"captures": {
 						"1": {
 							"patterns": [
@@ -179,12 +205,15 @@
 				},
 				{
 					"name": "entity.name.function",
-					"match": "not stonks (\\w+)",
+					"match": "not stonks (.+)",
 					"captures": {
 						"1": {
 							"patterns": [
 								{
 									"include": "#64bit-registers"
+								},
+								{
+									"include": "#pointers"
 								}
 							]
 						}
@@ -196,7 +225,7 @@
 			"patterns": [
 				{
 					"name": "entity.name.function",
-					"match": "bitconneeeeeeect (\\w+) (.+)",
+					"match": "bitconneeeeeeect (.+) (.+)",
 					"captures": {
 						"1": {
 							"patterns": [
@@ -240,7 +269,7 @@
 				},
 				{
 					"name": "entity.name.function",
-					"match": "(\\w+) \\\\s",
+					"match": "\\s*(.+) \\\\s",
 					"captures": {
 						"1": {
 							"patterns": [
@@ -266,7 +295,7 @@
 			"patterns": [
 				{
 					"name": "entity.name.function",
-					"match": "sneak 100 (\\w+)",
+					"match": "sneak 100 (.+)",
 					"captures": {
 						"1": {
 							"patterns": [
@@ -292,7 +321,7 @@
 				},
 				{
 					"name": "entity.name.function",
-					"match": "(\\w+) is brilliant, but I like (\\w+)",
+					"match": "\\s*(.+) is brilliant, but I like (.+)",
 					"captures": {
 						"1": {
 							"patterns": [
@@ -348,7 +377,7 @@
 			"patterns": [
 				{
 					"name": "entity.name.function",
-					"match": "upvote (\\w+)",
+					"match": "upvote (.+)",
 					"captures": {
 						"1": {
 							"patterns": [
@@ -374,7 +403,7 @@
 				},
 				{
 					"name": "entity.name.function",
-					"match": "downvote (\\w+)",
+					"match": "downvote (.+)",
 					"captures": {
 						"1": {
 							"patterns": [
@@ -400,7 +429,7 @@
 				},
 				{
 					"name": "entity.name.function",
-					"match": "parry (\\w+) you filthy casual (\\w+)",
+					"match": "parry (.+) you filthy casual (.+)",
 					"captures": {
 						"1": {
 							"patterns": [
@@ -452,7 +481,7 @@
 				},
 				{
 					"name": "entity.name.function",
-					"match": "(\\w+) units are ready, with (\\w+) more well on the way",
+					"match": "\\s*(.+) units are ready, with (.+) more well on the way",
 					"captures": {
 						"1": {
 							"patterns": [
@@ -504,7 +533,7 @@
 				},
 				{
 					"name": "entity.name.function",
-					"match": "upgrades, people. Upgrades (\\w+)",
+					"match": "upgrades, people. Upgrades (.+)",
 					"captures": {
 						"1": {
 							"patterns": [
@@ -530,7 +559,7 @@
 				},
 				{
 					"name": "entity.name.function",
-					"match": "they had us in the first half, not gonna lie (\\w+)",
+					"match": "they had us in the first half, not gonna lie (.+)",
 					"captures": {
 						"1": {
 							"patterns": [
@@ -600,7 +629,7 @@
 				},
 				{
 					"name": "keyword.control",
-					"match": "(?:return to )?monke (\\w+)",
+					"match": "(?:return to )?monke (.+)",
 					"captures": {
 						"1": {
 							"patterns": [
@@ -619,7 +648,7 @@
 				},
 				{
 					"name": "keyword.control",
-					"match": "who would win\\? (\\w+) or (\\w+)",
+					"match": "who would win\\? (.+) or (.+)",
 					"captures": {
 						"1": {
 							"patterns": [
@@ -671,7 +700,7 @@
 				},
 				{
 					"name": "keyword.control",
-					"match": "(\\w+) wins",
+					"match": "\\s*(.+) wins",
 					"captures": {
 						"1": {
 							"patterns": [
@@ -703,7 +732,7 @@
 				},
 				{
 					"name": "keyword.control",
-					"match": "corporate needs you to find the difference between (\\w+) and (\\w+)",
+					"match": "corporate needs you to find the difference between (.+) and (.+)",
 					"captures": {
 						"1": {
 							"patterns": [
@@ -790,7 +819,7 @@
 		"additions": {
 			"patterns": [
 				{
-					"match": "(.+) (or draw 25)",
+					"match": "\\s*(.+) (or draw 25)",
 					"captures": {
 						"1": {
 							"patterns": [
