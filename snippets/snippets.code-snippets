@@ -24,6 +24,7 @@
             "    I see this as an absolute win"
         ],
         "prefix": [
+            "I like to have fun, fun, fun, fun, fun, fun, fun, fun, fun, fun ...",
             "main",
             "function"
         ],
@@ -151,7 +152,7 @@
     },
     "logical and": {
         "scope": "memeasm",
-        "body": "bitconneeeeeeect ${1:rax} ${1:15}\n",
+        "body": "bitconneeeeeeect ${1:rax} ${2:15}\n",
         "prefix": [
             "bitconneeeeeeect",
             "and"
@@ -248,6 +249,7 @@
         "scope": "memeasm",
         "body": "guess I'll die\n",
         "prefix": [
+            "guess I'll die",
             "segfault",
             "violent exit"
         ]
