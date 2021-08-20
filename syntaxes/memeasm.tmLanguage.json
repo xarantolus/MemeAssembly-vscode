@@ -133,7 +133,7 @@
 				{
 					"comment": "Code point, the regex matches numbers from 0-255",
 					"name": "constant.numeric.decimal",
-					"match": "\\b(25[0-5]|[12][0-5][0-5]|[1-9]?[0-9])\\b"
+					"match": "\\b(0*(?:25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]?[0-9]))\\b"
 				},
 				{
 					"comment": "ASCII Chars",
