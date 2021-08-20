@@ -9,6 +9,9 @@
     "categories": [
         "Programming Languages"
     ],
+    "repository": {
+        "url": "https://github.com/xarantolus/MemeAssembly-vscode"
+    },
     "contributes": {
         "languages": [
             {
