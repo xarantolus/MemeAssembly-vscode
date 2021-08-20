@@ -229,7 +229,7 @@
     },
     "addition": {
         "scope": "memeasm",
-        "body": "${1:rax} units are ready, with ${2:42} well on the way\n",
+        "body": "${1:rax} units are ready, with ${2:42} more well on the way\n",
         "prefix": [
             "... units are ready, with ... units well on the way",
             "add",
