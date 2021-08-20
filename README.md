@@ -13,7 +13,6 @@ This [extension](https://marketplace.visualstudio.com/items?itemName=xarantolus.
 
 ![](img/screenshot-syntax-highlighting.png)
 
-
 ### Help develop this extension
 * Clone from [GitHub](https://github.com/xarantolus/MemeAssembly-vscode)
 * Open directory in VSCode
