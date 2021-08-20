@@ -20,7 +20,7 @@
     "repository": {
         "url": "https://github.com/xarantolus/MemeAssembly-vscode"
     },
-    "icon": "./img/icon-128.png",
+    "icon": "img/icon-128.png",
     "contributes": {
         "languages": [
             {
