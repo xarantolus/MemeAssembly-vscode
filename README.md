@@ -1,4 +1,4 @@
-# memeassembly-vscode
+# MemeAssembly-vscode
 
 Work in progress. Currently provides snippets and syntax highlighting.
 

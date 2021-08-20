@@ -1,17 +1,26 @@
 {
     "name": "memeassembly",
-    "displayName": "MemeAssembly",
-    "description": "A Meme-based programming language",
     "version": "0.0.1",
+    "publisher": "xarantolus",
     "engines": {
         "vscode": "^1.59.0"
     },
+    "license": "SEE LICENSE IN LICENSE",
+    "displayName": "MemeAssembly",
+    "description": "Syntax highlighting and snippets for MemeAssembly, a meme-based programming language.",
     "categories": [
-        "Programming Languages"
+        "Programming Languages",
+        "Snippets"
+    ],
+    "keywords": [
+        "memeassembly",
+        "x86",
+        "meme"
     ],
     "repository": {
         "url": "https://github.com/xarantolus/MemeAssembly-vscode"
     },
+    "icon": "./img/icon-128.png",
     "contributes": {
         "languages": [
             {
