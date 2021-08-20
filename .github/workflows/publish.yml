@@ -12,8 +12,10 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - name: Run a one-line script
+      - name: Run publish steps
         run: |
+          npm install -g vsce
+          npm install
           vsce login xarantolus <<< "$TOKEN"
           vsce publish
         env:
