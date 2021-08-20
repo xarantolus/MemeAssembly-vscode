@@ -12,11 +12,17 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - name: Run publish steps
+      - name: Install dependencies
         run: |
           npm install -g vsce
           npm install
-          vsce login xarantolus <<< "$TOKEN"
-          vsce publish -p "$TOKEN"
+
+      - name: Log in to Marketplace
+        run: vsce login xarantolus <<< "$TOKEN"
+        env:
+          TOKEN: ${{ secrets.VSCODE_MARKETPLACE_TOKEN }}
+
+      - name: Publish
+        run: vsce publish -p "$TOKEN"
         env:
           TOKEN: ${{ secrets.VSCODE_MARKETPLACE_TOKEN }}
