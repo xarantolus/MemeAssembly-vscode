@@ -167,8 +167,15 @@
 		"comments": {
 			"patterns": [
 				{
-					"name": "comment.line",
-					"match": "(What the hell happened here\\?.*?\\n)"
+					"match": "(What the hell happened here\\?)(.*?)\\n",
+					"captures": {
+						"1": {
+							"name": "meta.preprocessor.string"
+						},
+						"2": {
+							"name": "comment.line"
+						}
+					}
 				}
 			]
 		},
