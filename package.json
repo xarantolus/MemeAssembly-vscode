@@ -1,6 +1,6 @@
 {
     "name": "memeassembly",
-    "version": "0.0.16",
+    "version": "0.0.17",
     "publisher": "xarantolus",
     "engines": {
         "vscode": "^1.59.0"
@@ -46,6 +46,13 @@
             {
                 "language": "memeasm",
                 "path": "./snippets/snippets.code-snippets"
+            }
+        ],
+        "iconThemes": [
+            {
+                "id": "memeassembly",
+                "label": "MemeAssembly Icon",
+                "path": "./fileicons/memeasm-icon.json"
             }
         ]
     }
