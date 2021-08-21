@@ -266,7 +266,7 @@
 			"patterns": [
 				{
 					"name": "entity.name.function",
-					"match": "bitconneeeeeeect (\\w+?(?: do you know de wey)?) (.+)",
+					"match": "bitconneeeeeeect (\\S+?(?: do you know de wey)?) (\\S+(?: do you know de wey)?)",
 					"captures": {
 						"1": {
 							"patterns": [
@@ -642,7 +642,7 @@
 			"patterns": [
 				{
 					"name": "entity.name.function",
-					"match": "what can I say except (.+)",
+					"match": "what can I say except (\\S+(?: do you know de wey)?)",
 					"captures": {
 						"1": {
 							"patterns": [
@@ -650,7 +650,8 @@
 									"include": "#8bit-registers"
 								},
 								{
-									"include": "#ascii-character"
+									"include": "#ascii-character",
+									"match": "\\S+?"
 								},
 								{
 									"name": "invalid.illegal",
@@ -902,7 +903,7 @@
 		"pointers": {
 			"patterns": [
 				{
-					"match": "(\\w+) (do you know de wey)",
+					"match": "(\\S+) (do you know de wey)",
 					"captures": {
 						"1": {
 							"patterns": [
