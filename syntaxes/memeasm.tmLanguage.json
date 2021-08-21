@@ -3,13 +3,13 @@
 	"name": "MemeAssembly",
 	"patterns": [
 		{
+			"include": "#additions"
+		},
+		{
 			"include": "#commands"
 		},
 		{
 			"include": "#comments"
-		},
-		{
-			"include": "#additions"
 		}
 	],
 	"repository": {
@@ -47,60 +47,78 @@
 		"64bit-registers": {
 			"patterns": [
 				{
-					"match": "(\\w.+) (do you know de wey)\\b",
-					"captures": {
-						"1": {
-							"patterns": [
-								{
-									"comment": "64 bit registers",
-									"name": "constant.language",
-									"match": "(?i)\\b(RAX|RBX|RCX|RDX|RSI|RDI|RSP|RBP|R8|R9|R10|R11|R12|R13|R14|R15)\\b"
-								},
-								{
-									"include": "#32bit-registers"
-								},
-								{
-									"name": "invalid.illegal",
-									"match": ".+"
-								}
-							]
-						},
-						"2": {
-							"name": "keyword.operator"
-						}
-					}
+					"include": "#pointers"
 				},
 				{
 					"comment": "64 bit registers",
 					"name": "constant.language",
-					"match": "(?i)\\b(RAX|RBX|RCX|RDX|RSI|RDI|RSP|RBP|R8|R9|R10|R11|R12|R13|R14|R15)\\b"
+					"match": "(?i)\\b(RAX|RBX|RCX|RDX|RSI|RDI|RSP|RBP|R8|R9|R10|R11|R12|R13|R14|R15)\\b(.+)?",
+					"captures": {
+						"1": {
+							"name": "constant.language"
+						},
+						"2": {
+							"name": "invalid.illegal"
+						}
+					}
 				}
 			]
 		},
 		"32bit-registers": {
 			"patterns": [
 				{
+					"include": "#pointers"
+				},
+				{
 					"comment": "32 bit registers",
 					"name": "constant.language",
-					"match": "(?i)\\b(EAX|EBX|ECX|EDX|ESI|EDI|ESP|EBP|R8D|R9D|R10D|R11D|R12D|R13D|R14D|R15D)\\b"
+					"match": "(?i)\\b(EAX|EBX|ECX|EDX|ESI|EDI|ESP|EBP|R8D|R9D|R10D|R11D|R12D|R13D|R14D|R15D)\\b(.+)?",
+					"captures": {
+						"1": {
+							"name": "constant.language"
+						},
+						"2": {
+							"name": "invalid.illegal"
+						}
+					}
 				}
 			]
 		},
 		"16bit-registers": {
 			"patterns": [
 				{
+					"include": "#pointers"
+				},
+				{
 					"comment": "16 bit registers",
-					"name": "constant.language",
-					"match": "(?i)\\b(AX|BX|CX|DX|SI|DI|SP|BP|R8W|R9W|R10W|R11W|R12W|R13W|R14W|R15W)\\b"
+					"match": "(?i)\\b(AX|BX|CX|DX|SI|DI|SP|BP|R8W|R9W|R10W|R11W|R12W|R13W|R14W|R15W)\\b(.+)?",
+					"captures": {
+						"1": {
+							"name": "constant.language"
+						},
+						"2": {
+							"name": "invalid.illegal"
+						}
+					}
 				}
 			]
 		},
 		"8bit-registers": {
 			"patterns": [
 				{
+					"include": "#pointers"
+				},
+				{
 					"comment": "8 bit registers",
-					"name": "constant.language",
-					"match": "(?i)\\b(AH|AL|BH|BL|CH|CL|DH|DL|SIL|DIL|SPL|BPL|R8B|R9B|R10B|R11B|R12B|R13B|R14B|R15B)\\b"
+					"match": "(?i)\\b(AH|AL|BH|BL|CH|CL|DH|DL|SIL|DIL|SPL|BPL|R8B|R9B|R10B|R11B|R12B|R13B|R14B|R15B)\\b(.+)?",
+					"captures": {
+						"1": {
+							"name": "constant.language"
+						},
+						"2": {
+							"name": "invalid.illegal"
+						}
+					}
 				}
 			]
 		},
@@ -341,7 +359,7 @@
 				},
 				{
 					"name": "entity.name.function",
-					"match": "(\\w.+) is brilliant, but I like (.+)",
+					"match": "\\s*(.+) is brilliant, but I like (.+)(?:wey)?",
 					"captures": {
 						"1": {
 							"patterns": [
@@ -852,6 +870,32 @@
 							"patterns": [
 								{
 									"include": "#commands"
+								},
+								{
+									"name": "invalid.illegal",
+									"match": ".+"
+								}
+							]
+						},
+						"2": {
+							"name": "keyword.operator"
+						}
+					}
+				}
+			]
+		},
+		"pointers": {
+			"patterns": [
+				{
+					"match": "(\\w+) (do you know de wey)",
+					"captures": {
+						"1": {
+							"patterns": [
+								{
+									"include": "#64bit-registers"
+								},
+								{
+									"include": "#32bit-registers"
 								},
 								{
 									"name": "invalid.illegal",
