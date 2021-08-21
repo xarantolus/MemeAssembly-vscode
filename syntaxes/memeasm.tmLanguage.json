@@ -6,10 +6,10 @@
 			"include": "#additions"
 		},
 		{
-			"include": "#commands"
+			"include": "#comments"
 		},
 		{
-			"include": "#comments"
+			"include": "#commands"
 		}
 	],
 	"repository": {
@@ -52,13 +52,10 @@
 				{
 					"comment": "64 bit registers",
 					"name": "constant.language",
-					"match": "(?i)\\b(RAX|RBX|RCX|RDX|RSI|RDI|RSP|RBP|R8|R9|R10|R11|R12|R13|R14|R15)\\b(.+)?",
+					"match": "(?i)\\b(RAX|RBX|RCX|RDX|RSI|RDI|RSP|RBP|R8|R9|R10|R11|R12|R13|R14|R15)\\b",
 					"captures": {
 						"1": {
 							"name": "constant.language"
-						},
-						"2": {
-							"name": "invalid.illegal"
 						}
 					}
 				}
@@ -72,13 +69,10 @@
 				{
 					"comment": "32 bit registers",
 					"name": "constant.language",
-					"match": "(?i)\\b(EAX|EBX|ECX|EDX|ESI|EDI|ESP|EBP|R8D|R9D|R10D|R11D|R12D|R13D|R14D|R15D)\\b(.+)?",
+					"match": "(?i)\\b(EAX|EBX|ECX|EDX|ESI|EDI|ESP|EBP|R8D|R9D|R10D|R11D|R12D|R13D|R14D|R15D)\\b",
 					"captures": {
 						"1": {
 							"name": "constant.language"
-						},
-						"2": {
-							"name": "invalid.illegal"
 						}
 					}
 				}
@@ -91,13 +85,10 @@
 				},
 				{
 					"comment": "16 bit registers",
-					"match": "(?i)\\b(AX|BX|CX|DX|SI|DI|SP|BP|R8W|R9W|R10W|R11W|R12W|R13W|R14W|R15W)\\b(.+)?",
+					"match": "(?i)\\b(AX|BX|CX|DX|SI|DI|SP|BP|R8W|R9W|R10W|R11W|R12W|R13W|R14W|R15W)\\b",
 					"captures": {
 						"1": {
 							"name": "constant.language"
-						},
-						"2": {
-							"name": "invalid.illegal"
 						}
 					}
 				}
@@ -110,13 +101,10 @@
 				},
 				{
 					"comment": "8 bit registers",
-					"match": "(?i)\\b(AH|AL|BH|BL|CH|CL|DH|DL|SIL|DIL|SPL|BPL|R8B|R9B|R10B|R11B|R12B|R13B|R14B|R15B)\\b(.+)?",
+					"match": "(?i)\\b(AH|AL|BH|BL|CH|CL|DH|DL|SIL|DIL|SPL|BPL|R8B|R9B|R10B|R11B|R12B|R13B|R14B|R15B)\\b",
 					"captures": {
 						"1": {
 							"name": "constant.language"
-						},
-						"2": {
-							"name": "invalid.illegal"
 						}
 					}
 				}
@@ -126,8 +114,12 @@
 			"patterns": [
 				{
 					"comment": "Decimal number constants",
-					"name": "constant.numeric.decimal",
-					"match": "\\b\\d+\\b"
+					"match": "\\b(\\d+)\\b",
+					"captures": {
+						"1": {
+							"name": "constant.numeric.decimal"
+						}
+					}
 				}
 			]
 		},
@@ -135,32 +127,48 @@
 			"patterns": [
 				{
 					"comment": "Space",
-					"name": "constant.character.escape",
-					"match": "\\bspace\\b"
+					"match": "\\b(space)\\b",
+					"captures": {
+						"1": {
+							"name": "constant.character.escape"
+						}
+					}
 				},
 				{
 					"comment": "Escape sequences",
-					"name": "constant.character.escape",
-					"match": "\\\\[nstfbv\\\"\\?]\\b"
+					"match": "(\\\\[nstfbv\\\"\\?])\\b",
+					"captures": {
+						"1": {
+							"name": "constant.character.escape"
+						}
+					}
 				},
 				{
 					"comment": "Backslash doesn't seem to work with a \\b at the end, so put it in extra thingy",
-					"name": "constant.character.escape",
-					"match": "(\\\\|\\\\\\\\)(?:\\s|$)"
+					"match": "(\\\\|\\\\\\\\)(?:\\s|$)(.+)?",
+					"captures": {
+						"1": {
+							"name": "constant.character.escape"
+						}
+					}
 				},
 				{
 					"comment": "Code point, the regex matches numbers from 0-255",
-					"name": "constant.numeric.decimal",
-					"match": "\\b(0*(?:25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]?[0-9]))\\b"
+					"match": "\\b(0*(?:25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]?[0-9]))\\b",
+					"captures": {
+						"1": {
+							"name": "constant.numeric.decimal"
+						}
+					}
 				},
 				{
 					"comment": "ASCII Chars",
-					"name": "string.quoted.single",
-					"match": "\\b[[:ascii:]]\\b"
-				},
-				{
-					"name": "invalid.illegal",
-					"match": ".+"
+					"match": "\\b([[:ascii:]])\\b",
+					"captures": {
+						"1": {
+							"name": "string.quoted.single"
+						}
+					}
 				}
 			]
 		},
@@ -258,7 +266,7 @@
 			"patterns": [
 				{
 					"name": "entity.name.function",
-					"match": "bitconneeeeeeect (.+) (.+)",
+					"match": "bitconneeeeeeect (\\w+?(?: do you know de wey)?) (.+)",
 					"captures": {
 						"1": {
 							"patterns": [
@@ -366,7 +374,7 @@
 				},
 				{
 					"name": "entity.name.function",
-					"match": "\\s*(.+) is brilliant, but I like (.+)(?:wey)?",
+					"match": "(\\w.+) is brilliant, but I like (.+)",
 					"captures": {
 						"1": {
 							"patterns": [
