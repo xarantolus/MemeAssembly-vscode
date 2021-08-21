@@ -9,9 +9,9 @@ This [extension](https://marketplace.visualstudio.com/items?itemName=xarantolus.
 
 ### Screenshots
 
-![](img/preview.gif)
+![](img/preview.gif?raw=true)
 
-![](img/screenshot-syntax-highlighting.png)
+![](img/screenshot-syntax-highlighting.png?raw=true)
 
 ### Help develop this extension
 * Clone from [GitHub](https://github.com/xarantolus/MemeAssembly-vscode)
