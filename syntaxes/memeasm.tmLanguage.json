@@ -10,6 +10,10 @@
 		},
 		{
 			"include": "#commands"
+		},
+		{
+			"match": "\\S+",
+			"name": "invalid.illegal"
 		}
 	],
 	"repository": {
@@ -114,7 +118,7 @@
 			"patterns": [
 				{
 					"comment": "Decimal number constants",
-					"match": "\\b(\\d+)\\b",
+					"match": "([-+]?\\d+)\\b",
 					"captures": {
 						"1": {
 							"name": "constant.numeric.decimal"
@@ -191,33 +195,24 @@
 			"patterns": [
 				{
 					"name": "storage.type",
-					"match": "I like to have fun, fun, fun, fun, fun, fun, fun, fun, fun, fun (.+)",
+					"match": "I like to have fun, fun, fun, fun, fun, fun, fun, fun, fun, fun (\\S+)",
 					"captures": {
 						"1": {
-							"patterns": [
-								{
-									"name": "entity.name.function",
-									"match": "\\S+"
-								},
-								{
-									"name": "invalid.illegal",
-									"match": ".+"
-								}
-							]
+							"name": "entity.name.function"
 						}
 					}
 				},
 				{
 					"name": "keyword.control",
-					"match": "(right back at ya, buckaroo)"
+					"match": "\\b(right back at ya, buckaroo)\\b"
 				},
 				{
 					"name": "keyword.control",
-					"match": "(no, I don't think I will)"
+					"match": "\\b(no, I don't think I will)\\b"
 				},
 				{
 					"name": "keyword.control",
-					"match": "(I see this as an absolute win)"
+					"match": "\\b(I see this as an absolute win)\\b"
 				}
 			]
 		},
@@ -318,7 +313,7 @@
 				},
 				{
 					"name": "entity.name.function",
-					"match": "(\\w.+) \\\\s",
+					"match": "(\\S+(?: do you know de wey)?) \\\\s",
 					"captures": {
 						"1": {
 							"patterns": [
@@ -374,7 +369,7 @@
 				},
 				{
 					"name": "entity.name.function",
-					"match": "(\\w.+) is brilliant, but I like (.+)",
+					"match": "(\\S+(?: do you know de wey)?) is brilliant, but I like (\\S+(?: do you know de wey)?)",
 					"captures": {
 						"1": {
 							"patterns": [
@@ -482,7 +477,7 @@
 				},
 				{
 					"name": "entity.name.function",
-					"match": "parry (.+) you filthy casual (.+)",
+					"match": "parry (\\S+(?: do you know de wey)?) you filthy casual (.+)",
 					"captures": {
 						"1": {
 							"patterns": [
@@ -534,7 +529,7 @@
 				},
 				{
 					"name": "entity.name.function",
-					"match": "(\\w.+) units are ready, with (.+) more well on the way",
+					"match": "(\\S+(?: do you know de wey)?) units are ready, with (\\S+(?: do you know de wey)?) more well on the way",
 					"captures": {
 						"1": {
 							"patterns": [
@@ -894,7 +889,7 @@
 							]
 						},
 						"2": {
-							"name": "keyword.operator"
+							"name": "entity.other.attribute-name"
 						}
 					}
 				}
@@ -920,7 +915,7 @@
 							]
 						},
 						"2": {
-							"name": "keyword.operator"
+							"name": "entity.other.attribute-name"
 						}
 					}
 				}
