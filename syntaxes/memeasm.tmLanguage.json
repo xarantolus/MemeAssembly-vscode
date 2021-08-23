@@ -756,7 +756,7 @@
 				},
 				{
 					"name": "keyword.control",
-					"match": "(\\w.+) wins",
+					"match": "(\\S+) wins",
 					"captures": {
 						"1": {
 							"patterns": [
