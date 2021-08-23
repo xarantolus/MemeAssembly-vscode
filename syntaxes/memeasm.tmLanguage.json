@@ -118,7 +118,7 @@
 			"patterns": [
 				{
 					"comment": "Decimal number constants",
-					"match": "\\b(\\d+)\\b",
+					"match": "([-+]?\\d+)\\b",
 					"captures": {
 						"1": {
 							"name": "constant.numeric.decimal"
@@ -369,7 +369,7 @@
 				},
 				{
 					"name": "entity.name.function",
-					"match": "(\\w.+) is brilliant, but I like (.+)",
+					"match": "(\\S+(?: do you know de wey)?) is brilliant, but I like (\\S+(?: do you know de wey)?)",
 					"captures": {
 						"1": {
 							"patterns": [
@@ -477,7 +477,7 @@
 				},
 				{
 					"name": "entity.name.function",
-					"match": "parry (.+) you filthy casual (.+)",
+					"match": "parry (\\S+(?: do you know de wey)?) you filthy casual (.+)",
 					"captures": {
 						"1": {
 							"patterns": [
@@ -529,7 +529,7 @@
 				},
 				{
 					"name": "entity.name.function",
-					"match": "(\\w.+) units are ready, with (.+) more well on the way",
+					"match": "(\\S+(?: do you know de wey)?) units are ready, with (\\S+(?: do you know de wey)?) more well on the way",
 					"captures": {
 						"1": {
 							"patterns": [
