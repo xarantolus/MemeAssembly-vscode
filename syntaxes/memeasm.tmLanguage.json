@@ -10,6 +10,10 @@
 		},
 		{
 			"include": "#commands"
+		},
+		{
+			"match": "\\S+",
+			"name": "invalid.illegal"
 		}
 	],
 	"repository": {
@@ -318,7 +322,7 @@
 				},
 				{
 					"name": "entity.name.function",
-					"match": "(\\w.+) \\\\s",
+					"match": "(\\S+(?: do you know de wey)?) \\\\s",
 					"captures": {
 						"1": {
 							"patterns": [
@@ -894,7 +898,7 @@
 							]
 						},
 						"2": {
-							"name": "keyword.operator"
+							"name": "entity.other.attribute-name"
 						}
 					}
 				}
@@ -920,7 +924,7 @@
 							]
 						},
 						"2": {
-							"name": "keyword.operator"
+							"name": "entity.other.attribute-name"
 						}
 					}
 				}
