@@ -195,33 +195,24 @@
 			"patterns": [
 				{
 					"name": "storage.type",
-					"match": "I like to have fun, fun, fun, fun, fun, fun, fun, fun, fun, fun (.+)",
+					"match": "I like to have fun, fun, fun, fun, fun, fun, fun, fun, fun, fun (\\S+)",
 					"captures": {
 						"1": {
-							"patterns": [
-								{
-									"name": "entity.name.function",
-									"match": "\\S+"
-								},
-								{
-									"name": "invalid.illegal",
-									"match": ".+"
-								}
-							]
+							"name": "entity.name.function"
 						}
 					}
 				},
 				{
 					"name": "keyword.control",
-					"match": "(right back at ya, buckaroo)"
+					"match": "\\b(right back at ya, buckaroo)\\b"
 				},
 				{
 					"name": "keyword.control",
-					"match": "(no, I don't think I will)"
+					"match": "\\b(no, I don't think I will)\\b"
 				},
 				{
 					"name": "keyword.control",
-					"match": "(I see this as an absolute win)"
+					"match": "\\b(I see this as an absolute win)\\b"
 				}
 			]
 		},
