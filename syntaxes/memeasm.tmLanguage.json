@@ -642,6 +642,10 @@
 						"1": {
 							"patterns": [
 								{
+									"name": "string.quoted.single",
+									"match": "\\b(\\d)\\b"
+								},
+								{
 									"include": "#8bit-registers"
 								},
 								{

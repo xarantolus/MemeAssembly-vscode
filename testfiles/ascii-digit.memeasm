@@ -1,9 +1,13 @@
 I like to have fun, fun, fun, fun, fun, fun, fun, fun, fun, fun main
+
+    What the hell happened here? Negative numbers don't work here
     what can I say except -256
     what can I say except -255
     what can I say except -102
     what can I say except -75
     what can I say except -1
+
+    What the hell happened here? Single digits are printed as-is, e.g. 0 just prints exactly "0", not the null-terminator
     what can I say except 0
     what can I say except 1
     what can I say except 2
@@ -14,6 +18,8 @@ I like to have fun, fun, fun, fun, fun, fun, fun, fun, fun, fun main
     what can I say except 7
     what can I say except 8
     what can I say except 9
+
+    What the hell happened here? Here the number is mapped to an ascii-codepoint, e.g. 10 == \n
     what can I say except 10
     what can I say except 11
     what can I say except 12
@@ -260,6 +266,8 @@ I like to have fun, fun, fun, fun, fun, fun, fun, fun, fun, fun main
     what can I say except 253
     what can I say except 254
     what can I say except 255
+
+    What the hell happened here? Anything above 255 does not fit into one byte and can't be written
     what can I say except 256
     what can I say except 257
     what can I say except 258
