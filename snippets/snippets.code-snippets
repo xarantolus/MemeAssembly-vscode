@@ -245,6 +245,14 @@
             "print character to stdout"
         ]
     },
+    "read": {
+        "scope": "memeasm",
+        "body": "RTFM ${1:al}\n",
+        "prefix": [
+            "RTFM",
+            "read character from stdin"
+        ]
+    },
     "fancy exit": {
         "scope": "memeasm",
         "body": "guess I'll die\n",
