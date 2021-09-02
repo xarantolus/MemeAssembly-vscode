@@ -247,9 +247,9 @@
     },
     "read": {
         "scope": "memeasm",
-        "body": "RTFM ${1:al}\n",
+        "body": "let me in. LET ME IIIIIIIIN ${1:al}\n",
         "prefix": [
-            "RTFM",
+            "let me in. LET ME IIIIIIIIN",
             "read character from stdin"
         ]
     },
