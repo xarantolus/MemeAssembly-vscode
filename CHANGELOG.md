@@ -1,9 +1,5 @@
 # Change Log
 
-All notable changes to the "memeassembly" extension will be documented in this file.
 
-Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how to structure this file.
-
-## [Unreleased]
-
-- Initial release
+## [0.2.4] - 2021-09-06
+* Add the "MemeAssembly: Run current file" command. You can run it from the command palette or using the <kbd>Ctrl</kbd>+<kbd>M</kbd> keyboard shortcut
