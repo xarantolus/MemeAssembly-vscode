@@ -13,9 +13,7 @@ export function checkCommandInstalled() {
     var process = exec("memeasm -h");
 
     process.on('exit', function (code: number) {
-        if (code == 0) {
-            vscode.window.showInformationMessage("Command executed successfully");
-        } else {
+        if (code !== 0) {
             vscode.window.showWarningMessage("Command failed, likely not installed", "Install").
                 then(item => {
                     // If the user didn't click the item
