@@ -14,7 +14,7 @@ export function checkCommandInstalled() {
 
     process.on('exit', function (code: number) {
         if (code !== 0) {
-            vscode.window.showWarningMessage("Command failed, likely not installed", "Install").
+            vscode.window.showWarningMessage("It seems like MemeAssembly is not installed yet.", "Install").
                 then(item => {
                     // If the user didn't click the item
                     if (!item) {
