@@ -6,7 +6,7 @@ echo "This is the install script for MemeAssembly. You might be asked for your r
 postinstall() {
     echo ""
     echo ""
-    echo "Successfully installed MemeAssembly."
+    echo -e "\033[38;5;16;48;5;47m\n\n  Successfully installed MemeAssembly  \n\033[0m"
     echo "You can now run memeasm -h to get more info."
     echo ""
     echo "Press enter to exit this terminal."
@@ -31,12 +31,12 @@ if [[ ! $(which jq) ]]; then
     sudo apt install -y jq
 fi
 
-echo "Downloading release files"
+echo "Downloading release files..."
 
-DATA=$(curl -L "https://api.github.com/repos/kammt/MemeAssembly/releases/latest")
+DATA=$(curl -sL "https://api.github.com/repos/kammt/MemeAssembly/releases/latest")
 URLS=$(echo $DATA | jq -r .assets[].browser_download_url)
 # Download all release files, makes it a bit easier, but is unnecessary
-wget $URLS
+wget -q $URLS
 
 if [[ $(which dpkg) ]]; then
     echo "Installing via dpkg"
