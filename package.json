@@ -1,6 +1,6 @@
 {
     "name": "memeassembly",
-    "version": "0.2.7",
+    "version": "0.2.8",
     "publisher": "xarantolus",
     "engines": {
         "vscode": "^1.59.0"
