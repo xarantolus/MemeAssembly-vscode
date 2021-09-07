@@ -1,6 +1,6 @@
 {
     "name": "memeassembly",
-    "version": "0.2.6",
+    "version": "0.2.7",
     "publisher": "xarantolus",
     "engines": {
         "vscode": "^1.59.0"
@@ -48,6 +48,12 @@
                 "path": "./snippets/snippets.code-snippets"
             }
         ],
+        "configurationDefaults": {
+            "[memeasm]": {
+                "editor.wordBasedSuggestions": false,
+                "editor.suggest.snippetsPreventQuickSuggestions": true
+            }
+        },
         "commands": [
             {
                 "command": "memeasm.run-file",
