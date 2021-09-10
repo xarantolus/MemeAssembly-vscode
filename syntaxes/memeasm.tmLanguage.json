@@ -630,6 +630,43 @@
 							]
 						}
 					}
+				},
+				{
+					"name": "entity.name.function",
+					"match": "(\\S+(?: do you know de wey)?) is getting out of hand, now there are (\\S+(?: do you know de wey)?) of them",
+					"captures": {
+						"1": {
+							"patterns": [
+								{
+									"include": "#64bit-registers"
+								},
+								{
+									"include": "#32bit-registers"
+								},
+								{
+									"name": "invalid.illegal",
+									"match": ".+"
+								}
+							]
+						},
+						"2": {
+							"patterns": [
+								{
+									"include": "#64bit-registers"
+								},
+								{
+									"include": "#32bit-registers"
+								},
+								{
+									"include": "#decimal-number"
+								},
+								{
+									"name": "invalid.illegal",
+									"match": ".+"
+								}
+							]
+						}
+					}
 				}
 			]
 		},

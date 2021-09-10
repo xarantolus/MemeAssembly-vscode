@@ -237,6 +237,14 @@
             "plus"
         ]
     },
+    "multiplication": {
+        "scope": "memeasm",
+        "body": "${1:rax} is getting out of hand, now there are ${2:69} of them\n",
+        "prefix": [
+            "... is getting out of hand, now there are x of them",
+            "multiply"
+        ]
+    },
     "print": {
         "scope": "memeasm",
         "body": "what can I say except ${1:al}\n",
