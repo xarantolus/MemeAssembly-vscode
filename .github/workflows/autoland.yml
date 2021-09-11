@@ -1,0 +1,36 @@
+name: Auto-Merge PRs
+
+# These are the events the job needs to listen for in order to merge pull requests
+on:
+  # It checks if a single pull request has new criteria for merging (via "autoland after ..." comments)
+  pull_request:
+  issue_comment:
+  pull_request_review:
+  pull_request_review_comment:
+
+  # It also wants to know when pull requests are ready for merging
+  check_suite:
+
+  # Periodically check if external repositories have merged the PRs that ours depend on
+  schedule:
+    - cron: "30 */2 * * *"
+
+  # You can also run the check manually
+  workflow_dispatch:
+
+jobs:
+  auto-merge:
+    name: Autoland Pull Request
+    runs-on: ubuntu-latest
+    steps:
+      - uses: xarantolus/action-autoland@main
+        with:
+          # How PRs should be merged
+          #   Allowed values 'merge', 'squash' or 'rebase'
+          #   See https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/configuring-pull-request-merges/about-merge-methods-on-github
+          merge-method: rebase 
+          # Which user types are allowed to comment "autoland after" comments (other users are ignored)
+          #   See https://docs.github.com/en/graphql/reference/enums#commentauthorassociation
+          users: owner, collaborator, member
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
