@@ -245,6 +245,15 @@
             "multiply"
         ]
     },
+    "division": {
+        "scope": "memeasm",
+        "body": "look at what ${1:10} needs to mimic a fraction of ${2:rax}\n",
+        "description": "Divide the second parameter register by the first value",
+        "prefix": [
+            "look at what ... needs to mimic a fraction of ...",
+            "division"
+        ]
+    },
     "print": {
         "scope": "memeasm",
         "body": "what can I say except ${1:al}\n",

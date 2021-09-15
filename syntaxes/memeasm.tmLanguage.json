@@ -667,6 +667,40 @@
 							]
 						}
 					}
+				},
+				{
+					"name": "entity.name.function",
+					"match": "look at what (\\S+(?: do you know de wey)?) needs to mimic a fraction of (\\S+(?: do you know de wey)?)",
+					"captures": {
+						"1": {
+							"patterns": [
+								{
+									"include": "#64bit-registers"
+								},
+								{
+									"include": "#decimal-number"
+								},
+								{
+									"include": "#ascii-character"
+								},
+								{
+									"name": "invalid.illegal",
+									"match": ".+"
+								}
+							]
+						},
+						"2": {
+							"patterns": [
+								{
+									"include": "#64bit-registers"
+								},
+								{
+									"name": "invalid.illegal",
+									"match": ".+"
+								}
+							]
+						}
+					}
 				}
 			]
 		},
