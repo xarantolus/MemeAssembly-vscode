@@ -343,6 +343,7 @@
 			"patterns": [
 				{
 					"name": "entity.name.function",
+					"comment": "Zeroes the register $1",
 					"match": "sneak 100 (.+)",
 					"captures": {
 						"1": {

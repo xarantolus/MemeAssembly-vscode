@@ -12,7 +12,11 @@
             "args": [
                 "--extensionDevelopmentPath=${workspaceFolder}"
             ],
-            "preLaunchTask": "Build extension"
+            "preLaunchTask": "Build extension",
+            "skipFiles": [
+                "<node_internals>/**",
+                "**.js"
+            ]
         }
     ]
 }
