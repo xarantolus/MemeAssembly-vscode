@@ -4,11 +4,11 @@ import { Hover } from 'vscode';
 class CommandInfo {
     public name: string
     public match: string
-    public comment: string
+    public hoverText: string
 
-    constructor(_name: string, _match: string, _comment: string) {
+    constructor(_name: string, _match: string, _hoverText: string) {
         this.name = _name;
-        this.comment = _comment;
+        this.hoverText = _hoverText;
 
         this.match = _match;
     }
@@ -40,17 +40,23 @@ export class HoverProvider implements vscode.HoverProvider {
     constructor() {
         // Load all patterns from the tmlanguage file
         var repo = languageGrammar["repository"];
-        var commandMeta = repo["commands"]["patterns"] as Array<{
+        var mainCommands = repo["commands"]["patterns"] as Array<{
             include: string
         }>;
 
+        // We need to make sure that "additions" is first because they take precedence
+        var commandCategories = ["additions", ...mainCommands.map(x => x.include.replace(/#/, ''))]
+
         var allCommands: Array<CommandInfo> = [];
 
-        commandMeta.forEach(cmd => {
-            var patterns = repo[cmd.include.replace(/#/, '')]["patterns"] as Array<CommandInfo>;
+        commandCategories.forEach(cmd => {
+            var patterns = repo[cmd]["patterns"] as Array<CommandInfo>;
 
             patterns.forEach(pattern => {
                 if (pattern.match) {
+                    if (!pattern.hoverText) {
+                        console.warn(`Command with pattern ${pattern.match} doesn't provide a hover text`)
+                    }
                     allCommands.push(pattern);
                 }
             })
@@ -62,6 +68,10 @@ export class HoverProvider implements vscode.HoverProvider {
     private matchLine(line: string): CommandResult | null {
         var res: CommandResult | null = null;
 
+        var oldLength = line.length;
+        line = line.trimLeft()
+        var trimmedFromStart = oldLength - line.length;
+
         for (const pattern of this.patterns) {
 
             var regex = new RegExp(pattern.match, "g")
@@ -71,17 +81,20 @@ export class HoverProvider implements vscode.HoverProvider {
                 continue;
             }
 
-            var itxt : string = pattern.comment;
+            var itxt: string = pattern.hoverText;
 
             for (let idx = 1; idx < match.length; idx++) {
                 const submatch = match[idx];
 
-                itxt = itxt.replace("$" + idx, submatch.trim());
+                itxt = itxt.replace("$" + idx, "**"+ submatch.trim() + "**");
             }
 
 
-            res = new CommandResult(pattern,
-                match.index, match.index + match[0].length, itxt);
+            res = new CommandResult(
+                pattern,
+                trimmedFromStart + match.index,
+                trimmedFromStart + match.index + match[0].length,
+                itxt);
 
             break;
         }
