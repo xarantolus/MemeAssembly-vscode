@@ -739,8 +739,7 @@
 									"include": "#8bit-registers"
 								},
 								{
-									"include": "#ascii-character",
-									"match": "\\S+?"
+									"include": "#ascii-character"
 								},
 								{
 									"name": "invalid.illegal",
