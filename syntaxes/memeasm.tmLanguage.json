@@ -225,7 +225,7 @@
 				{
 					"name": "entity.name.function",
 					"hoverText": "Pop a value from the stack into $1",
-					"match": "not stonks (.+)",
+					"match": "not stonks (\\S+(?: do you know de wey)?)",
 					"captures": {
 						"1": {
 							"patterns": [
@@ -243,7 +243,7 @@
 				{
 					"name": "entity.name.function",
 					"hoverText": "Pushe $1 to the stack",
-					"match": "stonks (.+)",
+					"match": "stonks (\\S+(?: do you know de wey)?)",
 					"captures": {
 						"1": {
 							"patterns": [
@@ -352,7 +352,7 @@
 				{
 					"name": "entity.name.function",
 					"hoverText": "Set $1 to zero",
-					"match": "sneak 100 (.+)",
+					"match": "sneak 100 (\\S+(?: do you know de wey)?)",
 					"captures": {
 						"1": {
 							"patterns": [
@@ -436,7 +436,7 @@
 				{
 					"name": "entity.name.function",
 					"hoverText": "Increment $1 by one",
-					"match": "upvote (.+)",
+					"match": "upvote (\\S+(?: do you know de wey)?)",
 					"captures": {
 						"1": {
 							"patterns": [
@@ -463,7 +463,7 @@
 				{
 					"name": "entity.name.function",
 					"hoverText": "Decrement $1 by one",
-					"match": "downvote (.+)",
+					"match": "downvote (\\S+(?: do you know de wey)?)",
 					"captures": {
 						"1": {
 							"patterns": [
@@ -490,7 +490,7 @@
 				{
 					"name": "entity.name.function",
 					"hoverText": "Subtract $1 from the destination register $2",
-					"match": "parry (\\S+(?: do you know de wey)?) you filthy casual (.+)",
+					"match": "parry (\\S+(?: do you know de wey)?) you filthy casual (\\S+(?: do you know de wey)?)",
 					"captures": {
 						"1": {
 							"patterns": [
@@ -596,7 +596,7 @@
 				{
 					"name": "entity.name.function",
 					"hoverText": "Double the value of $1. This is done by a binary left shift",
-					"match": "upgrades, people. Upgrades (.+)",
+					"match": "upgrades, people. Upgrades (\\S+(?: do you know de wey)?)",
 					"captures": {
 						"1": {
 							"patterns": [
@@ -623,7 +623,7 @@
 				{
 					"name": "entity.name.function",
 					"hoverText": "Halve the value of $1. This is done by a binary right shift",
-					"match": "they had us in the first half, not gonna lie (.+)",
+					"match": "they had us in the first half, not gonna lie (\\S+(?: do you know de wey)?)",
 					"captures": {
 						"1": {
 							"patterns": [
@@ -794,7 +794,7 @@
 				},
 				{
 					"name": "keyword.control",
-					"match": "return to monke (.+)",
+					"match": "return to monke (\\S+)",
 					"hoverText": "Jump to the monke jump marker with the id $1",
 					"captures": {
 						"1": {
@@ -814,7 +814,7 @@
 				},
 				{
 					"name": "keyword.control",
-					"match": "monke (.+)",
+					"match": "monke (\\S+)",
 					"hoverText": "Define a monke jump marker with the id $1",
 					"captures": {
 						"1": {
@@ -835,7 +835,7 @@
 				{
 					"name": "keyword.control",
 					"hoverText": "Compare $1 and $2 and jump to the \"x wins\" marker for the larger value. If they are equal, no jump is performed.",
-					"match": "who would win\\? (.+) or (.+)",
+					"match": "who would win\\? (\\S+) or (\\S+)",
 					"captures": {
 						"1": {
 							"patterns": [
@@ -921,7 +921,7 @@
 				{
 					"name": "keyword.control",
 					"hoverText": "Compare $1 and $2 and jump to the \"they're the same picture\" jump marker if they are equal",
-					"match": "corporate needs you to find the difference between (.+) and (.+)",
+					"match": "corporate needs you to find the difference between (\\S+(?: do you know de wey)?) and (\\S+(?: do you know de wey)?)",
 					"captures": {
 						"1": {
 							"patterns": [
