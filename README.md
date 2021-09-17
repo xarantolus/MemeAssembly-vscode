@@ -21,3 +21,6 @@ This [extension](https://marketplace.visualstudio.com/items?itemName=xarantolus.
 * Press F5 to start VSCode with this extension for debugging
 * A new window should open. From there, open some MemeAssembly files/directories, e.g. the ones from [here](https://github.com/xarantolus/memeasm).
 * Do changes and reload the window with the extension
+
+### License Notice
+This extension is licensed under the MIT license. This excludes the MemeAssembly logo, which is licensed as per the GPLv3-license. See https://www.gnu.org/licenses/.
