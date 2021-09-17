@@ -196,6 +196,7 @@
 				{
 					"name": "storage.type",
 					"match": "I like to have fun, fun, fun, fun, fun, fun, fun, fun, fun, fun (\\S+)",
+					"hoverText": "Declare the function $1",
 					"captures": {
 						"1": {
 							"name": "entity.name.function"
@@ -204,14 +205,17 @@
 				},
 				{
 					"name": "keyword.control",
+					"hoverText": "Exit a function. The return value can be defined by the programmer",
 					"match": "\\b(right back at ya, buckaroo)\\b"
 				},
 				{
 					"name": "keyword.control",
+					"hoverText": "Exit a function with return value 1",
 					"match": "\\b(no, I don't think I will)\\b"
 				},
 				{
 					"name": "keyword.control",
+					"hoverText": "Exit a function with return value 0",
 					"match": "\\b(I see this as an absolute win)\\b"
 				}
 			]
@@ -220,6 +224,25 @@
 			"patterns": [
 				{
 					"name": "entity.name.function",
+					"hoverText": "Pop a value from the stack into $1",
+					"match": "not stonks (.+)",
+					"captures": {
+						"1": {
+							"patterns": [
+								{
+									"include": "#64bit-registers"
+								},
+								{
+									"name": "invalid.illegal",
+									"match": ".+"
+								}
+							]
+						}
+					}
+				},
+				{
+					"name": "entity.name.function",
+					"hoverText": "Pushe $1 to the stack",
 					"match": "stonks (.+)",
 					"captures": {
 						"1": {
@@ -237,23 +260,6 @@
 							]
 						}
 					}
-				},
-				{
-					"name": "entity.name.function",
-					"match": "not stonks (.+)",
-					"captures": {
-						"1": {
-							"patterns": [
-								{
-									"include": "#64bit-registers"
-								},
-								{
-									"name": "invalid.illegal",
-									"match": ".+"
-								}
-							]
-						}
-					}
 				}
 			]
 		},
@@ -261,6 +267,7 @@
 			"patterns": [
 				{
 					"name": "entity.name.function",
+					"hoverText": "Perform a logical AND on $1 with $2",
 					"match": "bitconneeeeeeect (\\S+?(?: do you know de wey)?) (\\S+(?: do you know de wey)?)",
 					"captures": {
 						"1": {
@@ -313,6 +320,7 @@
 				},
 				{
 					"name": "entity.name.function",
+					"hoverText": "Perform a logical NOT on $1",
 					"match": "(\\S+(?: do you know de wey)?) \\\\s",
 					"captures": {
 						"1": {
@@ -343,6 +351,7 @@
 			"patterns": [
 				{
 					"name": "entity.name.function",
+					"hoverText": "Set $1 to zero",
 					"match": "sneak 100 (.+)",
 					"captures": {
 						"1": {
@@ -369,6 +378,7 @@
 				},
 				{
 					"name": "entity.name.function",
+					"hoverText": "Set $1 to $2",
 					"match": "(\\S+(?: do you know de wey)?) is brilliant, but I like (\\S+(?: do you know de wey)?)",
 					"captures": {
 						"1": {
@@ -425,6 +435,7 @@
 			"patterns": [
 				{
 					"name": "entity.name.function",
+					"hoverText": "Increment $1 by one",
 					"match": "upvote (.+)",
 					"captures": {
 						"1": {
@@ -451,6 +462,7 @@
 				},
 				{
 					"name": "entity.name.function",
+					"hoverText": "Decrement $1 by one",
 					"match": "downvote (.+)",
 					"captures": {
 						"1": {
@@ -477,6 +489,7 @@
 				},
 				{
 					"name": "entity.name.function",
+					"hoverText": "Subtract $1 from the destination register $2",
 					"match": "parry (\\S+(?: do you know de wey)?) you filthy casual (.+)",
 					"captures": {
 						"1": {
@@ -529,6 +542,7 @@
 				},
 				{
 					"name": "entity.name.function",
+					"hoverText": "Add $2 to the destination register $1",
 					"match": "(\\S+(?: do you know de wey)?) units are ready, with (\\S+(?: do you know de wey)?) more well on the way",
 					"captures": {
 						"1": {
@@ -581,6 +595,7 @@
 				},
 				{
 					"name": "entity.name.function",
+					"hoverText": "Double the value of $1. This is done by a binary left shift",
 					"match": "upgrades, people. Upgrades (.+)",
 					"captures": {
 						"1": {
@@ -607,6 +622,7 @@
 				},
 				{
 					"name": "entity.name.function",
+					"hoverText": "Halve the value of $1. This is done by a binary right shift",
 					"match": "they had us in the first half, not gonna lie (.+)",
 					"captures": {
 						"1": {
@@ -633,6 +649,7 @@
 				},
 				{
 					"name": "entity.name.function",
+					"hoverText": "Multiply $1 by $2",
 					"match": "(\\S+(?: do you know de wey)?) is getting out of hand, now there are (\\S+(?: do you know de wey)?) of them",
 					"captures": {
 						"1": {
@@ -670,6 +687,7 @@
 				},
 				{
 					"name": "entity.name.function",
+					"hoverText": "Divide $2 by $1",
 					"match": "look at what (\\S+(?: do you know de wey)?) needs to mimic a fraction of (\\S+(?: do you know de wey)?)",
 					"captures": {
 						"1": {
@@ -708,6 +726,7 @@
 			"patterns": [
 				{
 					"name": "entity.name.function",
+					"hoverText": "Print the ASCII character $1 to the console",
 					"match": "what can I say except (\\S+(?: do you know de wey)?)",
 					"captures": {
 						"1": {
@@ -733,6 +752,7 @@
 				},
 				{
 					"name": "entity.name.function",
+					"hoverText": "Read a byte from stdin into $1",
 					"match": "let me in. LET ME IIIIIIIIN (\\S+(?: do you know de wey)?)",
 					"captures": {
 						"1": {
@@ -754,32 +774,30 @@
 			"patterns": [
 				{
 					"name": "keyword.control",
-					"match": "upgrade"
+					"match": "upgrade",
+					"hoverText": "Define a jump marker that the \"fuck go back\" command jumps to"
 				},
 				{
 					"name": "keyword.control",
-					"match": "fuck go back"
+					"match": "fuck go back",
+					"hoverText": "Jump to the \"upgrade\" jump marker"
 				},
 				{
 					"name": "keyword.control",
-					"match": "banana"
+					"match": "where banana",
+					"hoverText": "Jump to the \"banana\" jump marker"
 				},
 				{
 					"name": "keyword.control",
-					"match": "where banana"
+					"match": "banana",
+					"hoverText": "Define a jump marker that the \"where banana\" command jumps to"
 				},
 				{
-					"match": "((?:return to )?monke) (.+)",
+					"name": "keyword.control",
+					"match": "return to monke (.+)",
+					"hoverText": "Jump to the monke jump marker with the id $1",
 					"captures": {
 						"1": {
-							"patterns": [
-								{
-									"match": ".*",
-									"name": "keyword.control"
-								}
-							]
-						},
-						"2": {
 							"patterns": [
 								{
 									"comment": "Must include both an 'a' and an 'u' to be valid",
@@ -796,6 +814,27 @@
 				},
 				{
 					"name": "keyword.control",
+					"match": "monke (.+)",
+					"hoverText": "Define a monke jump marker with the id $1",
+					"captures": {
+						"1": {
+							"patterns": [
+								{
+									"comment": "Must include both an 'a' and an 'u' to be valid",
+									"match": "\\b((?:a|u)*(?:au|ua)+(?:a|u)*)\\b",
+									"name": "entity.name.type"
+								},
+								{
+									"match": ".+",
+									"name": "invalid.illegal"
+								}
+							]
+						}
+					}
+				},
+				{
+					"name": "keyword.control",
+					"hoverText": "Compare $1 and $2 and jump to the \"x wins\" marker for the larger value. If they are equal, no jump is performed.",
 					"match": "who would win\\? (.+) or (.+)",
 					"captures": {
 						"1": {
@@ -848,6 +887,7 @@
 				},
 				{
 					"name": "keyword.control",
+					"hoverText": "Jump marker for the \"who would win?\" command. It will jump here if $1 is the larger value.",
 					"match": "(\\S+) wins",
 					"captures": {
 						"1": {
@@ -880,6 +920,7 @@
 				},
 				{
 					"name": "keyword.control",
+					"hoverText": "Compare $1 and $2 and jump to the \"they're the same picture\" jump marker if they are equal",
 					"match": "corporate needs you to find the difference between (.+) and (.+)",
 					"captures": {
 						"1": {
@@ -932,6 +973,7 @@
 				},
 				{
 					"name": "keyword.control",
+					"hoverText": "Jump marker for the \"corporate needs you to find the difference between a and b\" command. It will jump here if the values are equal.",
 					"match": "they're the same picture"
 				}
 			]
@@ -940,19 +982,23 @@
 			"patterns": [
 				{
 					"name": "keyword.control",
-					"match": "guess I'll die"
+					"match": "guess I'll die",
+					"hoverText": "Crash the program with a Segmentation Fault"
 				},
 				{
 					"name": "keyword.control",
-					"match": "confused stonks"
+					"match": "confused stonks",
+					"hoverText": "Jump to a random line of code that is decided at compilation time"
 				},
 				{
 					"name": "entity.name.function",
-					"match": "perfectly balanced as all things should be"
+					"match": "perfectly balanced as all things should be",
+					"hoverText": "Restore balance to your code by randomly deleting half the commands at compile-time.\nWhen using this command multiple times, half the lines are deleted for every instance of this command."
 				},
 				{
 					"name": "entity.name.function",
-					"match": "wait, that's illegal"
+					"match": "wait, that's illegal",
+					"hoverText": "Intentionally violates the System V ABI by modifying callee-saved registers without restoring their original value"
 				}
 			]
 		},
@@ -960,7 +1006,8 @@
 			"patterns": [
 				{
 					"name": "keyword.control",
-					"match": "it's a trap"
+					"match": "it's a trap",
+					"hoverText": "Raise SIGTRAP. If a debugger is attached, this breaks into the debugger."
 				}
 			]
 		},
@@ -968,6 +1015,7 @@
 			"patterns": [
 				{
 					"match": "\\s*(.+) (or draw 25)",
+					"hoverText": "Add 25 to rax",
 					"captures": {
 						"1": {
 							"patterns": [
