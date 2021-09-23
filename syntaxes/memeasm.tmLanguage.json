@@ -242,7 +242,7 @@
 				},
 				{
 					"name": "entity.name.function",
-					"hoverText": "Pushe $1 to the stack",
+					"hoverText": "Push $1 to the stack",
 					"match": "stonks (\\S+(?: do you know de wey)?)",
 					"captures": {
 						"1": {
