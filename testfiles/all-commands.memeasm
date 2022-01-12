@@ -153,4 +153,17 @@ I like to have fun, fun, fun, fun, fun, fun, fun, fun, fun, fun main
     
     rax do you know de wey is getting out of hand, now there are rax of them
 
+    What the hell happened here? Valid unlimited power commands:
+    rax UNLIMITED POWER 5
+
+    rbx UNLIMITED POWER rax
+
+    rbx UNLIMITED POWER c
+
+    
+    What the hell happened here? Illegal ones:
+    rbx UNLIMITED POWER al
+    rbx UNLIMITED POWER eax
+
+
     I see this as an absolute win

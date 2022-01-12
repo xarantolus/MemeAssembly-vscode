@@ -699,7 +699,33 @@
 									"include": "#decimal-number"
 								},
 								{
-									"include": "#ascii-character"
+									"name": "invalid.illegal",
+									"match": ".+"
+								}
+							]
+						},
+						"2": {
+							"patterns": [
+								{
+									"include": "#64bit-registers"
+								},
+								{
+									"name": "invalid.illegal",
+									"match": ".+"
+								}
+							]
+						}
+					}
+				},
+				{
+					"name": "entity.name.function",
+					"hoverText": "Calculate $1 to the power of $2",
+					"match": "(\\S+(?: do you know de wey)?) UNLIMITED POWER (\\S+(?: do you know de wey)?)",
+					"captures": {
+						"1": {
+							"patterns": [
+								{
+									"include": "#64bit-registers"
 								},
 								{
 									"name": "invalid.illegal",
@@ -711,6 +737,12 @@
 							"patterns": [
 								{
 									"include": "#64bit-registers"
+								},
+								{
+									"include": "#ascii-character"
+								},
+								{
+									"include": "#decimal-number"
 								},
 								{
 									"name": "invalid.illegal",
