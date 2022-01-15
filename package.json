@@ -59,6 +59,11 @@
                 "command": "memeasm.run-file",
                 "title": "MemeAssembly: Run current file",
                 "enablement": "editorLangId == memeasm"
+            },
+            {
+                "command": "memeasm.update",
+                "title": "MemeAssembly: Update MemeAssembly compiler",
+                "enablement": "isLinux"
             }
         ],
         "keybindings": [

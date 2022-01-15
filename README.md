@@ -8,6 +8,7 @@ This [extension](https://marketplace.visualstudio.com/items?itemName=xarantolus.
   * You can also open a `.memeasm` file, switch to the command palette and execute the `MemeAssembly: Run current file` command
 * Autocomplete snippets for most commands
 * Hover any command to get an explanation of what it does
+* Easy installation and updates: the extension can install the MemeAssembly compiler for you. You can also update it any time using `Update MemeAssembly compiler` from the command palette 
 * Comment toggling using shortcuts (<kbd>Ctrl</kbd>+<kbd>K</kbd>, <kbd>Ctrl</kbd>+<kbd>C</kbd> to comment current line out,  <kbd>Ctrl</kbd>+<kbd>K</kbd>, <kbd>Ctrl</kbd>+<kbd>U</kbd> to remove a comment from current line)
 
 ### Screenshots

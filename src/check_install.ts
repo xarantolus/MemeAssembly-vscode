@@ -3,7 +3,7 @@ import { platform } from 'os';
 import { exec, ExecException } from 'child_process';
 import path = require('path');
 
-function installMemeAssembly() {
+export function installMemeAssembly() {
     vscode.window.withProgress({
         "cancellable": false,
         "location": vscode.ProgressLocation.Window,
@@ -29,11 +29,13 @@ export function checkCommandInstalled() {
     var process = exec("memeasm -h");
 
     process.on('exit', function (code: number) {
+        
         if (code !== 0) {
-            vscode.window.showWarningMessage("The MemeAssembly Compiler is not installed.", "Install").
-                then(item => {
-                    // If the user didn't click the item
-                    if (!item) {
+            vscode.window
+                .showWarningMessage("The MemeAssembly Compiler is not installed.", "Install")
+                .then(userAccepted => {
+                    // If the user didn't click the "Install" button
+                    if (!userAccepted) {
                         return;
                     }
 

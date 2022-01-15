@@ -1,7 +1,7 @@
-#!/usr/bin/bash
-set +e
+#!/usr/bin/env bash 
+set -euo pipefail 
 
-echo "This is the install script for MemeAssembly. You might be asked for your root/sudo password."
+echo "This is the install / update script for MemeAssembly. You might be asked for your root/sudo password."
 
 postinstall() {
     echo ""
