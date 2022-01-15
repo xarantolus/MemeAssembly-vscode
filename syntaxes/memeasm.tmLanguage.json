@@ -254,6 +254,9 @@
 									"include": "#decimal-number"
 								},
 								{
+									"include": "#ascii-character"
+								},
+								{
 									"name": "invalid.illegal",
 									"match": ".+"
 								}
@@ -678,6 +681,9 @@
 									"include": "#decimal-number"
 								},
 								{
+									"include": "#ascii-character"
+								},
+								{
 									"name": "invalid.illegal",
 									"match": ".+"
 								}
@@ -694,6 +700,9 @@
 							"patterns": [
 								{
 									"include": "#64bit-registers"
+								},
+								{
+									"include": "#ascii-character"
 								},
 								{
 									"include": "#decimal-number"

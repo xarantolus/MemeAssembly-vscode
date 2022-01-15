@@ -138,6 +138,7 @@ I like to have fun, fun, fun, fun, fun, fun, fun, fun, fun, fun main
     let me in. LET ME IIIIIIIIN al
     let me in. LET ME IIIIIIIIN al or draw 25
     
+    What the hell happened here? Invalid:
     let me in. LET ME IIIIIIIIN ax
     let me in. LET ME IIIIIIIIN 658
     let me in. LET ME IIIIIIIIN a
@@ -155,15 +156,11 @@ I like to have fun, fun, fun, fun, fun, fun, fun, fun, fun, fun main
 
     What the hell happened here? Valid unlimited power commands:
     rax UNLIMITED POWER 5
-
     rbx UNLIMITED POWER rax
-
     rbx UNLIMITED POWER c
 
-    
     What the hell happened here? Illegal ones:
     rbx UNLIMITED POWER al
     rbx UNLIMITED POWER eax
-
 
     I see this as an absolute win
