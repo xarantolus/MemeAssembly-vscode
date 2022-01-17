@@ -89,6 +89,7 @@ I like to have fun, fun, fun, fun, fun, fun, fun, fun, fun, fun main
     bitconneeeeeeect eax 10
     bitconneeeeeeect al 10
     
+    
     What the hell happened here? Invalid:
     bitconneeeeeeect rax 17 17 17
 
@@ -120,6 +121,13 @@ I like to have fun, fun, fun, fun, fun, fun, fun, fun, fun, fun main
 
     what can I say except al or draw 25
 
+    what can I say except space
+
+    what can I say except \n
+
+    what can I say except \s
+            
+
     What the hell happened here? Invalid:
     
     parry 1538 you filthy casual rax rax 
@@ -138,6 +146,7 @@ I like to have fun, fun, fun, fun, fun, fun, fun, fun, fun, fun main
     let me in. LET ME IIIIIIIIN al
     let me in. LET ME IIIIIIIIN al or draw 25
     
+    What the hell happened here? Invalid:
     let me in. LET ME IIIIIIIIN ax
     let me in. LET ME IIIIIIIIN 658
     let me in. LET ME IIIIIIIIN a
@@ -152,5 +161,14 @@ I like to have fun, fun, fun, fun, fun, fun, fun, fun, fun, fun main
 
     
     rax do you know de wey is getting out of hand, now there are rax of them
+
+    What the hell happened here? Valid unlimited power commands:
+    rax UNLIMITED POWER 5
+    rbx UNLIMITED POWER rax
+    rbx UNLIMITED POWER c
+
+    What the hell happened here? Illegal ones:
+    rbx UNLIMITED POWER al
+    rbx UNLIMITED POWER eax
 
     I see this as an absolute win

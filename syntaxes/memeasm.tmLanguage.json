@@ -29,13 +29,13 @@
 					"include": "#functions"
 				},
 				{
+					"include": "#io-operations"
+				},
+				{
 					"include": "#logical-operations"
 				},
 				{
 					"include": "#arithmetic-operations"
-				},
-				{
-					"include": "#io-operations"
 				},
 				{
 					"include": "#random-commands"
@@ -252,6 +252,9 @@
 								},
 								{
 									"include": "#decimal-number"
+								},
+								{
+									"include": "#ascii-character"
 								},
 								{
 									"name": "invalid.illegal",
@@ -678,6 +681,9 @@
 									"include": "#decimal-number"
 								},
 								{
+									"include": "#ascii-character"
+								},
+								{
 									"name": "invalid.illegal",
 									"match": ".+"
 								}
@@ -696,10 +702,10 @@
 									"include": "#64bit-registers"
 								},
 								{
-									"include": "#decimal-number"
+									"include": "#ascii-character"
 								},
 								{
-									"include": "#ascii-character"
+									"include": "#decimal-number"
 								},
 								{
 									"name": "invalid.illegal",
@@ -719,6 +725,41 @@
 							]
 						}
 					}
+				},
+				{
+					"name": "entity.name.function",
+					"hoverText": "Calculate $1 to the power of $2",
+					"match": "(\\S+(?: do you know de wey)?) UNLIMITED POWER (\\S+(?: do you know de wey)?)",
+					"captures": {
+						"1": {
+							"patterns": [
+								{
+									"include": "#64bit-registers"
+								},
+								{
+									"name": "invalid.illegal",
+									"match": ".+"
+								}
+							]
+						},
+						"2": {
+							"patterns": [
+								{
+									"include": "#64bit-registers"
+								},
+								{
+									"include": "#ascii-character"
+								},
+								{
+									"include": "#decimal-number"
+								},
+								{
+									"name": "invalid.illegal",
+									"match": ".+"
+								}
+							]
+						}
+					}
 				}
 			]
 		},
@@ -726,7 +767,7 @@
 			"patterns": [
 				{
 					"name": "entity.name.function",
-					"hoverText": "Print the ASCII character $1 to the console",
+					"hoverText": "Print the ASCII character $1:a to the console",
 					"match": "what can I say except (\\S+(?: do you know de wey)?)",
 					"captures": {
 						"1": {
