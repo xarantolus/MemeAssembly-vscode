@@ -29,13 +29,13 @@
 					"include": "#functions"
 				},
 				{
+					"include": "#io-operations"
+				},
+				{
 					"include": "#logical-operations"
 				},
 				{
 					"include": "#arithmetic-operations"
-				},
-				{
-					"include": "#io-operations"
 				},
 				{
 					"include": "#random-commands"
@@ -767,7 +767,7 @@
 			"patterns": [
 				{
 					"name": "entity.name.function",
-					"hoverText": "Print the ASCII character $1 to the console",
+					"hoverText": "Print the ASCII character $1:a to the console",
 					"match": "what can I say except (\\S+(?: do you know de wey)?)",
 					"captures": {
 						"1": {
