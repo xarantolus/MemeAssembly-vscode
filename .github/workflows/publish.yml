@@ -16,7 +16,7 @@ jobs:
           node-version: 12
 
       - name: Extract commit message to workflow env
-      - run: |
+        run: |
           echo "COMMIT_MESSAGE=$(git log -n 1 --oneline | cut -d' ' -f2- -)" >> $GITHUB_ENV
 
       - name: Install dependencies
