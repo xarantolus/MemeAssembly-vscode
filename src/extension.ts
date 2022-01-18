@@ -1,14 +1,14 @@
 import * as vscode from 'vscode';
 import { platform } from 'os';
 
-import { checkCommandInstalled, installMemeAssembly } from './check_install'
+import { checkCommandInstalled } from './install_update'
 import { runCurrentFile } from './commands/run';
 
 import { HoverProvider } from './hover_cards';
 
 export function activate(context: vscode.ExtensionContext) {
     if (platform() == 'linux') {
-        checkCommandInstalled();
+        checkCommandInstalled(false);
     }
 
     context.subscriptions.push(
@@ -16,7 +16,7 @@ export function activate(context: vscode.ExtensionContext) {
     );
 
     context.subscriptions.push(
-        vscode.commands.registerTextEditorCommand("memeasm.update", installMemeAssembly),
+        vscode.commands.registerTextEditorCommand("memeasm.update", () => checkCommandInstalled(true)),
     );
 
     context.subscriptions.push(
