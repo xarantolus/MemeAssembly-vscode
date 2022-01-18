@@ -15,13 +15,19 @@ jobs:
         with:
           node-version: 12
 
+      - name: Extract commit message to workflow env
+        run: |
+          echo "COMMIT_MESSAGE=$(git log -n 1 --oneline | cut -d' ' -f2- -)" >> $GITHUB_ENV
+
       - name: Install dependencies
         shell: bash
         run: |
           npm install 
+        if: ${{ (startsWith(env.COMMIT_MESSAGE, '[Release]') || startsWith(env.COMMIT_MESSAGE, 'Release')) }}
 
       - name: Publish to Visual Studio Marketplace
         uses: HaaLeo/publish-vscode-extension@v0
         with:
           pat: ${{ secrets.VS_MARKETPLACE_TOKEN }}
           registryUrl: https://marketplace.visualstudio.com
+        if: ${{ (startsWith(env.COMMIT_MESSAGE, '[Release]') || startsWith(env.COMMIT_MESSAGE, 'Release')) }}
