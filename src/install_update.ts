@@ -54,13 +54,17 @@ async function checkForUpdate(installedVersionNumber: string, showNoUpdate?: boo
     if (installedVersionNumber == onlineVersionNumber) {
         // Latest version installed
         if (showNoUpdate) {
-            vscode.window.showInformationMessage(`The latest version ${onlineVersionNumber} of MemeAssembly is already installed`)
+            // We only want to show a message, but if the user really wants to install
+            // the version again, we won't stop them
+            await vscode.window
+                .showInformationMessage(`The latest version ${onlineVersionNumber} of MemeAssembly is already installed`, "Reinstall anyways")
+                .then(installIfAccepted);
         }
         return;
     }
 
     vscode.window
-        .showWarningMessage(`A new version of MemeAssembly is available. Do you want to update from version ${installedVersionNumber} to ${onlineVersionNumber}?`, "Update")
+        .showInformationMessage(`A new version of MemeAssembly is available. Do you want to update from version ${installedVersionNumber} to ${onlineVersionNumber}?`, "Update")
         .then(installIfAccepted);
 }
 
