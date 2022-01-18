@@ -75,7 +75,9 @@
         ]
     },
     "activationEvents": [
-        "onLanguage:memeasm"
+        "onLanguage:memeasm",
+        "onCommand:memeasm.run-file",
+        "onCommand:memeasm.update"
     ],
     "main": "out/extension.js",
     "scripts": {
