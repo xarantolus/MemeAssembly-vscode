@@ -1,10 +1,10 @@
 import * as vscode from 'vscode';
 import { platform } from 'os';
 
-import { checkCommandInstalled } from './install_update'
+import { checkCommandInstalled } from './commands/install_update'
 import { runCurrentFile } from './commands/run';
 
-import { HoverProvider } from './hover_cards';
+import { HoverProvider } from './hover/provider';
 
 export function activate(context: vscode.ExtensionContext) {
     if (platform() == 'linux') {

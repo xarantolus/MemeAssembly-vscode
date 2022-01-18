@@ -1,6 +1,11 @@
 import * as vscode from 'vscode';
 import { Hover } from 'vscode';
 
+// CommandInfo represents a pattern from the syntax JSON file.
+// Each command has a
+//  - name: for theming extensions
+//  - match: a Regex pattern to check if a text is that command
+//  - hoverText: a text to show when hovering over a command
 class CommandInfo {
     public name: string
     public match: string
@@ -15,8 +20,11 @@ class CommandInfo {
 }
 
 
-
-class CommandResult {
+// HoverResult represents the data that is captured when hovering a command
+// More detailed command info is in the info property,
+// startPos and endPos are the indicies of the command in the text
+// and infoText is the text that should be displayed on hover
+class HoverResult {
     public info: CommandInfo
 
     public startPos: number
@@ -32,43 +40,41 @@ class CommandResult {
     }
 }
 
-const languageGrammar = require('../syntaxes/memeasm.tmLanguage.json')
+// languageGrammar is our grammar file that defines basically everything
+const languageGrammar = require('../../syntaxes/memeasm.tmLanguage.json')
 
 export class HoverProvider implements vscode.HoverProvider {
+    // patterns stores the pattern info from the syntax file for all known commands
     private patterns: Array<CommandInfo>
 
     constructor() {
         // Load all patterns from the tmlanguage file
         var repo = languageGrammar["repository"];
-        var mainCommands = repo["commands"]["patterns"] as Array<{
-            include: string
-        }>;
+        var mainCommands = repo["commands"]["patterns"] as Array<{ include: string }>;
 
         // We need to make sure that "additions" is first because they take precedence
         var commandCategories = ["additions", ...mainCommands.map(x => x.include.replace(/#/, ''))]
 
-        var allCommands: Array<CommandInfo> = [];
-
-        commandCategories.forEach(cmd => {
+        // Now we load all known command patterns
+        this.patterns = commandCategories.flatMap(cmd => {
             var patterns = repo[cmd]["patterns"] as Array<CommandInfo>;
 
-            patterns.forEach(pattern => {
-                if (pattern.match) {
+            return patterns.filter(p => p.match).map(
+                pattern => {
                     if (!pattern.hoverText) {
                         console.warn(`Command with pattern ${pattern.match} doesn't provide a hover text`)
                     }
-                    allCommands.push(pattern);
-                }
-            })
-        })
 
-        this.patterns = allCommands;
+                    return pattern;
+                },
+            );
+        });
     }
 
     readonly pointerEndText = " do you know de wey"
 
-    private matchLine(line: string): CommandResult | null {
-        var res: CommandResult | null = null;
+    private matchLine(line: string): HoverResult | null {
+        var res: HoverResult | null = null;
 
         var oldLength = line.length;
         line = line.trimStart()
@@ -112,11 +118,12 @@ export class HoverProvider implements vscode.HoverProvider {
             }
 
 
-            res = new CommandResult(
+            res = new HoverResult(
                 pattern,
                 trimmedFromStart + match.index,
                 trimmedFromStart + match.index + match[0].length,
-                itxt);
+                itxt,
+            );
 
             break;
         }
