@@ -1,7 +1,9 @@
 import * as vscode from 'vscode';
-import { platform } from 'os';
+import { platform, version } from 'os';
 import { exec, ExecException } from 'child_process';
 import path = require('path');
+import { Octokit } from "@octokit/rest";
+
 
 export function installMemeAssembly() {
     vscode.window.withProgress({
@@ -26,11 +28,8 @@ export function installMemeAssembly() {
 }
 
 export function checkCommandInstalled() {
-    var process = exec("memeasm -h");
-
-    process.on('exit', function (code: number) {
-        
-        if (code !== 0) {
+    exec("memeasm --help", async (error: ExecException | null, stdout: string, stderr: string) => {
+        if (error) {
             vscode.window
                 .showWarningMessage("The MemeAssembly Compiler is not installed.", "Install")
                 .then(userAccepted => {
@@ -41,6 +40,33 @@ export function checkCommandInstalled() {
 
                     installMemeAssembly();
                 });
+        } else {
+            // Extract the version number from the help output
+            let versionRegex = new RegExp(/(v(?:\d\.?)+)/i);
+            let versionMatch = versionRegex.exec(stdout);
+            if (versionMatch == null || versionMatch.length === 0 || versionMatch[0].trim().length === 0) {
+                return;
+            }
+
+            let installedVersionNumber = versionMatch[0].trim();
+
+            let githubAPI = new Octokit();
+
+            // Get the latest release from GitHub
+            var latestReleases = await githubAPI.repos.listReleases({
+                owner: "kammt",
+                repo: "MemeAssembly",
+                per_page: 1
+            });
+
+            let latestRelease = latestReleases.data[0];
+
+            if (installedVersionNumber == latestRelease.tag_name) {
+                // Latest version installed
+                return;
+            }
+
+            console.log("new version available");
         }
-    })
+    });
 }
