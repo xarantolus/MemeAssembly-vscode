@@ -15,7 +15,7 @@ function installMemeAssembly() {
             const termName = "Install MemeAssembly";
 
             // TODO: different installation strategy for Windows
-            var scriptLocation = path.join(__dirname, "../scripts/install_memeassembly.sh");
+            var scriptLocation = path.join(__dirname, "../../scripts/install_memeassembly.sh");
             var term = vscode.window.createTerminal(termName, "bash", [scriptLocation]);
             term.show();
 
