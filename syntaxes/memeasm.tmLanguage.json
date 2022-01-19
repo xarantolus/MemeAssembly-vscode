@@ -167,7 +167,7 @@
 				},
 				{
 					"comment": "ASCII Chars",
-					"match": "\\b([[:ascii:]])\\b",
+					"match": "([\\x21-\\x7F])(?:\\s|$)",
 					"captures": {
 						"1": {
 							"name": "string.quoted.single"
