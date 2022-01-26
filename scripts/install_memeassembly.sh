@@ -38,6 +38,13 @@ URLS=$(echo $DATA | jq -r .assets[].browser_download_url)
 # Download all release files, makes it a bit easier, but is unnecessary
 wget -q $URLS
 
+OLD_MEMEASM_PATH="$(which memeasm || true)"
+if [ "$OLD_MEMEASM_PATH" != "" ]; then
+    echo "Uninstalling old version at $OLD_MEMEASM_PATH"
+
+    sudo rm -f "$OLD_MEMEASM_PATH"
+fi
+
 if [[ $(which dpkg) ]]; then
     echo "Installing via dpkg"
     sudo dpkg -i *.deb && postinstall
