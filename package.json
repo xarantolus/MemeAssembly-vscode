@@ -61,6 +61,11 @@
                 "enablement": "editorLangId == memeasm"
             },
             {
+                "command": "memeasm.insert-print",
+                "title": "MemeAssembly: Insert print commands",
+                "enablement": "editorLangId == memeasm"
+            },
+            {
                 "command": "memeasm.update",
                 "title": "MemeAssembly: Update MemeAssembly compiler",
                 "enablement": "isLinux"

@@ -5,6 +5,7 @@ import { checkCommandInstalled } from './commands/install_update'
 import { runCurrentFile } from './commands/run';
 
 import { HoverProvider } from './hover/provider';
+import { insertPrintCommands } from './commands/insert_print';
 
 export function activate(context: vscode.ExtensionContext) {
     if (platform() == 'linux') {
@@ -17,6 +18,10 @@ export function activate(context: vscode.ExtensionContext) {
 
     context.subscriptions.push(
         vscode.commands.registerTextEditorCommand("memeasm.update", () => checkCommandInstalled(true)),
+    );
+
+    context.subscriptions.push(
+        vscode.commands.registerTextEditorCommand("memeasm.insert-print", () => insertPrintCommands()),
     );
 
     context.subscriptions.push(
