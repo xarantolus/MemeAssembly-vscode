@@ -204,6 +204,16 @@
 					}
 				},
 				{
+					"name": "storage.type",
+					"match": "(\\S+): whomst has summoned the almighty one",
+					"hoverText": "Call the function $1",
+					"captures": {
+						"1": {
+							"name": "entity.name.function"
+						}
+					}
+				},
+				{
 					"name": "keyword.control",
 					"hoverText": "Exit a function. The return value can be defined by the programmer",
 					"match": "\\b(right back at ya, buckaroo)\\b"
