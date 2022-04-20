@@ -6,9 +6,11 @@ This [extension](https://marketplace.visualstudio.com/items?itemName=xarantolus.
 * **Hover any command** to get an explanation of what it does
 * **Compile & run the current MemeAssembly** file using the <kbd>Ctrl</kbd>+<kbd>M</kbd> keyboard shortcut
   * You can also open a `.memeasm` file, switch to the command palette and execute the `MemeAssembly: Run current file` command
-* Easy **installation and updates**
+* Easy **installation and updates** (currently Linux only)
   * If you don't have the MemeAssembly compiler installed, the extension can install it for you
   * It can also update the compiler any time using `Update MemeAssembly compiler` from the command palette
+* **Easily insert print commands**
+  * Just run the `MemeAssembly: Insert print commands` to generate code for printing long texts
 * **Comment toggling** using default shortcuts
   * <kbd>Ctrl</kbd>+<kbd>K</kbd>, <kbd>Ctrl</kbd>+<kbd>C</kbd> comments the current selection out
   * <kbd>Ctrl</kbd>+<kbd>K</kbd>, <kbd>Ctrl</kbd>+<kbd>U</kbd> to comment the current selection in

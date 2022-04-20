@@ -1,5 +1,9 @@
 # Change Log
 
+## [0.3.5] - 2022-04-20
+* Added the `MemeAssembly: Insert print commands` commmand generate code for printing long texts
+* Support for the `whomst has summoned the almighty one` instruction coming in the next version
+
 ## [0.3.4] - 2022-01-26
 * Fix many small syntax highlighting bugs
 * Add update command: easily update to the latest MemeAssembly version
