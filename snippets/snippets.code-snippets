@@ -194,6 +194,15 @@
             "set register"
         ]
     },
+    "calculate power": {
+        "scope": "memeasm",
+        "body": "${1:rbx} UNLIMITED POWER ${2:69}\n",
+        "prefix": [
+            "... UNLIMITED POWER ...",
+            "power",
+            "x to the power of y"
+        ]
+    },
     "increment": {
         "scope": "memeasm",
         "body": "upvote ${1:rax}\n",
