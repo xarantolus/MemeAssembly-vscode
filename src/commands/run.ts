@@ -14,10 +14,10 @@ export async function runCurrentFile(textEditor: vscode.TextEditor, edit: vscode
 
     // At first we want to know which files are required for compiling the current file.
     // For that we take a look at which functions are defined at which places
-    var defs = await (new DefinitionFinder("function_name:def")).findAllDefinitions(textEditor.document, null);
+    var defs = await (new DefinitionFinder("function_name:def", false)).findAllDefinitions(textEditor.document, null);
 
     // Then we take a look at what is referenced
-    var requiredFiles = await (new DefinitionFinder("function_name:ref"))
+    var requiredFiles = await (new DefinitionFinder("function_name:ref", true))
         .resolveReferencedFiles(textEditor.document, textEditor.document.uri.fsPath, defs);
 
     // Set up the directory where the compiler and executable will run

@@ -17,8 +17,12 @@ export class Definition {
 export class DefinitionFinder {
     private definitions: Array<CommandInfo>;
 
-    constructor(ref: string) {
+    // start defines whether the definition should point to the start or the end of the referenced line
+    private start: boolean;
+
+    constructor(ref: string, startOfString: boolean) {
         this.definitions = getCommandsByRef(ref);
+        this.start = startOfString;
     }
 
     private async extractDefinitionsFromFile(workspace: vscode.Uri, path: string): Promise<Array<Definition>> {
@@ -45,7 +49,7 @@ export class DefinitionFinder {
 
             var match: RegExpExecArray | null = null;
             while (null != (match = regex.exec(currentLine))) {
-                let start = new vscode.Position(lineNumber, match.index + match[0].length - match[1].length);
+                let start = new vscode.Position(lineNumber, match.index + (this.start ? 0 : (match[0].length - match[1].length)));
 
                 // Basically convert the regex match to something we can work with
                 result = new Definition(
