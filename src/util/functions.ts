@@ -1,8 +1,7 @@
-import fs = require('fs');
 import path = require('path');
 import * as vscode from 'vscode';
+import { forEachLine } from './files';
 import { CommandInfo, getCommandsByRef } from './tm_util';
-import readline = require('readline');
 
 export class Definition {
     public functionName: string;
@@ -62,7 +61,42 @@ export class DefinitionFinder {
         return result;
     }
 
-    public async findAllDefinitions(document: vscode.TextDocument, token: vscode.CancellationToken): Promise<Array<Definition>> {
+    public async resolveReferencedFiles(document: vscode.TextDocument, filePath: string, availableDefinitions: Array<Definition>): Promise<Array<string>> {
+        let workspaceFolder = vscode.workspace.getWorkspaceFolder(document.uri);
+        if (!workspaceFolder || document.isUntitled) {
+            throw "Cannot get workspace folder";
+        }
+
+        var resultPaths: Array<string> = [];
+
+        var shellDir = path.dirname(filePath);
+
+        var paths = [filePath];
+        while (paths.length > 0) {
+            var currentPath = paths.pop()!;
+
+            // This is already a result path
+            var rel = path.relative(shellDir, currentPath);
+            if (resultPaths.includes(rel)) {
+                continue
+            }
+            resultPaths.push(rel);
+
+            // Which functions are called from this file?
+            var refs = await this.extractDefinitionsFromFile(workspaceFolder.uri, currentPath);
+
+            // Where can we find these functions in the current workspace?
+            var defs = availableDefinitions
+                .filter(d => refs.some(r => r.functionName === d.functionName))
+
+            // ... and add the referenced files to the stuff we want to look into
+            paths.push(...defs.map(d => d.location.uri.fsPath));
+        }
+
+        return resultPaths;
+    }
+
+    public async findAllDefinitions(document: vscode.TextDocument, token: vscode.CancellationToken | null): Promise<Array<Definition>> {
         let workspaceFolder = vscode.workspace.getWorkspaceFolder(document.uri);
         if (!workspaceFolder || document.isUntitled) {
             throw "Cannot get workspace folder";
@@ -74,7 +108,7 @@ export class DefinitionFinder {
 
         var definitions = [];
         for await (const file of results) {
-            if (token.isCancellationRequested) break;
+            if (token?.isCancellationRequested) break;
 
             var defs = await this.extractDefinitionsFromFile(workspaceFolder.uri, file.fsPath);
 
@@ -83,17 +117,4 @@ export class DefinitionFinder {
 
         return definitions;
     }
-}
-
-
-function forEachLine(inputFileName: string, callback: (input: string) => void) {
-    return new Promise((resolve, reject) => {
-        const rl = readline.createInterface({
-            input: fs.createReadStream(inputFileName)
-        });
-
-        rl.on('line', callback)
-        rl.on('close', resolve)
-        rl.on('error', reject);
-    });
 }

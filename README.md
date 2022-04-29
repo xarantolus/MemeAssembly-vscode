@@ -7,7 +7,8 @@ This [extension](https://marketplace.visualstudio.com/items?itemName=xarantolus.
 * **Jump to function definitions** using your default "Go to Definition" shortcut
 * **Compile & run the current MemeAssembly** file using the <kbd>Ctrl</kbd>+<kbd>M</kbd> keyboard shortcut
   * You can also open a `.memeasm` file, switch to the command palette and execute the `MemeAssembly: Run current file` command
-* Easy **installation and updates**
+  * This command automatically finds referenced functions in your workspace files and adds them to the compile command
+* Easy **installation and updates** (Linux)
   * If you don't have the MemeAssembly compiler installed, the extension can install it for you
   * It can also update the compiler any time using `Update MemeAssembly compiler` from the command palette
 * **Comment toggling** using default shortcuts
