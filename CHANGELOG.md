@@ -1,7 +1,13 @@
 # Change Log
 
+## [0.4.0] - 2022-04-29
+* Support for multiple input files
+  * When compiling, the extension will automatically find all required files for your program and add them to the compile command
+* Support for "Go to Definition" and "Go to References"
+  * Also works across multiple files as long as they are in your workspace
+
 ## [0.3.5] - 2022-04-20
-* Added the `MemeAssembly: Insert print commands` commmand generate code for printing long texts
+* Added the `MemeAssembly: Insert print commands` commmand to generate code for printing long texts
 * Support for the `whomst has summoned the almighty one` instruction coming in the next version
 
 ## [0.3.4] - 2022-01-26
