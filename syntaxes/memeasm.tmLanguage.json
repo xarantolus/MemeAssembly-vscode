@@ -194,6 +194,7 @@
 		"functions": {
 			"patterns": [
 				{
+					"ref": "function_name:def",
 					"name": "storage.type",
 					"match": "I like to have fun, fun, fun, fun, fun, fun, fun, fun, fun, fun (\\S+)",
 					"hoverText": "Declare the function $1",
@@ -204,6 +205,7 @@
 					}
 				},
 				{
+					"ref": "function_name:ref",
 					"name": "storage.type",
 					"match": "(\\S+): whomst has summoned the almighty one",
 					"hoverText": "Call the function $1",

@@ -1,24 +1,6 @@
 import * as vscode from 'vscode';
 import { Hover } from 'vscode';
-
-// CommandInfo represents a pattern from the syntax JSON file.
-// Each command has a
-//  - name: for theming extensions
-//  - match: a Regex pattern to check if a text is that command
-//  - hoverText: a text to show when hovering over a command
-class CommandInfo {
-    public name: string
-    public match: string
-    public hoverText: string
-
-    constructor(_name: string, _match: string, _hoverText: string) {
-        this.name = _name;
-        this.hoverText = _hoverText;
-
-        this.match = _match;
-    }
-}
-
+import { loadAvailableCommands, CommandInfo } from '../util/tm_util';
 
 // HoverResult represents the data that is captured when hovering a command
 // More detailed command info is in the info property,
@@ -40,35 +22,13 @@ class HoverResult {
     }
 }
 
-// languageGrammar is our grammar file that defines basically everything
-const languageGrammar = require('../../syntaxes/memeasm.tmLanguage.json')
 
 export class HoverProvider implements vscode.HoverProvider {
     // patterns stores the pattern info from the syntax file for all known commands
     private patterns: Array<CommandInfo>
 
     constructor() {
-        // Load all patterns from the tmlanguage file
-        var repo = languageGrammar["repository"];
-        var mainCommands = repo["commands"]["patterns"] as Array<{ include: string }>;
-
-        // We need to make sure that "additions" is first because they take precedence
-        var commandCategories = ["additions", ...mainCommands.map(x => x.include.replace(/#/, ''))]
-
-        // Now we load all known command patterns
-        this.patterns = commandCategories.flatMap(cmd => {
-            var patterns = repo[cmd]["patterns"] as Array<CommandInfo>;
-
-            return patterns.filter(p => p.match).map(
-                pattern => {
-                    if (!pattern.hoverText) {
-                        console.warn(`Command with pattern ${pattern.match} doesn't provide a hover text`)
-                    }
-
-                    return pattern;
-                },
-            );
-        });
+        this.patterns = loadAvailableCommands();
     }
 
     readonly pointerEndText = " do you know de wey"
@@ -102,7 +62,7 @@ export class HoverProvider implements vscode.HoverProvider {
             for (let idx = 1; idx < match.length; idx++) {
                 const submatch = match[idx];
 
-                // TODO: This is quite ugly. It would be nicer to have a "hoverFunc" property 
+                // TODO: This is quite ugly. It would be nicer to have a "hoverFunc" property
                 // on a capture that defines which function should be used to analyze the match.
 
                 if (submatch.endsWith(this.pointerEndText)) {

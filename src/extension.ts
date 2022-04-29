@@ -6,25 +6,19 @@ import { runCurrentFile } from './commands/run';
 
 import { HoverProvider } from './hover/provider';
 import { insertPrintCommands } from './commands/insert_print';
+import { DefinitionProvider as FunctionDefinitionProvider } from './reference/provider';
 
 export function activate(context: vscode.ExtensionContext) {
     if (platform() == 'linux') {
         checkCommandInstalled(false);
     }
 
-    context.subscriptions.push(
+    context.subscriptions.push(...[
         vscode.commands.registerTextEditorCommand("memeasm.run-file", runCurrentFile),
-    );
-
-    context.subscriptions.push(
         vscode.commands.registerTextEditorCommand("memeasm.update", () => checkCommandInstalled(true)),
-    );
-
-    context.subscriptions.push(
         vscode.commands.registerTextEditorCommand("memeasm.insert-print", () => insertPrintCommands()),
-    );
 
-    context.subscriptions.push(
+        vscode.languages.registerDefinitionProvider("memeasm", new FunctionDefinitionProvider()),
         vscode.languages.registerHoverProvider('memeasm', new HoverProvider())
-    );
+    ]);
 }
