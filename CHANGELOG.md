@@ -1,5 +1,16 @@
 # Change Log
 
+## [0.4.2] - 2022-04-30
+* Add definition providers for loop constructs (like `banana` and `where banana`)
+  * You can now jump to the matching loop start/end using the "Go to definition" shortcut
+* Add symbol provider
+  * VSCode can now show the "Outline" view that displays all functions defined in a file
+* Add code lense provider
+  * A "Run program" button is now displayed above `main` functions, making it possible to just run that function by clicking
+* Improve file resolve algorithm
+  * When running MemeAssembly files that reference functions from other files, the search algorithm for these functions tries to not select duplicate function definitions
+* Reduced extension size to 1/4th by bundling dependencies
+
 ## [0.4.1] - 2022-04-30
 * Add a code formatter
 * Display errors when the "Run current file" command fails
