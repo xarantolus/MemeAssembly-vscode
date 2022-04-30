@@ -103,7 +103,7 @@ export class DefinitionFinder {
     public async findAllDefinitions(document: vscode.TextDocument, token: vscode.CancellationToken | null): Promise<Array<Definition>> {
         let workspaceFolder = vscode.workspace.getWorkspaceFolder(document.uri);
         if (!workspaceFolder || document.isUntitled) {
-            throw "Cannot get workspace folder";
+            throw "This command only works when the file is in your workspace directory.";
         }
 
         let memeasmPattern = new vscode.RelativePattern(workspaceFolder.uri.path, '**/*.memeasm');

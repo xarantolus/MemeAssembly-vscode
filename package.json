@@ -56,7 +56,8 @@
                 "editor.suggest.showSnippets": true,
                 "editor.formatOnPaste": true,
                 "editor.formatOnSave": true,
-                "editor.formatOnSaveMode": "file"
+                "editor.formatOnSaveMode": "file",
+                "files.eol": "\n"
             }
         },
         "commands": [
