@@ -13,6 +13,7 @@ This [extension](https://marketplace.visualstudio.com/items?itemName=xarantolus.
   * **Autocomplete snippets** for most commands
   * **Hover any command** to get an explanation of what it does
   * **Jump to function definitions & references** using your default "Go to Definition" & "Go to References" shortcuts
+  * **Code formatting** 
   * **Comment toggling** using default shortcuts
     * <kbd>Ctrl</kbd>+<kbd>K</kbd>, <kbd>Ctrl</kbd>+<kbd>C</kbd> comments the current selection out
     * <kbd>Ctrl</kbd>+<kbd>K</kbd>, <kbd>Ctrl</kbd>+<kbd>U</kbd> to comment the current selection in

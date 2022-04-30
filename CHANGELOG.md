@@ -1,5 +1,9 @@
 # Change Log
 
+## [0.4.1] - 2022-04-30
+* Add a code formatter
+* Display errors when the "Run current file" command fails
+
 ## [0.4.0] - 2022-04-29
 * Support for multiple input files
   * When compiling, the extension will automatically find all required files for your program and add them to the compile command
