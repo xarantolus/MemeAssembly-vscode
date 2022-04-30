@@ -4,12 +4,12 @@ import { forEachLine } from './files';
 import { CommandInfo, getCommandsByRef } from './tm_util';
 
 export class Definition {
-    public functionName: string;
+    public customName: string;
 
     public location: vscode.Location;
 
     constructor(_functionName: string, _location: vscode.Location) {
-        this.functionName = _functionName;
+        this.customName = _functionName;
         this.location = _location;
     }
 }
@@ -20,24 +20,41 @@ export class DefinitionFinder {
     // start defines whether the definition should point to the start or the end of the referenced line
     private start: boolean;
 
-    constructor(ref: string, startOfString: boolean) {
-        this.definitions = getCommandsByRef(ref);
+    public constructor(ref: string, startOfString: boolean) {
+        this.definitions = ref ? getCommandsByRef(ref) : [];
         this.start = startOfString;
     }
 
-    private async extractDefinitionsFromFile(workspace: vscode.Uri, path: string): Promise<Array<Definition>> {
-        var definitions: Array<Definition> = [];
+    static withDefinitions(defs: Array<CommandInfo>, startOfString: boolean): DefinitionFinder {
+        var d = new DefinitionFinder("", startOfString);
+        d.definitions = defs;
+        return d;
+    }
 
-        var lineIndex = 0;
+    private async extractDefinitionsFromFile(workspace: vscode.Uri, path: string): Promise<Array<Definition>> {
+        let defs: Array<Definition> = [];
+
+        let lineIndex = 0;
 
         await forEachLine(path, (line) => {
             let def = this.matchLine(workspace, path, line, lineIndex++);
             if (def) {
-                definitions.push(def);
+                defs.push(def);
             }
         })
 
-        return definitions;
+        return defs;
+    }
+
+    public async fromFile(document: vscode.TextDocument, path: string): Promise<Array<Definition>> {
+        let workspaceFolder = vscode.workspace.getWorkspaceFolder(document.uri);
+        if (!workspaceFolder || document.isUntitled) {
+            throw "Cannot get workspace folder";
+        }
+
+        let defs = await this.extractDefinitionsFromFile(workspaceFolder.uri, path);
+
+        return defs;
     }
 
     // matchLine returns either a Definition for the command in the given line, or null
@@ -49,14 +66,14 @@ export class DefinitionFinder {
 
             var match: RegExpExecArray | null = null;
             while (null != (match = regex.exec(currentLine))) {
-                let start = new vscode.Position(lineNumber, match.index + (this.start ? 0 : (match[0].length - match[1].length)));
+                let start = new vscode.Position(lineNumber, match.index + (this.start ? 0 : ((match[0]?.length ?? 0) - (match[1]?.length ?? 0))));
 
                 // Basically convert the regex match to something we can work with
                 result = new Definition(
-                    match[1],
+                    match[1] ?? '',
                     new vscode.Location(
                         vscode.Uri.joinPath(workspace, path.relative(workspace.path, filePath)),
-                        new vscode.Range(start, start.with(undefined, start.character + match[1].length))
+                        new vscode.Range(start, start.with(undefined, start.character + (match[1]?.length ?? 0)))
                     ),
                 );
             }
@@ -91,7 +108,7 @@ export class DefinitionFinder {
 
             // Where can we find these functions in the current workspace?
             var defs = availableDefinitions
-                .filter(d => refs.some(r => r.functionName === d.functionName))
+                .filter(d => refs.some(r => r.customName === d.customName))
 
             // ... and add the referenced files to the stuff we want to look into
             paths.push(...defs.map(d => d.location.uri.fsPath));

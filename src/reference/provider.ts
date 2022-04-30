@@ -31,7 +31,7 @@ export class FunctionReferenceProvider implements vscode.ReferenceProvider {
         var defs = await (new DefinitionFinder("function_name:ref", true)).findAllDefinitions(document, token);
 
         return defs
-            .filter(def => def.functionName === needleFunctionName)
+            .filter(def => def.customName === needleFunctionName)
             .map(def => def.location);
     }
 }

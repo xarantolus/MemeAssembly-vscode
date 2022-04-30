@@ -1,6 +1,6 @@
 import { assert } from 'console';
 import * as vscode from 'vscode';
-import { CommandInfo, FormattingCombination, getCommandFormattingCombo, getCommandsByFormattingGuideline, getCommandsByRef } from '../util/tm_util';
+import { CommandInfo, FormattingCombination, getLoopCombinations, getCommandsByFormattingGuideline, getCommandsByRef, matchesLine } from '../util/tm_util';
 
 export class FileFormattingProvider implements vscode.DocumentFormattingEditProvider {
     // blockStarts and matching blockEnds increase/decrease the indent by 1
@@ -17,11 +17,7 @@ export class FileFormattingProvider implements vscode.DocumentFormattingEditProv
         this.blockEnds = getCommandsByFormattingGuideline("block:end");
         assert(this.blockEnds.length > 0);
 
-        this.combos = [
-            getCommandFormattingCombo("upgrade_loop"),
-            getCommandFormattingCombo("banana_loop"),
-            getCommandFormattingCombo("monke_loop")
-        ]
+        this.combos = getLoopCombinations()
     }
 
     private isComment(line: vscode.TextLine) {
@@ -52,33 +48,33 @@ export class FileFormattingProvider implements vscode.DocumentFormattingEditProv
                 This prevents matching comments that also contain code snippets
                 */
             }
-            else if (this.matchesLine(this.blockStarts, currentLine.text)) {
+            else if (matchesLine(this.blockStarts, currentLine.text)) {
                 indentLvl++;
-            } else if (this.matchesLine(this.blockEnds, currentLine.text)) {
+            } else if (matchesLine(this.blockEnds, currentLine.text)) {
                 indentLvl = Math.max(0, indentLvl - 1)
             } else {
                 for (const cmb of this.combos) {
                     let marker: string | boolean;
-                    if (marker = this.matchesLine([cmb.start], currentLine.text)) {
+                    if (marker = matchesLine([cmb.start], currentLine.text)) {
                         // We have found a start line for our combination.
                         // If we also find an end line further down the road, we can increase the indent
                         for (let nextIdx = lineIdx + 1; nextIdx < document.lineCount; nextIdx++) {
                             const nextLine = document.lineAt(nextIdx);
 
-                            let m2 = this.matchesLine([cmb.end], nextLine.text);
+                            let m2 = matchesLine([cmb.end], nextLine.text);
                             if (m2 == marker) {
                                 indentLvl++;
                                 break;
                             }
                         }
                     }
-                    if (marker = this.matchesLine([cmb.end], currentLine.text)) {
+                    if (marker = matchesLine([cmb.end], currentLine.text)) {
                         // We have found the end of our combination.
                         // If we had a start line before, we can decrease the indent lvl
                         for (let prevIdx = lineIdx - 1; prevIdx >= 0; prevIdx--) {
                             const prevLine = document.lineAt(prevIdx);
 
-                            let m2 = this.matchesLine([cmb.start], prevLine.text);
+                            let m2 = matchesLine([cmb.start], prevLine.text);
                             if (m2 == marker) {
                                 indentLvl = Math.max(0, indentLvl - 1);
 
@@ -106,19 +102,6 @@ export class FileFormattingProvider implements vscode.DocumentFormattingEditProv
     ): vscode.ProviderResult<vscode.TextEdit[]> {
         return this.formatDocument(document, options);
     }
-
-    private matchesLine(cmds: CommandInfo[], line: string): string | boolean {
-        for (let pattern of cmds) {
-            var regex = new RegExp(pattern.match, "g")
-
-            var match: RegExpExecArray | null = null;
-            while (null != (match = regex.exec(line))) {
-                return match[1] || true;
-            }
-        }
-
-        return false;
-    }
 }
 
 export class TypingFormattingProvider implements vscode.OnTypeFormattingEditProvider {
@@ -135,6 +118,6 @@ export class TypingFormattingProvider implements vscode.OnTypeFormattingEditProv
 
         let results = this.fileFormatter.formatDocument(document, options);
 
-        return results//.filter(r => r.range.start.line == position.line)
+        return results;
     }
 }

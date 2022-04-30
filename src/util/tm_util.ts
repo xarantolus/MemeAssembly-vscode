@@ -89,3 +89,25 @@ export function getCommandFormattingCombo(tag: string): FormattingCombination {
 
     return new FormattingCombination(tag, start, end);
 }
+
+
+export function getLoopCombinations(): FormattingCombination[] {
+    return [
+        getCommandFormattingCombo("upgrade_loop"),
+        getCommandFormattingCombo("banana_loop"),
+        getCommandFormattingCombo("monke_loop")
+    ]
+}
+
+export function matchesLine(cmds: CommandInfo[], line: string): string | boolean {
+    for (let pattern of cmds) {
+        var regex = new RegExp(pattern.match, "g")
+
+        var match: RegExpExecArray | null = null;
+        while (null != (match = regex.exec(line))) {
+            return match[1] || true;
+        }
+    }
+
+    return false;
+}

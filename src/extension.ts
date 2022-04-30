@@ -6,7 +6,7 @@ import { runCurrentFile } from './commands/run';
 
 import { HoverProvider } from './hover/provider';
 import { insertPrintCommands } from './commands/insert_print';
-import { FunctionDefinitionProvider } from './definition/provider';
+import { FunctionDefinitionProvider, LoopDefinitionProvider } from './definition/provider';
 import { FunctionReferenceProvider } from './reference/provider';
 import { FileFormattingProvider, TypingFormattingProvider } from './formatting/provider';
 
@@ -21,6 +21,7 @@ export function activate(context: vscode.ExtensionContext) {
         vscode.commands.registerTextEditorCommand("memeasm.update", () => checkCommandInstalled(true)),
         vscode.commands.registerTextEditorCommand("memeasm.insert-print", () => insertPrintCommands()),
 
+        vscode.languages.registerDefinitionProvider("memeasm", new LoopDefinitionProvider()),
         vscode.languages.registerDefinitionProvider("memeasm", new FunctionDefinitionProvider()),
         vscode.languages.registerReferenceProvider("memeasm", new FunctionReferenceProvider()),
         vscode.languages.registerHoverProvider('memeasm', new HoverProvider()),
