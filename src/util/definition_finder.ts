@@ -85,7 +85,7 @@ export class DefinitionFinder {
                 result = new Definition(
                     match[1] ?? '',
                     new vscode.Location(
-                        vscode.Uri.joinPath(workspace, path.relative(workspace.path, filePath)),
+                        vscode.Uri.file(filePath),
                         new vscode.Range(start, start.with(undefined, start.character + (match[1]?.length ?? 0)))
                     ),
                 );
