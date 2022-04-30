@@ -859,6 +859,8 @@
 				{
 					"name": "keyword.control",
 					"match": "return to monke (\\S+)",
+					"format": "combo",
+					"tag": "monke_loop_end",
 					"hoverText": "Jump to the monke jump marker with the id $1",
 					"captures": {
 						"1": {
@@ -879,6 +881,8 @@
 				{
 					"name": "keyword.control",
 					"match": "monke (\\S+)",
+					"format": "combo",
+					"tag": "monke_loop_start",
 					"hoverText": "Define a monke jump marker with the id $1",
 					"captures": {
 						"1": {

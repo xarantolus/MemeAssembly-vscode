@@ -15,6 +15,7 @@ export function activate(context: vscode.ExtensionContext) {
         checkCommandInstalled(false);
     }
 
+    let fileFormatter = new FileFormattingProvider();
     context.subscriptions.push(...[
         vscode.commands.registerTextEditorCommand("memeasm.run-file", runCurrentFile),
         vscode.commands.registerTextEditorCommand("memeasm.update", () => checkCommandInstalled(true)),
@@ -23,7 +24,7 @@ export function activate(context: vscode.ExtensionContext) {
         vscode.languages.registerDefinitionProvider("memeasm", new FunctionDefinitionProvider()),
         vscode.languages.registerReferenceProvider("memeasm", new FunctionReferenceProvider()),
         vscode.languages.registerHoverProvider('memeasm', new HoverProvider()),
-        vscode.languages.registerDocumentFormattingEditProvider('memeasm', new FileFormattingProvider()),
-        vscode.languages.registerOnTypeFormattingEditProvider('memeasm', new TypingFormattingProvider(), ' ', '\t', '\n')
+        vscode.languages.registerDocumentFormattingEditProvider('memeasm', fileFormatter),
+        vscode.languages.registerOnTypeFormattingEditProvider('memeasm', new TypingFormattingProvider(fileFormatter), ' ', '\t', '\n')
     ]);
 }
