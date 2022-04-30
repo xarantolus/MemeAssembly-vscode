@@ -10,6 +10,7 @@ import { FunctionDefinitionProvider, LoopDefinitionProvider } from './providers/
 import { FileFormattingProvider, TypingFormattingProvider } from './providers/formatting';
 import { HoverProvider } from './providers/hover';
 import { FunctionReferenceProvider } from './providers/reference';
+import { RenameProvider } from './providers/rename';
 import { SymbolProvider } from './providers/symbols';
 
 
@@ -48,6 +49,7 @@ export function activate(context: vscode.ExtensionContext) {
         vscode.languages.registerDocumentSymbolProvider('memeasm', new SymbolProvider(), {
             label: "MemeAssembly"
         }),
+        vscode.languages.registerRenameProvider('memeasm', new RenameProvider()),
 
         // Provide inline buttons for running main functions
         vscode.languages.registerCodeLensProvider('memeasm', new LenseProvider())

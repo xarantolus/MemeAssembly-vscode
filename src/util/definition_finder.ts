@@ -67,6 +67,15 @@ export class DefinitionFinder {
         return defs;
     }
 
+    public matchSingleLine(document: vscode.TextDocument, lineNumber: number): Definition | null {
+        let workspaceFolder = vscode.workspace.getWorkspaceFolder(document.uri);
+        if (!workspaceFolder || document.isUntitled) {
+            throw "Cannot get workspace folder";
+        }
+
+        return this.matchLine(workspaceFolder.uri, document.uri.fsPath, document.lineAt(lineNumber).text, lineNumber);
+    }
+
     // matchLine returns either a Definition for the command in the given line, or null
     private matchLine(workspace: vscode.Uri, filePath: string, currentLine: string, lineNumber: number): Definition | null {
         var result: Definition | null = null;
@@ -80,6 +89,20 @@ export class DefinitionFinder {
                     lineNumber,
                     match.index + (this.start ? 0 : ((match[0]?.length ?? 0) - (match[1]?.length ?? 0)))
                 );
+                if (match.length >= 2) {
+                    let matchAtStart = match[0].startsWith(match[1]);
+                    if (matchAtStart) {
+                        start = new vscode.Position(
+                            lineNumber,
+                            match.index
+                        );
+                    } else {
+                        start = new vscode.Position(
+                            lineNumber,
+                            match.index + (match[0].length - match[1].length)
+                        );
+                    }
+                }
 
                 // Basically convert the regex match to something we can work with
                 result = new Definition(
