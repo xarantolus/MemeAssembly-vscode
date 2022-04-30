@@ -1,7 +1,7 @@
 import path = require('path');
 import * as vscode from 'vscode';
-import shellescape = require('shell-escape');
 import { DefinitionFinder } from '../util/definition_finder';
+import shellescape = require('shell-escape');
 
 export async function runCurrentFile(textEditor: vscode.TextEditor, edit: vscode.TextEditorEdit, ...args: any[]) {
     try {

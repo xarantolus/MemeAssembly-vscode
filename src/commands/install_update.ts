@@ -1,7 +1,7 @@
-import * as vscode from 'vscode';
-import { exec, ExecException } from 'child_process';
-import path = require('path');
 import { Octokit } from "@octokit/rest";
+import { exec, ExecException } from 'child_process';
+import * as vscode from 'vscode';
+import path = require('path');
 
 
 // installMemeAssembly runs the MemeAssembly installation script

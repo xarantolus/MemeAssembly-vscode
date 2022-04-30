@@ -7,6 +7,7 @@ export class SymbolProvider implements vscode.DocumentSymbolProvider {
     constructor() {
         this.finder = new DefinitionFinder("function_name:def", false);
     }
+
     async provideDocumentSymbols(document: vscode.TextDocument, token: vscode.CancellationToken): Promise<vscode.SymbolInformation[]> {
         let definitions = await this.finder.fromFile(document)
 

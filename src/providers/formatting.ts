@@ -1,6 +1,6 @@
 import { assert } from 'console';
 import * as vscode from 'vscode';
-import { CommandInfo, FormattingCombination, getLoopCombinations, getCommandsByFormattingGuideline, getCommandsByRef, matchesLine } from '../util/tm_util';
+import { CommandInfo, FormattingCombination, getCommandsByFormattingGuideline, getLoopCombinations, matchesLine } from '../util/tm_util';
 
 export class FileFormattingProvider implements vscode.DocumentFormattingEditProvider {
     // blockStarts and matching blockEnds increase/decrease the indent by 1

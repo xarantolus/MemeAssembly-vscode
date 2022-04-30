@@ -1,6 +1,6 @@
 import * as vscode from 'vscode';
 import { DefinitionFinder } from '../util/definition_finder';
-import { CommandInfo, getCommandsByRef, matchesLine } from '../util/tm_util';
+import { CommandInfo, getCommandsByRef } from '../util/tm_util';
 
 export class Lense extends vscode.CodeLens {
     constructor(range: vscode.Range) {

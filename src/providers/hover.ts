@@ -1,6 +1,6 @@
 import * as vscode from 'vscode';
 import { Hover } from 'vscode';
-import { loadAvailableCommands, CommandInfo } from '../util/tm_util';
+import { CommandInfo, loadAvailableCommands } from '../util/tm_util';
 
 // HoverResult represents the data that is captured when hovering a command
 // More detailed command info is in the info property,

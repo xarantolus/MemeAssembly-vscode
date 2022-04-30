@@ -1,6 +1,6 @@
 import * as vscode from 'vscode';
 import { Definition, DefinitionFinder } from '../util/definition_finder';
-import { CommandInfo, FormattingCombination as LoopCombinations, getCommandsByRef, getLoopCombinations, loadAvailableCommands, matchesLine } from '../util/tm_util';
+import { CommandInfo, FormattingCombination as LoopCombinations, getCommandsByRef, getLoopCombinations, matchesLine } from '../util/tm_util';
 
 
 export class FunctionDefinitionProvider implements vscode.DefinitionProvider {

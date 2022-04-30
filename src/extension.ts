@@ -1,16 +1,18 @@
-import * as vscode from 'vscode';
 import { platform } from 'os';
+import * as vscode from 'vscode';
 
-import { runCurrentFile } from './commands/run';
-import { checkCommandInstalled } from './commands/install_update'
 import { insertPrintCommands } from './commands/insert_print';
+import { checkCommandInstalled } from './commands/install_update';
+import { runCurrentFile } from './commands/run';
 
-import { HoverProvider } from './hover/provider';
-import { FunctionDefinitionProvider, LoopDefinitionProvider } from './definition/provider';
-import { FunctionReferenceProvider } from './reference/provider';
-import { FileFormattingProvider, TypingFormattingProvider } from './formatting/provider';
-import { SymbolProvider } from './symbols/provider';
-import { LenseProvider } from './code_lense/provider';
+import { LenseProvider } from './providers/code_lense';
+import { FunctionDefinitionProvider, LoopDefinitionProvider } from './providers/definitions';
+import { FileFormattingProvider, TypingFormattingProvider } from './providers/formatting';
+import { HoverProvider } from './providers/hover';
+import { FunctionReferenceProvider } from './providers/reference';
+import { SymbolProvider } from './providers/symbols';
+
+
 
 export function activate(context: vscode.ExtensionContext) {
     if (platform() == 'linux') {
