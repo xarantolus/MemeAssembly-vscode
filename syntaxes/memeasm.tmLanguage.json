@@ -45,6 +45,9 @@
 				},
 				{
 					"include": "#jumps-and-markers"
+				},
+				{
+					"include": "#floating-point"
 				}
 			]
 		},
@@ -1060,6 +1063,28 @@
 					"name": "keyword.control",
 					"match": "it's a trap",
 					"hoverText": "Raise SIGTRAP. If a debugger is attached, this breaks into the debugger."
+				}
+			]
+		},
+		"floating-point": {
+			"patterns": [
+				{
+					"_comment": "TODO: Choose a different keyword thingy",
+					"name": "keyword.control",
+					"match": "I am once again asking you for floating-point",
+					"hoverText": "Switches between *float/double* and *int*. When switching from *int*, it always switches to *float*"
+				},
+				{
+					"_comment": "TODO: Choose a different keyword thingy",
+					"name": "keyword.control",
+					"match": "prepare for trouble and make it double",
+					"hoverText": "Switches between *float* and *double*. If the current mode is *int*, nothing happens"
+				},
+				{
+					"_comment": "TODO: What is this",
+					"name": "keyword.control",
+					"match": "speed and power",
+					"hoverText": "Switches between *SIMD* and *SISD* operations"
 				}
 			]
 		},
