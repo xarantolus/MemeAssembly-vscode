@@ -851,7 +851,7 @@
 				},
 				{
 					"name": "keyword.control",
-					"match": "banana",
+					"match": "(?!where )banana",
 					"format": "combo",
 					"tag": "banana_loop_start",
 					"hoverText": "Define a jump marker that the \"where banana\" command jumps to"
@@ -880,7 +880,7 @@
 				},
 				{
 					"name": "keyword.control",
-					"match": "monke (\\S+)",
+					"match": "(?!to )monke (\\S+)",
 					"format": "combo",
 					"tag": "monke_loop_start",
 					"hoverText": "Define a monke jump marker with the id $1",

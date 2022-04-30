@@ -26,6 +26,9 @@ export class FunctionDefinitionProvider implements vscode.DefinitionProvider {
 
             needleFunctionName = match[1];
         }
+        if (!needleFunctionName) return [];
+
+        await document.save()
 
         // Now we search all workspace MemeAssembly files for function definitions
         var defs = await (new DefinitionFinder("function_name:def", false)).findAllDefinitions(document, token);
@@ -57,13 +60,15 @@ export class LoopDefinitionProvider implements vscode.DefinitionProvider {
 
     async provideDefinition(document: vscode.TextDocument, position: vscode.Position, token: vscode.CancellationToken): Promise<vscode.Location[]> {
         let findMatch = (firstDef: Definition, start: boolean) => {
+            let defLine = firstDef.location.range.start.line;
             for (const cmb of this.combos) {
-                let startSymbol = matchesLine([start ? cmb.start : cmb.end], document.lineAt(firstDef.location.range.start.line).text);
+                let startSymbol = matchesLine([start ? cmb.start : cmb.end], document.lineAt(defLine).text);
                 if (!startSymbol) {
                     continue
                 }
 
                 for (let lidx = 0; lidx < document.lineCount; lidx++) {
+                    if (lidx == defLine) continue;
                     const line = document.lineAt(lidx);
 
                     let m2 = matchesLine([start ? cmb.end : cmb.start], line.text);
@@ -84,8 +89,8 @@ export class LoopDefinitionProvider implements vscode.DefinitionProvider {
         }
 
         try {
-            let startDefs = await this.startFinder.fromFile(document, document.uri.fsPath);
-            let endDefs = await this.endFinder.fromFile(document, document.uri.fsPath);
+            let startDefs = await this.startFinder.fromFile(document);
+            let endDefs = await this.endFinder.fromFile(document);
 
             let ed = endDefs.find(l => l.location.range.start.line == position.line);
             if (ed) {

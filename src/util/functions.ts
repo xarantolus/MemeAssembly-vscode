@@ -31,28 +31,38 @@ export class DefinitionFinder {
         return d;
     }
 
-    private async extractDefinitionsFromFile(workspace: vscode.Uri, path: string): Promise<Array<Definition>> {
+    private async extractDefinitionsFromFile(workspace: vscode.Uri, documentPath: string | vscode.TextDocument): Promise<Array<Definition>> {
         let defs: Array<Definition> = [];
 
         let lineIndex = 0;
 
-        await forEachLine(path, (line) => {
-            let def = this.matchLine(workspace, path, line, lineIndex++);
-            if (def) {
-                defs.push(def);
+        if (typeof documentPath === 'string') {
+            await forEachLine(documentPath, (line) => {
+                let def = this.matchLine(workspace, documentPath, line, lineIndex++);
+                if (def) {
+                    defs.push(def);
+                }
+            })
+        } else {
+            for (let lineIdx = 0; lineIdx < documentPath.lineCount; lineIdx++) {
+                let def = this.matchLine(workspace, documentPath.uri.fsPath,
+                    documentPath.lineAt(lineIdx).text, lineIdx)
+                if (def) {
+                    defs.push(def);
+                }
             }
-        })
+        }
 
         return defs;
     }
 
-    public async fromFile(document: vscode.TextDocument, path: string): Promise<Array<Definition>> {
+    public async fromFile(document: vscode.TextDocument, path?: string): Promise<Array<Definition>> {
         let workspaceFolder = vscode.workspace.getWorkspaceFolder(document.uri);
         if (!workspaceFolder || document.isUntitled) {
             throw "Cannot get workspace folder";
         }
 
-        let defs = await this.extractDefinitionsFromFile(workspaceFolder.uri, path);
+        let defs = await this.extractDefinitionsFromFile(workspaceFolder.uri, path ?? document);
 
         return defs;
     }

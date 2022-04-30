@@ -26,6 +26,7 @@ export class FunctionReferenceProvider implements vscode.ReferenceProvider {
 
             needleFunctionName = match[1];
         }
+        if (!needleFunctionName) return [];
 
         // Now we search all workspace MemeAssembly files for function references
         var defs = await (new DefinitionFinder("function_name:ref", true)).findAllDefinitions(document, token);
