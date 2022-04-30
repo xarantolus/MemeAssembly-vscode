@@ -1,5 +1,8 @@
 # Change Log
 
+## [0.4.3] - 2022-05-01
+* Fix small bug where definitions could not be found when on Windows
+
 ## [0.4.2] - 2022-04-30
 * Add definition providers for loop constructs (like `banana` and `where banana`)
   * You can now jump to the matching loop start/end using the "Go to definition" shortcut
