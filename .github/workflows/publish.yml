@@ -23,11 +23,11 @@ jobs:
         shell: bash
         run: |
           npm install
-        if: ${{ (startsWith(env.COMMIT_MESSAGE, '[Release]') || startsWith(env.COMMIT_MESSAGE, 'Release') || (startsWith(env.COMMIT_MESSAGE, '[Publish]')) }}
+        if: ${{ (startsWith(env.COMMIT_MESSAGE, '[Release]') || startsWith(env.COMMIT_MESSAGE, 'Release') || startsWith(env.COMMIT_MESSAGE, '[Publish]')) }}
 
       - name: Publish to Visual Studio Marketplace
         uses: HaaLeo/publish-vscode-extension@v0
         with:
           pat: ${{ secrets.VS_MARKETPLACE_TOKEN }}
           registryUrl: https://marketplace.visualstudio.com
-        if: ${{ (startsWith(env.COMMIT_MESSAGE, '[Release]') || startsWith(env.COMMIT_MESSAGE, 'Release') || (startsWith(env.COMMIT_MESSAGE, '[Publish]')) }}
+        if: ${{ (startsWith(env.COMMIT_MESSAGE, '[Release]') || startsWith(env.COMMIT_MESSAGE, 'Release') || startsWith(env.COMMIT_MESSAGE, '[Publish]')) }}
