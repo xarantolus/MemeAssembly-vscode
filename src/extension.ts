@@ -1,15 +1,16 @@
 import * as vscode from 'vscode';
 import { platform } from 'os';
 
-import { checkCommandInstalled } from './commands/install_update'
 import { runCurrentFile } from './commands/run';
+import { checkCommandInstalled } from './commands/install_update'
+import { insertPrintCommands } from './commands/insert_print';
 
 import { HoverProvider } from './hover/provider';
-import { insertPrintCommands } from './commands/insert_print';
 import { FunctionDefinitionProvider, LoopDefinitionProvider } from './definition/provider';
 import { FunctionReferenceProvider } from './reference/provider';
 import { FileFormattingProvider, TypingFormattingProvider } from './formatting/provider';
 import { SymbolProvider } from './symbols/provider';
+import { LenseProvider } from './code_lense/provider';
 
 export function activate(context: vscode.ExtensionContext) {
     if (platform() == 'linux') {
@@ -44,6 +45,9 @@ export function activate(context: vscode.ExtensionContext) {
         // Provide the "Outline" feature
         vscode.languages.registerDocumentSymbolProvider('memeasm', new SymbolProvider(), {
             label: "MemeAssembly"
-        })
+        }),
+
+        // Provide inline buttons for running main functions
+        vscode.languages.registerCodeLensProvider('memeasm', new LenseProvider())
     ]);
 }

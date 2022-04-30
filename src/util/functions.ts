@@ -76,7 +76,10 @@ export class DefinitionFinder {
 
             var match: RegExpExecArray | null = null;
             while (null != (match = regex.exec(currentLine))) {
-                let start = new vscode.Position(lineNumber, match.index + (this.start ? 0 : ((match[0]?.length ?? 0) - (match[1]?.length ?? 0))));
+                let start = new vscode.Position(
+                    lineNumber,
+                    match.index + (this.start ? 0 : ((match[0]?.length ?? 0) - (match[1]?.length ?? 0)))
+                );
 
                 // Basically convert the regex match to something we can work with
                 result = new Definition(
