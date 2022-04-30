@@ -51,6 +51,41 @@ export function loadAvailableCommands() {
 }
 
 
-export function getCommandsByRef(ref: string) : Array<CommandInfo> {
+export function getCommandsByRef(ref: string): Array<CommandInfo> {
     return loadAvailableCommands().filter(c => (c as any)["ref"] == ref);
+}
+
+export function getCommandsByFormattingGuideline(fmt: string): Array<CommandInfo> {
+    return loadAvailableCommands().filter(c => (c as any)["format"] == fmt);
+}
+
+export class FormattingCombination {
+    public id: string;
+
+    public start: CommandInfo;
+    public end: CommandInfo;
+
+    constructor(_id: string, _start: CommandInfo, _end: CommandInfo) {
+        this.id = _id;
+        this.start = _start;
+        this.end = _end;
+    }
+}
+
+
+export function getCommandFormattingCombo(tag: string): FormattingCombination {
+    let cmds = getCommandsByFormattingGuideline("combo").filter(c => (c as any)["tag"].startsWith(tag));
+    if (cmds.length != 2) {
+        throw new Error("Formatting combination for " + tag + " has length " + cmds.length + ", but expected length 2")
+    }
+
+    let start = cmds.find(c => (c as any)["tag"].endsWith('_start'));
+    let end = cmds.find(c => (c as any)["tag"].endsWith('_end'));
+
+    if (start == null)
+        throw new Error("Formatting combination " + tag + " has no start!");
+    if (end == null)
+        throw new Error("Formatting combination " + tag + " has no end!");
+
+    return new FormattingCombination(tag, start, end);
 }

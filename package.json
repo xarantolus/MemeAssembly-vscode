@@ -51,7 +51,12 @@
         "configurationDefaults": {
             "[memeasm]": {
                 "editor.wordBasedSuggestions": false,
-                "editor.suggest.snippetsPreventQuickSuggestions": true
+                "editor.suggest.snippetsPreventQuickSuggestions": true,
+                "editor.formatOnType": true,
+                "editor.suggest.showSnippets": true,
+                "editor.formatOnPaste": true,
+                "editor.formatOnSave": true,
+                "editor.formatOnSaveMode": "file"
             }
         },
         "commands": [

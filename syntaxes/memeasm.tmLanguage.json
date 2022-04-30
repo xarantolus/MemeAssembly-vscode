@@ -195,6 +195,7 @@
 			"patterns": [
 				{
 					"ref": "function_name:def",
+					"format": "block:start",
 					"name": "storage.type",
 					"match": "I like to have fun, fun, fun, fun, fun, fun, fun, fun, fun, fun (\\S+)",
 					"hoverText": "Declare the function $1",
@@ -217,16 +218,19 @@
 				},
 				{
 					"name": "keyword.control",
+					"format": "block:end",
 					"hoverText": "Exit a function. The return value can be defined by the programmer",
 					"match": "\\b(right back at ya, buckaroo)\\b"
 				},
 				{
 					"name": "keyword.control",
+					"format": "block:end",
 					"hoverText": "Exit a function with return value 1",
 					"match": "\\b(no, I don't think I will)\\b"
 				},
 				{
 					"name": "keyword.control",
+					"format": "block:end",
 					"hoverText": "Exit a function with return value 0",
 					"match": "\\b(I see this as an absolute win)\\b"
 				}
@@ -827,21 +831,29 @@
 				{
 					"name": "keyword.control",
 					"match": "upgrade",
+					"format": "combo",
+					"tag": "upgrade_loop_start",
 					"hoverText": "Define a jump marker that the \"fuck go back\" command jumps to"
 				},
 				{
 					"name": "keyword.control",
 					"match": "fuck go back",
+					"format": "combo",
+					"tag": "upgrade_loop_end",
 					"hoverText": "Jump to the \"upgrade\" jump marker"
 				},
 				{
 					"name": "keyword.control",
 					"match": "where banana",
+					"format": "combo",
+					"tag": "banana_loop_end",
 					"hoverText": "Jump to the \"banana\" jump marker"
 				},
 				{
 					"name": "keyword.control",
 					"match": "banana",
+					"format": "combo",
+					"tag": "banana_loop_start",
 					"hoverText": "Define a jump marker that the \"where banana\" command jumps to"
 				},
 				{
