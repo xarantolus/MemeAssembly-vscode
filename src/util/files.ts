@@ -1,5 +1,5 @@
 import path = require("path");
-import { Definition } from "./functions";
+import { Definition } from "./definition_finder";
 import fs = require('fs');
 import readline = require('readline');
 

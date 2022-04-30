@@ -1,5 +1,5 @@
 import * as vscode from 'vscode';
-import { DefinitionFinder } from '../util/functions';
+import { DefinitionFinder } from '../util/definition_finder';
 
 export class SymbolProvider implements vscode.DocumentSymbolProvider {
     private finder: DefinitionFinder;

@@ -109,25 +109,31 @@ export class DefinitionFinder {
         while (paths.length > 0) {
             var currentPath = paths.pop()!;
 
-            // This is already a result path
-            var rel = path.relative(shellDir, currentPath);
-            if (resultPaths.includes(rel)) {
+            if (resultPaths.includes(currentPath)) {
                 continue
             }
-            resultPaths.push(rel);
+            resultPaths.push(currentPath);
 
             // Which functions are called from this file?
-            var refs = await this.extractDefinitionsFromFile(workspaceFolder.uri, currentPath);
+            let refs = await this.extractDefinitionsFromFile(workspaceFolder.uri, currentPath);
 
-            // Where can we find these functions in the current workspace?
-            var defs = availableDefinitions
-                .filter(d => refs.some(r => r.customName === d.customName))
+            // Where can we find these functions in
+            //  - preferably the already selected paths
+            //  - any other workspace file
+            let defs = refs.flatMap(ref => {
+                let candidates = availableDefinitions.filter(def => def.customName == ref.customName);
+
+                let direct = candidates.find(c => resultPaths.includes(c.location.uri.fsPath));
+                if (direct) return [direct];
+
+                return candidates;
+            })
 
             // ... and add the referenced files to the stuff we want to look into
             paths.push(...defs.map(d => d.location.uri.fsPath));
         }
 
-        return resultPaths;
+        return resultPaths.map(p => path.relative(shellDir, p));
     }
 
     public async findAllDefinitions(document: vscode.TextDocument, token: vscode.CancellationToken | null): Promise<Array<Definition>> {
