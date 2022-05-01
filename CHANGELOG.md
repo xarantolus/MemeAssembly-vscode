@@ -1,5 +1,8 @@
 # Change Log
 
+## [0.4.4] - 2022-05-01
+* Add cross-file function renaming: just use "Rename symbol" to rename a function
+
 ## [0.4.3] - 2022-05-01
 * Fix small bug where definitions could not be found when on Windows
 
