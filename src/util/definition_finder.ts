@@ -31,18 +31,38 @@ export class DefinitionFinder {
         return d;
     }
 
+    private pathEquals(path1: string, path2: string): boolean {
+        path1 = path.resolve(path1);
+        path2 = path.resolve(path2);
+        if (process.platform == "win32")
+            return path1.toLowerCase() === path2.toLowerCase();
+        return path1 === path2
+    }
+
     private async extractDefinitionsFromFile(documentPath: string | vscode.TextDocument): Promise<Array<Definition>> {
         let defs: Array<Definition> = [];
 
         let lineIndex = 0;
 
+        // If we already have this file opened, we want to use the content that is present
+        // in that file. E.g. if there are unsaved changes, we will do the right thing
+        if (typeof documentPath === 'string') {
+            let openedEditor = vscode.window.visibleTextEditors.find((editor) => {
+                return this.pathEquals(editor.document.uri.fsPath, documentPath as string);
+            })
+            if (openedEditor) {
+                documentPath = openedEditor.document;
+            }
+        }
+
+        // We still need to handle the case where we cannot get the document
         if (typeof documentPath === 'string') {
             await forEachLine(documentPath, (line) => {
-                let def = this.matchLine(documentPath, line, lineIndex++);
+                let def = this.matchLine(documentPath as string, line, lineIndex++);
                 if (def) {
                     defs.push(def);
                 }
-            })
+            });
         } else {
             for (let lineIdx = 0; lineIdx < documentPath.lineCount; lineIdx++) {
                 let def = this.matchLine(documentPath.uri.fsPath,
@@ -160,7 +180,8 @@ export class DefinitionFinder {
 
         let memeasmPattern = new vscode.RelativePattern(workspaceFolder.uri.path, '**/*.memeasm');
 
-        let results = await vscode.workspace.findFiles(memeasmPattern, null, 100);
+        let results = await vscode.workspace.findFiles(memeasmPattern, null, 1000);
+
 
         var definitions = [];
         for await (const file of results) {
