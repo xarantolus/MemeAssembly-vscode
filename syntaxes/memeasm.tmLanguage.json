@@ -988,6 +988,8 @@
 				},
 				{
 					"name": "keyword.control",
+					"format": "combo",
+					"tag": "corporate_comparison_start",
 					"hoverText": "Compare $1 and $2 and jump to the \"they're the same picture\" jump marker if they are equal",
 					"match": "corporate needs you to find the difference between (\\S+(?: do you know de wey)?) and (\\S+(?: do you know de wey)?)",
 					"captures": {
@@ -1041,6 +1043,8 @@
 				},
 				{
 					"name": "keyword.control",
+					"format": "combo",
+					"tag": "corporate_comparison_end",
 					"hoverText": "Jump marker for the \"corporate needs you to find the difference between a and b\" command. It will jump here if the values are equal.",
 					"match": "they're the same picture"
 				}

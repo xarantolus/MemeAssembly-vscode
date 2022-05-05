@@ -31,21 +31,21 @@ export class DefinitionFinder {
         return d;
     }
 
-    private async extractDefinitionsFromFile(workspace: vscode.Uri, documentPath: string | vscode.TextDocument): Promise<Array<Definition>> {
+    private async extractDefinitionsFromFile(documentPath: string | vscode.TextDocument): Promise<Array<Definition>> {
         let defs: Array<Definition> = [];
 
         let lineIndex = 0;
 
         if (typeof documentPath === 'string') {
             await forEachLine(documentPath, (line) => {
-                let def = this.matchLine(workspace, documentPath, line, lineIndex++);
+                let def = this.matchLine(documentPath, line, lineIndex++);
                 if (def) {
                     defs.push(def);
                 }
             })
         } else {
             for (let lineIdx = 0; lineIdx < documentPath.lineCount; lineIdx++) {
-                let def = this.matchLine(workspace, documentPath.uri.fsPath,
+                let def = this.matchLine(documentPath.uri.fsPath,
                     documentPath.lineAt(lineIdx).text, lineIdx)
                 if (def) {
                     defs.push(def);
@@ -57,14 +57,7 @@ export class DefinitionFinder {
     }
 
     public async fromFile(document: vscode.TextDocument, path?: string): Promise<Array<Definition>> {
-        let workspaceFolder = vscode.workspace.getWorkspaceFolder(document.uri);
-        if (!workspaceFolder || document.isUntitled) {
-            throw "Cannot get workspace folder";
-        }
-
-        let defs = await this.extractDefinitionsFromFile(workspaceFolder.uri, path ?? document);
-
-        return defs;
+        return await this.extractDefinitionsFromFile(document ?? path);
     }
 
     public matchSingleLine(document: vscode.TextDocument, lineNumber: number): Definition | null {
@@ -73,11 +66,11 @@ export class DefinitionFinder {
             throw "Cannot get workspace folder";
         }
 
-        return this.matchLine(workspaceFolder.uri, document.uri.fsPath, document.lineAt(lineNumber).text, lineNumber);
+        return this.matchLine(document.uri.fsPath, document.lineAt(lineNumber).text, lineNumber);
     }
 
     // matchLine returns either a Definition for the command in the given line, or null
-    private matchLine(workspace: vscode.Uri, filePath: string, currentLine: string, lineNumber: number): Definition | null {
+    private matchLine(filePath: string, currentLine: string, lineNumber: number): Definition | null {
         var result: Definition | null = null;
 
         for (let pattern of this.definitions) {
@@ -138,7 +131,7 @@ export class DefinitionFinder {
             resultPaths.push(currentPath);
 
             // Which functions are called from this file?
-            let refs = await this.extractDefinitionsFromFile(workspaceFolder.uri, currentPath);
+            let refs = await this.extractDefinitionsFromFile(currentPath);
 
             // Where can we find these functions in
             //  - preferably the already selected paths
@@ -173,7 +166,7 @@ export class DefinitionFinder {
         for await (const file of results) {
             if (token?.isCancellationRequested) break;
 
-            var defs = await this.extractDefinitionsFromFile(workspaceFolder.uri, file.fsPath);
+            var defs = await this.extractDefinitionsFromFile(file.fsPath);
 
             definitions.push(...defs);
         }

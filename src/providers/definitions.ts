@@ -1,6 +1,6 @@
 import * as vscode from 'vscode';
 import { Definition, DefinitionFinder } from '../util/definition_finder';
-import { CommandInfo, FormattingCombination as LoopCombinations, getCommandsByRef, getLoopCombinations, matchesLine } from '../util/tm_util';
+import { CommandInfo, FormattingCombination, getCommandCombinations, getCommandsByRef, matchesLine } from '../util/tm_util';
 
 
 export class FunctionDefinitionProvider implements vscode.DefinitionProvider {
@@ -41,13 +41,13 @@ export class FunctionDefinitionProvider implements vscode.DefinitionProvider {
 
 
 export class LoopDefinitionProvider implements vscode.DefinitionProvider {
-    private combos: LoopCombinations[];
+    private combos: FormattingCombination[];
 
     private startFinder: DefinitionFinder;
     private endFinder: DefinitionFinder;
 
     constructor() {
-        this.combos = getLoopCombinations();
+        this.combos = getCommandCombinations();
         this.startFinder = DefinitionFinder.withDefinitions(
             this.combos.map(c => c.start),
             true
@@ -72,7 +72,8 @@ export class LoopDefinitionProvider implements vscode.DefinitionProvider {
                     const line = document.lineAt(lidx);
 
                     let m2 = matchesLine([start ? cmb.end : cmb.start], line.text);
-                    if (m2 == startSymbol) {
+                    if (cmb.exactMatchRequired && m2 == startSymbol ||
+                        !cmb.exactMatchRequired && m2) {
                         return [
                             new vscode.Location(
                                 document.uri,
