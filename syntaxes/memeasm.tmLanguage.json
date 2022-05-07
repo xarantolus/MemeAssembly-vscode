@@ -218,18 +218,21 @@
 				},
 				{
 					"name": "keyword.control",
+					"ref": "function_end",
 					"format": "block:end",
 					"hoverText": "Exit a function. The return value can be defined by the programmer",
 					"match": "\\b(right back at ya, buckaroo)\\b"
 				},
 				{
 					"name": "keyword.control",
+					"ref": "function_end",
 					"format": "block:end",
 					"hoverText": "Exit a function with return value 1",
 					"match": "\\b(no, I don't think I will)\\b"
 				},
 				{
 					"name": "keyword.control",
+					"ref": "function_end",
 					"format": "block:end",
 					"hoverText": "Exit a function with return value 0",
 					"match": "\\b(I see this as an absolute win)\\b"

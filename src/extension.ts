@@ -12,6 +12,7 @@ import { HoverProvider } from './providers/hover';
 import { FunctionReferenceProvider } from './providers/reference';
 import { RenameProvider } from './providers/rename';
 import { SymbolProvider } from './providers/symbols';
+import { FunctionFoldingProvider } from './providers/folding';
 
 
 
@@ -52,6 +53,9 @@ export function activate(context: vscode.ExtensionContext) {
         vscode.languages.registerRenameProvider('memeasm', new RenameProvider()),
 
         // Provide inline buttons for running main functions
-        vscode.languages.registerCodeLensProvider('memeasm', new LenseProvider())
+        vscode.languages.registerCodeLensProvider('memeasm', new LenseProvider()),
+
+        // Provide folding for functions
+        vscode.languages.registerFoldingRangeProvider('memeasm', new FunctionFoldingProvider()),
     ]);
 }
