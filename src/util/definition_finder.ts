@@ -47,11 +47,12 @@ export class DefinitionFinder {
         // If we already have this file opened, we want to use the content that is present
         // in that file. E.g. if there are unsaved changes, we will do the right thing
         if (typeof documentPath === 'string') {
-            let openedEditor = vscode.window.visibleTextEditors.find((editor) => {
-                return this.pathEquals(editor.document.uri.fsPath, documentPath as string);
+            let openedDocument = vscode.workspace.textDocuments.find((document) => {
+                return this.pathEquals(document.uri.fsPath, documentPath as string);
             })
-            if (openedEditor) {
-                documentPath = openedEditor.document;
+
+            if (openedDocument) {
+                documentPath = openedDocument;
             }
         }
 

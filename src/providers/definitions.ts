@@ -28,8 +28,6 @@ export class FunctionDefinitionProvider implements vscode.DefinitionProvider {
         }
         if (!needleFunctionName) return [];
 
-        await document.save()
-
         // Now we search all workspace MemeAssembly files for function definitions
         var defs = await (new DefinitionFinder("function_name:def", false)).findAllDefinitions(document, token);
 
