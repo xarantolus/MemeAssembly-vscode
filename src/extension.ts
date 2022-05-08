@@ -10,7 +10,7 @@ import { FunctionDefinitionProvider, LoopDefinitionProvider } from './providers/
 import { FileFormattingProvider, TypingFormattingProvider } from './providers/formatting';
 import { HoverProvider } from './providers/hover';
 import { FunctionReferenceProvider } from './providers/reference';
-import { RenameProvider } from './providers/rename';
+import { CascadingRenameProvider, FunctionRenameProvider, SameFileRenameProvider } from './providers/rename';
 import { SymbolProvider } from './providers/symbols';
 import { FunctionFoldingProvider } from './providers/folding';
 
@@ -50,7 +50,15 @@ export function activate(context: vscode.ExtensionContext) {
         vscode.languages.registerDocumentSymbolProvider('memeasm', new SymbolProvider(), {
             label: "MemeAssembly"
         }),
-        vscode.languages.registerRenameProvider('memeasm', new RenameProvider()),
+
+        // Rename provider for functions
+        vscode.languages.registerRenameProvider('memeasm', new CascadingRenameProvider(
+            new FunctionRenameProvider(),
+            new SameFileRenameProvider("monke_loop", {
+                pattern: "\\b((?:a|u)*(?:au|ua)+(?:a|u)*)\\b",
+                description: "The name must only contain 'a' and 'u', and at least one of each"
+            }),
+        )),
 
         // Provide inline buttons for running main functions
         vscode.languages.registerCodeLensProvider('memeasm', new LenseProvider()),
