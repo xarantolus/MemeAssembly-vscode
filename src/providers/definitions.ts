@@ -1,38 +1,27 @@
 import * as vscode from 'vscode';
 import { Definition, DefinitionFinder } from '../util/definition_finder';
-import { CommandInfo, FormattingCombination, getCommandCombinations, getCommandsByRef, matchesLine } from '../util/tm_util';
+import { FormattingCombination, getCommandCombinations, matchesLine } from '../util/tm_util';
 
 
 export class FunctionDefinitionProvider implements vscode.DefinitionProvider {
-    private references: Array<CommandInfo>;
+    private functionReferenceFinder: DefinitionFinder;
 
     constructor() {
-        this.references = getCommandsByRef("function_name:ref");
+        this.functionReferenceFinder = new DefinitionFinder("function_name:ref", false);
     }
 
     async provideDefinition(
         document: vscode.TextDocument, position: vscode.Position,
         token: vscode.CancellationToken,
     ): Promise<vscode.Location[]> {
-        var currentLine = document.lineAt(position);
-
-        let needleFunctionName: string | null = null;
-        for (let pattern of this.references) {
-            var regex = new RegExp(pattern.match, "g")
-            var match = regex.exec(currentLine.text);
-            if (!match) {
-                continue;
-            }
-
-            needleFunctionName = match[1];
-        }
-        if (!needleFunctionName) return [];
+        let functionDef = this.functionReferenceFinder.matchSingleLine(document, position.line);
+        if (!functionDef) return [];
 
         // Now we search all workspace MemeAssembly files for function definitions
         var defs = await (new DefinitionFinder("function_name:def", false)).findAllDefinitions(document, token);
 
         return defs
-            .filter(def => def.customName === needleFunctionName)
+            .filter(def => def.customName === functionDef!.customName)
             .map(def => def.location);
     }
 }

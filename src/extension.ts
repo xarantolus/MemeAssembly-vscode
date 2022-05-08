@@ -51,9 +51,10 @@ export function activate(context: vscode.ExtensionContext) {
             label: "MemeAssembly"
         }),
 
-        // Rename provider for functions
         vscode.languages.registerRenameProvider('memeasm', new CascadingRenameProvider(
+            // Rename provider for functions
             new FunctionRenameProvider(),
+            // ...as well as certain loops
             new SameFileRenameProvider("monke_loop", {
                 pattern: "\\b((?:a|u)*(?:au|ua)+(?:a|u)*)\\b",
                 description: "The name must only contain 'a' and 'u', and at least one of each"
