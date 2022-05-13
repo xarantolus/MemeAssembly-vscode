@@ -15,7 +15,10 @@ export class FunctionFoldingProvider implements vscode.FoldingRangeProvider {
         token: vscode.CancellationToken
     ): Promise<vscode.FoldingRange[]> {
         let starts = await this.foldingStarts.fromFile(document);
-        let ends = await this.foldingEnds.fromFile(document);
+
+        // The list of ends is reversed to always pick the last return statement
+        // in a function with multiple returns
+        let ends = (await this.foldingEnds.fromFile(document)).reverse();
 
         let results: vscode.FoldingRange[] = [];
         for (let idx = 0; idx < starts.length; idx++) {
