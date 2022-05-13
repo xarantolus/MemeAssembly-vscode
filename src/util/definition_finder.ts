@@ -8,9 +8,12 @@ export class Definition {
 
     public location: vscode.Location;
 
-    constructor(_functionName: string, _location: vscode.Location) {
+    public command : CommandInfo;
+
+    constructor(_functionName: string, _location: vscode.Location, _command: CommandInfo) {
         this.customName = _functionName;
         this.location = _location;
+        this.command = _command;
     }
 }
 
@@ -82,22 +85,15 @@ export class DefinitionFinder {
     }
 
     public matchSingleLine(document: vscode.TextDocument, lineNumber: number): Definition | null {
-        let workspaceFolder = vscode.workspace.getWorkspaceFolder(document.uri);
-        if (!workspaceFolder || document.isUntitled) {
-            throw "Cannot get workspace folder";
-        }
-
         return this.matchLine(document.uri.fsPath, document.lineAt(lineNumber).text, lineNumber);
     }
 
     // matchLine returns either a Definition for the command in the given line, or null
     private matchLine(filePath: string, currentLine: string, lineNumber: number): Definition | null {
-        var result: Definition | null = null;
-
         for (let pattern of this.definitions) {
-            var regex = new RegExp(pattern.match, "g")
+            let regex = new RegExp(pattern.match, "g")
 
-            var match: RegExpExecArray | null = null;
+            let match: RegExpExecArray | null = null;
             while (null != (match = regex.exec(currentLine))) {
                 let start = new vscode.Position(
                     lineNumber,
@@ -119,17 +115,18 @@ export class DefinitionFinder {
                 }
 
                 // Basically convert the regex match to something we can work with
-                result = new Definition(
+                return new Definition(
                     match[1] ?? '',
                     new vscode.Location(
                         vscode.Uri.file(filePath),
                         new vscode.Range(start, start.with(undefined, start.character + (match[1]?.length ?? 0)))
                     ),
+                    pattern,
                 );
             }
         }
 
-        return result;
+        return null;
     }
 
     public async resolveReferencedFiles(document: vscode.TextDocument, filePath: string, availableDefinitions: Array<Definition>): Promise<Array<string>> {
