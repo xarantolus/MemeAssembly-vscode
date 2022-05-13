@@ -7,10 +7,12 @@
     },
     "license": "SEE LICENSE IN LICENSE",
     "displayName": "MemeAssembly",
-    "description": "Syntax highlighting and snippets for MemeAssembly, a meme-based programming language.",
+    "description": "Language support for MemeAssembly, a meme-based programming language.",
     "categories": [
         "Programming Languages",
-        "Snippets"
+        "Snippets",
+        "Formatters",
+        "Education"
     ],
     "keywords": [
         "memeassembly",
