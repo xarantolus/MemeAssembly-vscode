@@ -1,5 +1,12 @@
 # Change Log
 
+## [0.4.5] - 2022-05-14
+* You no longer need to save files before definitions will become available. The extension will use already opened files if possible and fall back to the file on disk
+* Add "Go to definition" for "corporate needs you to find the difference between ..." and matching "they're the same picture" commands
+* Folding provider for functions, including ones with multiple return statements
+* Formatter now works with functions that have multiple return statements
+* Remove some unnecessary operations when matching lines
+
 ## [0.4.4] - 2022-05-01
 * Add cross-file function renaming: just use "Rename symbol" to rename a function
 
