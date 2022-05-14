@@ -31,3 +31,12 @@ jobs:
           pat: ${{ secrets.VS_MARKETPLACE_TOKEN }}
           registryUrl: https://marketplace.visualstudio.com
         if: ${{ (startsWith(env.COMMIT_MESSAGE, '[Release]') || startsWith(env.COMMIT_MESSAGE, 'Release') || startsWith(env.COMMIT_MESSAGE, '[Publish]')) }}
+
+      - name: Create git tag
+        shell: bash
+        run: |
+          sudo apt-get install jq
+          TAG="$(jq -r .version package.json)"
+          git tag "v$TAG"
+          git push origin --tags
+        if: ${{ (startsWith(env.COMMIT_MESSAGE, '[Release]') || startsWith(env.COMMIT_MESSAGE, 'Release') || startsWith(env.COMMIT_MESSAGE, '[Publish]')) }}
