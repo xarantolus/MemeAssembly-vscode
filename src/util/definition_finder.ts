@@ -8,9 +8,12 @@ export class Definition {
 
     public location: vscode.Location;
 
-    constructor(_functionName: string, _location: vscode.Location) {
+    public command : CommandInfo;
+
+    constructor(_functionName: string, _location: vscode.Location, _command: CommandInfo) {
         this.customName = _functionName;
         this.location = _location;
+        this.command = _command;
     }
 }
 
@@ -31,21 +34,42 @@ export class DefinitionFinder {
         return d;
     }
 
-    private async extractDefinitionsFromFile(workspace: vscode.Uri, documentPath: string | vscode.TextDocument): Promise<Array<Definition>> {
+    private pathEquals(path1: string, path2: string): boolean {
+        path1 = path.resolve(path1);
+        path2 = path.resolve(path2);
+        if (process.platform == "win32")
+            return path1.toLowerCase() === path2.toLowerCase();
+        return path1 === path2
+    }
+
+    private async extractDefinitionsFromFile(documentPath: string | vscode.TextDocument): Promise<Array<Definition>> {
         let defs: Array<Definition> = [];
 
         let lineIndex = 0;
 
+        // If we already have this file opened, we want to use the content that is present
+        // in that file. E.g. if there are unsaved changes, we will do the right thing
+        if (typeof documentPath === 'string') {
+            let openedDocument = vscode.workspace.textDocuments.find((document) => {
+                return this.pathEquals(document.uri.fsPath, documentPath as string);
+            })
+
+            if (openedDocument) {
+                documentPath = openedDocument;
+            }
+        }
+
+        // We still need to handle the case where we cannot get the document
         if (typeof documentPath === 'string') {
             await forEachLine(documentPath, (line) => {
-                let def = this.matchLine(workspace, documentPath, line, lineIndex++);
+                let def = this.matchLine(documentPath as string, line, lineIndex++);
                 if (def) {
                     defs.push(def);
                 }
-            })
+            });
         } else {
             for (let lineIdx = 0; lineIdx < documentPath.lineCount; lineIdx++) {
-                let def = this.matchLine(workspace, documentPath.uri.fsPath,
+                let def = this.matchLine(documentPath.uri.fsPath,
                     documentPath.lineAt(lineIdx).text, lineIdx)
                 if (def) {
                     defs.push(def);
@@ -57,33 +81,19 @@ export class DefinitionFinder {
     }
 
     public async fromFile(document: vscode.TextDocument, path?: string): Promise<Array<Definition>> {
-        let workspaceFolder = vscode.workspace.getWorkspaceFolder(document.uri);
-        if (!workspaceFolder || document.isUntitled) {
-            throw "Cannot get workspace folder";
-        }
-
-        let defs = await this.extractDefinitionsFromFile(workspaceFolder.uri, path ?? document);
-
-        return defs;
+        return await this.extractDefinitionsFromFile(document ?? path);
     }
 
     public matchSingleLine(document: vscode.TextDocument, lineNumber: number): Definition | null {
-        let workspaceFolder = vscode.workspace.getWorkspaceFolder(document.uri);
-        if (!workspaceFolder || document.isUntitled) {
-            throw "Cannot get workspace folder";
-        }
-
-        return this.matchLine(workspaceFolder.uri, document.uri.fsPath, document.lineAt(lineNumber).text, lineNumber);
+        return this.matchLine(document.uri.fsPath, document.lineAt(lineNumber).text, lineNumber);
     }
 
     // matchLine returns either a Definition for the command in the given line, or null
-    private matchLine(workspace: vscode.Uri, filePath: string, currentLine: string, lineNumber: number): Definition | null {
-        var result: Definition | null = null;
-
+    private matchLine(filePath: string, currentLine: string, lineNumber: number): Definition | null {
         for (let pattern of this.definitions) {
-            var regex = new RegExp(pattern.match, "g")
+            let regex = new RegExp(pattern.match, "g")
 
-            var match: RegExpExecArray | null = null;
+            let match: RegExpExecArray | null = null;
             while (null != (match = regex.exec(currentLine))) {
                 let start = new vscode.Position(
                     lineNumber,
@@ -105,17 +115,18 @@ export class DefinitionFinder {
                 }
 
                 // Basically convert the regex match to something we can work with
-                result = new Definition(
+                return new Definition(
                     match[1] ?? '',
                     new vscode.Location(
                         vscode.Uri.file(filePath),
                         new vscode.Range(start, start.with(undefined, start.character + (match[1]?.length ?? 0)))
                     ),
+                    pattern,
                 );
             }
         }
 
-        return result;
+        return null;
     }
 
     public async resolveReferencedFiles(document: vscode.TextDocument, filePath: string, availableDefinitions: Array<Definition>): Promise<Array<string>> {
@@ -138,7 +149,7 @@ export class DefinitionFinder {
             resultPaths.push(currentPath);
 
             // Which functions are called from this file?
-            let refs = await this.extractDefinitionsFromFile(workspaceFolder.uri, currentPath);
+            let refs = await this.extractDefinitionsFromFile(currentPath);
 
             // Where can we find these functions in
             //  - preferably the already selected paths
@@ -167,13 +178,14 @@ export class DefinitionFinder {
 
         let memeasmPattern = new vscode.RelativePattern(workspaceFolder.uri.path, '**/*.memeasm');
 
-        let results = await vscode.workspace.findFiles(memeasmPattern, null, 100);
+        let results = await vscode.workspace.findFiles(memeasmPattern, null, 1000);
+
 
         var definitions = [];
         for await (const file of results) {
             if (token?.isCancellationRequested) break;
 
-            var defs = await this.extractDefinitionsFromFile(workspaceFolder.uri, file.fsPath);
+            var defs = await this.extractDefinitionsFromFile(file.fsPath);
 
             definitions.push(...defs);
         }

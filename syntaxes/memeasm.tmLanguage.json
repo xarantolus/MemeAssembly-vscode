@@ -195,7 +195,7 @@
 			"patterns": [
 				{
 					"ref": "function_name:def",
-					"format": "block:start",
+					"format": "function:start",
 					"name": "storage.type",
 					"match": "I like to have fun, fun, fun, fun, fun, fun, fun, fun, fun, fun (\\S+)",
 					"hoverText": "Declare the function $1",
@@ -218,19 +218,22 @@
 				},
 				{
 					"name": "keyword.control",
-					"format": "block:end",
+					"ref": "function_end",
+					"format": "function:end",
 					"hoverText": "Exit a function. The return value can be defined by the programmer",
 					"match": "\\b(right back at ya, buckaroo)\\b"
 				},
 				{
 					"name": "keyword.control",
-					"format": "block:end",
+					"ref": "function_end",
+					"format": "function:end",
 					"hoverText": "Exit a function with return value 1",
 					"match": "\\b(no, I don't think I will)\\b"
 				},
 				{
 					"name": "keyword.control",
-					"format": "block:end",
+					"ref": "function_end",
+					"format": "function:end",
 					"hoverText": "Exit a function with return value 0",
 					"match": "\\b(I see this as an absolute win)\\b"
 				}
@@ -988,6 +991,8 @@
 				},
 				{
 					"name": "keyword.control",
+					"format": "combo",
+					"tag": "corporate_comparison_end",
 					"hoverText": "Compare $1 and $2 and jump to the \"they're the same picture\" jump marker if they are equal",
 					"match": "corporate needs you to find the difference between (\\S+(?: do you know de wey)?) and (\\S+(?: do you know de wey)?)",
 					"captures": {
@@ -1041,6 +1046,8 @@
 				},
 				{
 					"name": "keyword.control",
+					"format": "combo",
+					"tag": "corporate_comparison_start",
 					"hoverText": "Jump marker for the \"corporate needs you to find the difference between a and b\" command. It will jump here if the values are equal.",
 					"match": "they're the same picture"
 				}

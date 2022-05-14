@@ -1,23 +1,23 @@
 import { assert } from 'console';
 import * as vscode from 'vscode';
-import { CommandInfo, FormattingCombination, getCommandsByFormattingGuideline, getLoopCombinations, matchesLine } from '../util/tm_util';
+import { CommandInfo, FormattingCombination, getCommandCombinations, getCommandsByFormattingGuideline, getLoopCombinations, matchesLine } from '../util/tm_util';
 
 export class FileFormattingProvider implements vscode.DocumentFormattingEditProvider {
-    // blockStarts and matching blockEnds increase/decrease the indent by 1
-    private blockStarts: CommandInfo[];
-    private blockEnds: CommandInfo[];
+    // functionStarts and matching functionEnds increase/decrease the indent by 1
+    private functionStarts: CommandInfo[];
+    private functionEnds: CommandInfo[];
 
     // combos are combinations like "banana" and "where banana" where there should be indent if they are in the
     // correct order, but not if they are in a different order
     private combos: FormattingCombination[];
 
     constructor() {
-        this.blockStarts = getCommandsByFormattingGuideline("block:start");
-        assert(this.blockStarts.length > 0);
-        this.blockEnds = getCommandsByFormattingGuideline("block:end");
-        assert(this.blockEnds.length > 0);
+        this.functionStarts = getCommandsByFormattingGuideline("function:start");
+        assert(this.functionStarts.length > 0);
+        this.functionEnds = getCommandsByFormattingGuideline("function:end");
+        assert(this.functionEnds.length > 0);
 
-        this.combos = getLoopCombinations()
+        this.combos = getCommandCombinations()
     }
 
     private isComment(line: vscode.TextLine) {
@@ -48,10 +48,29 @@ export class FileFormattingProvider implements vscode.DocumentFormattingEditProv
                 This prevents matching comments that also contain code snippets
                 */
             }
-            else if (matchesLine(this.blockStarts, currentLine.text)) {
+            else if (matchesLine(this.functionStarts, currentLine.text)) {
                 indentLvl++;
-            } else if (matchesLine(this.blockEnds, currentLine.text)) {
-                indentLvl = Math.max(0, indentLvl - 1)
+            } else if (matchesLine(this.functionEnds, currentLine.text)) {
+                // Only decrease indent if we do not find another functionEnd before the next functionStart
+                // This allows a function to have multiple return statements
+                let shouldDecrease = true;
+                for (let nextLineIdx = lineIdx + 1; nextLineIdx < document.lineCount; nextLineIdx++) {
+                    const nextLine = document.lineAt(nextLineIdx);
+
+                    if (matchesLine(this.functionEnds, nextLine.text)) {
+                        shouldDecrease = false;
+                        break;
+                    }
+
+                    if (matchesLine(this.functionStarts, nextLine.text)) {
+                        shouldDecrease = true;
+                        break;
+                    }
+                }
+
+                if (shouldDecrease) {
+                    indentLvl = Math.max(0, indentLvl - 1);
+                }
             } else {
                 for (const cmb of this.combos) {
                     let marker: string | boolean;
@@ -62,7 +81,7 @@ export class FileFormattingProvider implements vscode.DocumentFormattingEditProv
                             const nextLine = document.lineAt(nextIdx);
 
                             let m2 = matchesLine([cmb.end], nextLine.text);
-                            if (m2 == marker) {
+                            if (m2 == marker || (!cmb.exactMatchRequired && m2) ) {
                                 indentLvl++;
                                 break;
                             }
@@ -75,7 +94,7 @@ export class FileFormattingProvider implements vscode.DocumentFormattingEditProv
                             const prevLine = document.lineAt(prevIdx);
 
                             let m2 = matchesLine([cmb.start], prevLine.text);
-                            if (m2 == marker) {
+                            if (m2 == marker || (!cmb.exactMatchRequired && m2)) {
                                 indentLvl = Math.max(0, indentLvl - 1);
 
                                 currentEdit = new vscode.TextEdit(currentLine.range,

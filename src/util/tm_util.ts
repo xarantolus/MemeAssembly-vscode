@@ -65,15 +65,18 @@ export class FormattingCombination {
     public start: CommandInfo;
     public end: CommandInfo;
 
-    constructor(_id: string, _start: CommandInfo, _end: CommandInfo) {
+    public exactMatchRequired : boolean;
+
+    constructor(_id: string, _start: CommandInfo, _end: CommandInfo, exact? :boolean) {
         this.id = _id;
         this.start = _start;
         this.end = _end;
+        this.exactMatchRequired = exact ?? true;
     }
 }
 
 
-export function getCommandFormattingCombo(tag: string): FormattingCombination {
+export function getCommandCombo(tag: string, exact? : boolean): FormattingCombination {
     let cmds = getCommandsByFormattingGuideline("combo").filter(c => (c as any)["tag"].startsWith(tag));
     if (cmds.length != 2) {
         throw new Error("Formatting combination for " + tag + " has length " + cmds.length + ", but expected length 2")
@@ -87,17 +90,25 @@ export function getCommandFormattingCombo(tag: string): FormattingCombination {
     if (end == null)
         throw new Error("Formatting combination " + tag + " has no end!");
 
-    return new FormattingCombination(tag, start, end);
+    return new FormattingCombination(tag, start, end, exact);
 }
 
 
 export function getLoopCombinations(): FormattingCombination[] {
     return [
-        getCommandFormattingCombo("upgrade_loop"),
-        getCommandFormattingCombo("banana_loop"),
-        getCommandFormattingCombo("monke_loop")
+        getCommandCombo("upgrade_loop"),
+        getCommandCombo("banana_loop"),
+        getCommandCombo("monke_loop")
     ]
 }
+
+export function getCommandCombinations() : FormattingCombination[] {
+    return [
+        ...getLoopCombinations(),
+        getCommandCombo("corporate_comparison", false)
+    ]
+}
+
 
 export function matchesLine(cmds: CommandInfo[], line: string): string | boolean {
     for (let pattern of cmds) {

@@ -1,16 +1,18 @@
 {
     "name": "memeassembly",
-    "version": "0.4.4",
+    "version": "0.4.5",
     "publisher": "xarantolus",
     "engines": {
         "vscode": "^1.59.0"
     },
     "license": "SEE LICENSE IN LICENSE",
     "displayName": "MemeAssembly",
-    "description": "Syntax highlighting and snippets for MemeAssembly, a meme-based programming language.",
+    "description": "Language support for MemeAssembly, a meme-based programming language.",
     "categories": [
         "Programming Languages",
-        "Snippets"
+        "Snippets",
+        "Formatters",
+        "Education"
     ],
     "keywords": [
         "memeassembly",
