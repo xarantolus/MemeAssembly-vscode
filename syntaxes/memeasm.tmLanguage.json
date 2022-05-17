@@ -41,6 +41,9 @@
 					"include": "#random-commands"
 				},
 				{
+					"include": "#syscalls"
+				},
+				{
 					"include": "#debug-commands"
 				},
 				{
@@ -1056,6 +1059,11 @@
 		"random-commands": {
 			"patterns": [
 				{
+					"match": "oh no, anyway!",
+					"name": "entity.name.function",
+					"hoverText": "Inserts a nop. Very out of order, many performance."
+				},
+				{
 					"name": "keyword.control",
 					"match": "guess I'll die",
 					"hoverText": "Crash the program with a Segmentation Fault"
@@ -1074,6 +1082,15 @@
 					"name": "entity.name.function",
 					"match": "wait, that's illegal",
 					"hoverText": "Intentionally violates the System V ABI by modifying callee-saved registers without restoring their original value"
+				}
+			]
+		},
+		"syscalls": {
+			"patterns": [
+				{
+					"name": "entity.name.function",
+					"match": "we need air support",
+					"hoverText": "Call the imposter (SUScall)"
 				}
 			]
 		},

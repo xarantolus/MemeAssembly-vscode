@@ -39,6 +39,23 @@
         ],
         "description": "Call a function"
     },
+    "syscall": {
+        "scope": "memeasm",
+        "body": "we need air support\n",
+        "prefix": [
+            "we need air support",
+            "syscall",
+            "SUScall"
+        ]
+    },
+    "nop": {
+        "scope": "memeasm",
+        "body": "oh no, anyway!\n",
+        "prefix": [
+            "oh no, anyway!",
+            "nop"
+        ]
+    },
     "return": {
         "scope": "memeasm",
         "body": "right back at ya, buckaroo\n",
