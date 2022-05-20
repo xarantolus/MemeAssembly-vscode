@@ -1,6 +1,6 @@
 import path = require('path');
 import * as vscode from 'vscode';
-import { DefinitionFinder } from '../util/definition_finder';
+import { Definition, DefinitionFinder } from '../util/definition_finder';
 import shellescape = require('shell-escape');
 
 export async function runCurrentFile(textEditor: vscode.TextEditor, edit: vscode.TextEditorEdit, ...args: any[]) {
@@ -33,8 +33,20 @@ export async function runCurrentFile(textEditor: vscode.TextEditor, edit: vscode
         term.sendText(shellescape(["cd", shellDir]));
         term.sendText("clear");
 
-        // Very basic check on whether the file reads input; of course there could be reads in other files
-        var readsInput = textEditor.document.getText().includes("let me in. LET ME IIIIIIIIN")
+        // Check if any of the referenced files reads input
+        let readsInput : boolean = false;
+        let readDefinitionFinder = new DefinitionFinder("io:read", false);
+        for (let file of requiredFiles) {
+            let realPath = path.join(
+                path.dirname(textEditor.document.uri.fsPath),
+                file
+            )
+            let defs = await readDefinitionFinder.fromFile(undefined, realPath)
+            if (defs.length > 0 ) {
+                readsInput = true;
+                break;
+            }
+        }
 
         // If the program reads input, we want to focus the terminal; else we don't focus it
         // That way we keep the cursor in the text editor, which is just faster when you want to change something

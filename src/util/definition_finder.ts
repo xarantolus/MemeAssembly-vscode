@@ -80,8 +80,8 @@ export class DefinitionFinder {
         return defs;
     }
 
-    public async fromFile(document: vscode.TextDocument, path?: string): Promise<Array<Definition>> {
-        return await this.extractDefinitionsFromFile(document ?? path);
+    public async fromFile(document?: vscode.TextDocument, path?: string): Promise<Array<Definition>> {
+        return await this.extractDefinitionsFromFile(document ?? path!);
     }
 
     public matchSingleLine(document: vscode.TextDocument, lineNumber: number): Definition | null {

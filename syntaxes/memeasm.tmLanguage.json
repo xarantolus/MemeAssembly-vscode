@@ -816,6 +816,7 @@
 					"name": "entity.name.function",
 					"hoverText": "Read a byte from stdin into $1",
 					"match": "let me in. LET ME IIIIIIIIN (\\S+(?: do you know de wey)?)",
+					"ref": "io:read",
 					"captures": {
 						"1": {
 							"patterns": [
