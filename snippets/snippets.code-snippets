@@ -68,9 +68,9 @@
         "scope": "memeasm",
         "body": [
             "monke ${1:uaaauaa}",
-            "",
-            "$0",
-            "",
+            "\t",
+            "\t$0",
+            "\t",
             "return to monke $1"
         ],
         "prefix": [
@@ -82,9 +82,9 @@
         "scope": "memeasm",
         "body": [
             "banana",
-            "",
-            "$0",
-            "",
+            "\t",
+            "\t$0",
+            "\t",
             "where banana",
         ],
         "prefix": [
@@ -96,9 +96,9 @@
         "scope": "memeasm",
         "body": [
             "upgrade",
-            "",
-            "$0",
-            "",
+            "\t",
+            "\t$0",
+            "\t",
             "fuck go back"
         ],
         "prefix": [

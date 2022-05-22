@@ -11,5 +11,5 @@
     "surroundingPairs": [],
 
     // If we don't add a pattern that includes "//", the comment suggestion snippet won't work
-    "wordPattern": "\\S+"
+    "wordPattern": "(\\b(\\S|\\s){2,}\\b|\\S)"
 }
