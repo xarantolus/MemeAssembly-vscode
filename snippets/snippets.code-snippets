@@ -50,9 +50,9 @@
     },
     "nop": {
         "scope": "memeasm",
-        "body": "oh no, anyway!\n",
+        "body": "oh no! anyway\n",
         "prefix": [
-            "oh no, anyway!",
+            "oh no! anyway",
             "nop"
         ]
     },

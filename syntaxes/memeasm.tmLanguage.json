@@ -1060,7 +1060,7 @@
 		"random-commands": {
 			"patterns": [
 				{
-					"match": "oh no, anyway!",
+					"match": "oh no! anyway",
 					"name": "entity.name.function",
 					"hoverText": "Inserts a nop. Very out of order, many performance."
 				},
