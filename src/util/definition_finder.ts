@@ -8,7 +8,7 @@ export class Definition {
 
     public location: vscode.Location;
 
-    public command : CommandInfo;
+    public command: CommandInfo;
 
     constructor(_functionName: string, _location: vscode.Location, _command: CommandInfo) {
         this.customName = _functionName;
@@ -132,7 +132,7 @@ export class DefinitionFinder {
     public async resolveReferencedFiles(document: vscode.TextDocument, filePath: string, availableDefinitions: Array<Definition>): Promise<Array<string>> {
         let workspaceFolder = vscode.workspace.getWorkspaceFolder(document.uri);
         if (!workspaceFolder || document.isUntitled) {
-            throw "Cannot get workspace folder";
+            throw new OutOfWorkspaceException();
         }
 
         var resultPaths: Array<string> = [];
@@ -173,7 +173,7 @@ export class DefinitionFinder {
     public async findAllDefinitions(document: vscode.TextDocument, token: vscode.CancellationToken | null): Promise<Array<Definition>> {
         let workspaceFolder = vscode.workspace.getWorkspaceFolder(document.uri);
         if (!workspaceFolder || document.isUntitled) {
-            throw "This command only works when the file is in your workspace directory.";
+            throw new OutOfWorkspaceException();
         }
 
         let memeasmPattern = new vscode.RelativePattern(workspaceFolder.uri.path, '**/*.memeasm');
@@ -191,5 +191,11 @@ export class DefinitionFinder {
         }
 
         return definitions;
+    }
+}
+
+export class OutOfWorkspaceException extends Error {
+    constructor() {
+        super("This command only works when the file is in your workspace directory");
     }
 }
