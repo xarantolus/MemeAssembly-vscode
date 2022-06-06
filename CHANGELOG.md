@@ -1,5 +1,12 @@
 # Change Log
 
+## [0.4.6] - 2022-06-06
+* The install script now shows errors in case they happened (instead of closing the terminal instantly)
+* Support running files that are not in the workspace
+* Detect input reading across files (instead of only the main file); this is used to set the terminal focus (only if input is read)
+* Support for new MemeAssembly commands
+* Update dependencies
+
 ## [0.4.5] - 2022-05-14
 * You no longer need to save files before definitions will become available. The extension will use already opened files if possible and fall back to the file on disk
 * Add "Go to definition" for "corporate needs you to find the difference between ..." and matching "they're the same picture" commands
