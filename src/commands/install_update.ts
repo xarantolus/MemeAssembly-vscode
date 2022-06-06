@@ -2,6 +2,8 @@ import { Octokit } from "@octokit/rest";
 import { exec, ExecException } from 'child_process';
 import * as vscode from 'vscode';
 import path = require('path');
+import { stat } from 'fs/promises';
+import { findAsyncSequential} from '../util/arrays';
 
 
 // installMemeAssembly runs the MemeAssembly installation script
@@ -11,11 +13,31 @@ function installMemeAssembly() {
         "location": vscode.ProgressLocation.Window,
         "title": "Installing MemeAssembly..."
     }, async (progress, token) => {
-        await new Promise((resolve, reject) => {
+        await new Promise(async (resolve, reject) => {
             const termName = "Install MemeAssembly";
 
+
             // TODO: different installation strategy for Windows
-            var scriptLocation = path.join(__dirname, "../../scripts/install_memeassembly.sh");
+            let scriptLocations = [
+                // This is the normal path that works on normal linux
+                path.join(__dirname, "../../scripts/install_memeassembly.sh"),
+                // This path works on WSL
+                path.join(__dirname, "../scripts/install_memeassembly.sh")
+            ];
+
+            let scriptLocation = await findAsyncSequential(scriptLocations, async path => {
+                try {
+                    let info = await stat(path);
+                    return !!info;
+                } catch (_) { }
+                return false;
+            });
+            if (!scriptLocation) {
+                throw "Cannot find the install script. Please report this as an issue with details about your system";
+            }
+
+            console.log("Using", scriptLocation, "for installing MemeAssembly")
+
             var term = vscode.window.createTerminal(termName, "bash", [scriptLocation]);
             term.show();
 
