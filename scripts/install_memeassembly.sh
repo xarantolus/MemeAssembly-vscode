@@ -1,18 +1,7 @@
-#!/usr/bin/env bash 
-set -euo pipefail 
+#!/usr/bin/env bash
+set -euo pipefail
 
 echo "This is the install / update script for MemeAssembly. You might be asked for your root/sudo password."
-
-postinstall() {
-    echo ""
-    echo ""
-    echo -e "\033[38;5;16;48;5;47m\n\n  Successfully installed MemeAssembly  \n\033[0m"
-    echo "You can now run memeasm -h to get more info."
-    echo ""
-    echo "Press enter to exit this terminal."
-    read -t 30
-    exit 0
-}
 
 
 # Go to temp directory
@@ -22,8 +11,33 @@ cd "$TMP_DIR"
 cleanup() {
     rm -rf "$TMP_DIR"
 }
-trap cleanup EXIT
 
+
+postinstall() {
+    trap cleanup EXIT
+
+    # Check whether the installation worked
+    ERROR_CODE=1
+    which memeasm > /dev/null && ERROR_CODE=0
+
+    echo ""
+    echo ""
+    if [ "$ERROR_CODE" != "0" ]; then
+        echo -e "\e[31m\n\n  Error while installing MemeAssembly  \n\e[0m"
+        echo "See the output above to find out more."
+    else
+        echo -e "\033[38;5;16;48;5;47m\n\n  Successfully installed MemeAssembly  \n\033[0m"
+        echo "You can now run memeasm -h to get more info."
+    fi
+    echo ""
+    echo "Press enter to exit this terminal."
+    read
+
+    exit $ERROR_CODE
+}
+
+
+trap postinstall EXIT
 
 # Download all release files we might need
 if [[ ! $(which jq) ]]; then

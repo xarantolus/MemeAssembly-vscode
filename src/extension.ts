@@ -2,7 +2,7 @@ import { platform } from 'os';
 import * as vscode from 'vscode';
 
 import { insertPrintCommands } from './commands/insert_print';
-import { checkCommandInstalled } from './commands/install_update';
+import { checkForInstallOrUpdate } from './commands/install_update';
 import { runCurrentFile } from './commands/run';
 
 import { LenseProvider } from './providers/code_lense';
@@ -18,7 +18,7 @@ import { FunctionFoldingProvider } from './providers/folding';
 
 export function activate(context: vscode.ExtensionContext) {
     if (platform() == 'linux') {
-        checkCommandInstalled(false);
+        checkForInstallOrUpdate(false);
     }
 
     let fileFormatter = new FileFormattingProvider();
@@ -27,7 +27,7 @@ export function activate(context: vscode.ExtensionContext) {
         vscode.commands.registerTextEditorCommand("memeasm.run-file", runCurrentFile),
 
         // For updating the MemeAssembly compiler
-        vscode.commands.registerTextEditorCommand("memeasm.update", () => checkCommandInstalled(true)),
+        vscode.commands.registerTextEditorCommand("memeasm.update", () => checkForInstallOrUpdate(true)),
 
         // Insert print commands for long texts
         vscode.commands.registerTextEditorCommand("memeasm.insert-print", () => insertPrintCommands()),

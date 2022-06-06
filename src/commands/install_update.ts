@@ -73,7 +73,7 @@ async function checkForUpdate(installedVersionNumber: string, showNoUpdate?: boo
 // If the compiler is installed, it will check if it's the latest version from GitHub.
 //  > If a newer version is available, the user will be prompted to update.
 //  > If no newer version is available AND showNoUpdate is true, a message will show that no update is available
-export function checkCommandInstalled(showNoUpdate?: boolean) {
+export function checkForInstallOrUpdate(showNoUpdate?: boolean) {
     // We just execute the help command. If it's installed, we'll get the current version number
     exec("memeasm --help",
         async function (error: ExecException | null, stdout: string, stderr: string) {
