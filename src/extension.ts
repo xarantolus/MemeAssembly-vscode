@@ -35,6 +35,7 @@ export function activate(context: vscode.ExtensionContext) {
         // Now definition providers: these allow jumping to a function definition (from a call command)
         vscode.languages.registerDefinitionProvider("memeasm", new FunctionDefinitionProvider()),
         // ... or to the opposite "side" of a loop (and generally jump markers)
+        // TODO: Definition finder across files for monke loops
         vscode.languages.registerDefinitionProvider("memeasm", new LoopDefinitionProvider()),
         // The reference provider shows where a function is called from
         vscode.languages.registerReferenceProvider("memeasm", new FunctionReferenceProvider()),
@@ -56,6 +57,7 @@ export function activate(context: vscode.ExtensionContext) {
             // Rename provider for functions
             new FunctionRenameProvider(),
             // ...as well as certain loops
+            // TODO: Monke labels should work across files, not just the current file
             new SameFileRenameProvider("monke_loop", {
                 pattern: "\\b((?:a|u)*(?:au|ua)+(?:a|u)*)\\b",
                 description: "The name must only contain 'a' and 'u', and at least one of each"
