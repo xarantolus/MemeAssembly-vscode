@@ -1,6 +1,8 @@
 import * as vscode from 'vscode';
 import { DefinitionFinder } from '../util/definition_finder';
-import { FormattingCombination, getCommandCombo, getCommandsByRef } from '../util/tm_util';
+import { RegisterFinder } from '../util/register_match';
+import { CommandInfo, FormattingCombination, getCommandCombo, getCommandsByFormattingGuideline, getCommandsByRef, matchesLine } from '../util/tm_util';
+import { FunctionRangeFinder } from '../util/function_match';
 
 // This class exists because of the following reason:
 // If we register multiple rename providers and rename a symbol that is matched by one of them,
@@ -12,6 +14,20 @@ export class CascadingRenameProvider implements vscode.RenameProvider {
 
     constructor(...providers: vscode.RenameProvider[]) {
         this.providers = providers;
+    }
+
+    findProviderForLine(document: vscode.TextDocument, position: vscode.Position,
+        token: vscode.CancellationToken): vscode.RenameProvider | null {
+        for (const provider of this.providers) {
+            try {
+                if (provider.prepareRename) {
+                    let rename = provider.prepareRename(document, position, token);
+                    if (rename)
+                        return provider;
+                }
+            } catch (_) { }
+        }
+        return null;
     }
 
     prepareRename(
@@ -35,19 +51,12 @@ export class CascadingRenameProvider implements vscode.RenameProvider {
         document: vscode.TextDocument, position: vscode.Position,
         newName: string, token: vscode.CancellationToken,
     ): Promise<vscode.WorkspaceEdit> {
-        for (const provider of this.providers) {
-            try {
-                let rename = await provider.provideRenameEdits(document, position, newName, token);
-                if (rename && rename.size > 0)
-                    return rename;
-            } catch (e) {
-                if (e instanceof RenamePreparationException) {
-                    continue;
-                }
-
-                throw e;
-            }
-        }
+        let provider = this.findProviderForLine(document, position, token);
+        if (!provider)
+            throw new Error("Cannot find provider for renaming at this position");
+        let rename = await provider.provideRenameEdits(document, position, newName, token);
+        if (rename && rename.size > 0)
+            return rename;
         throw new Error("Cannot provide rename functionality");
     }
 }
@@ -161,6 +170,83 @@ export class SameFileRenameProvider implements vscode.RenameProvider {
             return edit;
 
         throw new Error("Cannot provide rename at this position");
+    }
+}
+
+export class RegisterRenameProvider implements vscode.RenameProvider {
+
+    private registerFinder: RegisterFinder;
+    private functionFinder: FunctionRangeFinder;
+
+    constructor() {
+        this.registerFinder = new RegisterFinder();
+        this.functionFinder = new FunctionRangeFinder();
+    }
+
+    private currentPositionInfo(document: vscode.TextDocument, position: vscode.Position): { range: vscode.Range, placeholder: string } {
+        let lineText = document.lineAt(position.line).text;
+        let match = this.registerFinder.findRegisters(lineText, position.line)
+            .filter(r => r.contains(position));
+        if (!match || match.length !== 1) {
+            throw new RenamePreparationException("cannot rename registers at this position");
+        }
+
+        try {
+            let functionRange = this.functionFinder.findFunctionRange(position, document);
+            let functionRangeFancy = new vscode.Range(
+                new vscode.Position(functionRange.start, 0),
+                new vscode.Position(functionRange.end, 0)
+            );
+            if (!functionRangeFancy.contains(position)) {
+                throw new RenamePreparationException("can only rename registers within functions")
+            }
+        } catch (e) {
+            // This also catches errors from findFunctionRange
+            throw new RenamePreparationException("$e");
+        }
+
+
+        return {
+            placeholder: lineText.substring(match[0].start.character, match[0].end.character),
+            range: match[0]
+        };
+    }
+
+
+    prepareRename(
+        document: vscode.TextDocument, position: vscode.Position,
+        token: vscode.CancellationToken
+    ): vscode.ProviderResult<vscode.Range | { range: vscode.Range; placeholder: string; }> {
+        return this.currentPositionInfo(document, position);
+    }
+
+    async provideRenameEdits(
+        document: vscode.TextDocument, position: vscode.Position,
+        newName: string, token: vscode.CancellationToken,
+    ): Promise<vscode.WorkspaceEdit> {
+        if (!this.registerFinder.isValidRegisterString(newName)) {
+            throw new RenamePreparationException("New text must be a valid register");
+        }
+
+        let edit = new vscode.WorkspaceEdit();
+        let info = this.currentPositionInfo(document, position);
+
+        // Search for the first and last line of the function
+        let functionRange = this.functionFinder.findFunctionRange(position, document);
+        for (let i = functionRange.start; i <= functionRange.end; i++) {
+            const line = document.lineAt(i);
+
+            let positions = this.registerFinder.findRegisters(line.text, i);
+            for (const pos of positions) {
+                let oldRegister = line.text.substring(pos.start.character, pos.end.character);
+                if (oldRegister.toUpperCase() == info.placeholder.toUpperCase()) {
+                    edit.replace(document.uri, pos, newName);
+                }
+            }
+        }
+
+
+        return edit;
     }
 }
 

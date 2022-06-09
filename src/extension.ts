@@ -10,7 +10,7 @@ import { FunctionDefinitionProvider, LoopDefinitionProvider } from './providers/
 import { FileFormattingProvider, TypingFormattingProvider } from './providers/formatting';
 import { HoverProvider } from './providers/hover';
 import { FunctionReferenceProvider } from './providers/reference';
-import { CascadingRenameProvider, FunctionRenameProvider, SameFileRenameProvider } from './providers/rename';
+import { CascadingRenameProvider, FunctionRenameProvider, RegisterRenameProvider, SameFileRenameProvider } from './providers/rename';
 import { SymbolProvider } from './providers/symbols';
 import { FunctionFoldingProvider } from './providers/folding';
 
@@ -52,6 +52,7 @@ export function activate(context: vscode.ExtensionContext) {
         }),
 
         vscode.languages.registerRenameProvider('memeasm', new CascadingRenameProvider(
+            new RegisterRenameProvider(),
             // Rename provider for functions
             new FunctionRenameProvider(),
             // ...as well as certain loops

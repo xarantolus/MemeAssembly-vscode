@@ -18,12 +18,13 @@ export class CommandInfo {
 
 var cmds: Array<CommandInfo> | null = null;
 
+// languageGrammar is our grammar file that defines basically everything
+const languageGrammar = require('../../syntaxes/memeasm.tmLanguage.json')
+
 export function loadAvailableCommands() {
     if (cmds != null) {
         return cmds!;
     }
-    // languageGrammar is our grammar file that defines basically everything
-    const languageGrammar = require('../../syntaxes/memeasm.tmLanguage.json')
 
     // Load all patterns from the tmlanguage file
     var repo = languageGrammar["repository"];
@@ -65,9 +66,9 @@ export class FormattingCombination {
     public start: CommandInfo;
     public end: CommandInfo;
 
-    public exactMatchRequired : boolean;
+    public exactMatchRequired: boolean;
 
-    constructor(_id: string, _start: CommandInfo, _end: CommandInfo, exact? :boolean) {
+    constructor(_id: string, _start: CommandInfo, _end: CommandInfo, exact?: boolean) {
         this.id = _id;
         this.start = _start;
         this.end = _end;
@@ -76,7 +77,7 @@ export class FormattingCombination {
 }
 
 
-export function getCommandCombo(tag: string, exact? : boolean): FormattingCombination {
+export function getCommandCombo(tag: string, exact?: boolean): FormattingCombination {
     let cmds = getCommandsByFormattingGuideline("combo").filter(c => (c as any)["tag"].startsWith(tag));
     if (cmds.length != 2) {
         throw new Error("Formatting combination for " + tag + " has length " + cmds.length + ", but expected length 2")
@@ -102,7 +103,7 @@ export function getLoopCombinations(): FormattingCombination[] {
     ]
 }
 
-export function getCommandCombinations() : FormattingCombination[] {
+export function getCommandCombinations(): FormattingCombination[] {
     return [
         ...getLoopCombinations(),
         getCommandCombo("corporate_comparison", false)
@@ -121,4 +122,17 @@ export function matchesLine(cmds: CommandInfo[], line: string): string | boolean
     }
 
     return false;
+}
+
+
+export function getRegisterRegexes(): string[] {
+    let repo = languageGrammar["repository"];
+    const registerKeys = ["64bit-registers", "32bit-registers", "16bit-registers", "8bit-registers"];
+
+    let result: string[] = [];
+    for (const key of registerKeys) {
+        let patterns = repo[key]["patterns"] as Array<any>;
+        result.push(...patterns.map(p => p["match"]).filter(e => e));
+    }
+    return result;
 }
