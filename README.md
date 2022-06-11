@@ -14,7 +14,7 @@ This [extension](https://marketplace.visualstudio.com/items?itemName=xarantolus.
   * **Jump to function definitions & references** using your default "Go to Definition" & "Go to References" shortcuts
     * This also works for jump/loop markers
   * **Code formatting**
-  * **Rename symbol**: simply rename functions (also works across files)
+  * **Rename symbol**: simply rename functions (also works across files), registers (within a function) and more!
   * **Comment toggling** using default shortcuts
     * <kbd>Ctrl</kbd>+<kbd>K</kbd>, <kbd>Ctrl</kbd>+<kbd>C</kbd> comments the current selection out
     * <kbd>Ctrl</kbd>+<kbd>K</kbd>, <kbd>Ctrl</kbd>+<kbd>U</kbd> to comment the current selection in
