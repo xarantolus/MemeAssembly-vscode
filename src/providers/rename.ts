@@ -55,7 +55,7 @@ export class CascadingRenameProvider implements vscode.RenameProvider {
         if (!provider)
             throw new Error("Cannot find provider for renaming at this position");
         let rename = await provider.provideRenameEdits(document, position, newName, token);
-        if (rename && rename.size > 0)
+        if (rename)
             return rename;
         throw new Error("Cannot provide rename functionality");
     }
@@ -231,6 +231,8 @@ export class RegisterRenameProvider implements vscode.RenameProvider {
         let edit = new vscode.WorkspaceEdit();
         let info = this.currentPositionInfo(document, position);
 
+        let registerAlreadyUsed = false;
+
         // Search for the first and last line of the function
         let functionRange = this.functionFinder.findFunctionRange(position, document);
         for (let i = functionRange.start; i <= functionRange.end; i++) {
@@ -239,13 +241,23 @@ export class RegisterRenameProvider implements vscode.RenameProvider {
             let positions = this.registerFinder.findRegisters(line.text, i);
             for (const pos of positions) {
                 let oldRegister = line.text.substring(pos.start.character, pos.end.character);
+                if (oldRegister.toUpperCase() == newName.toUpperCase()) {
+                    registerAlreadyUsed = true;
+                }
+
                 if (oldRegister.toUpperCase() == info.placeholder.toUpperCase()) {
                     edit.replace(document.uri, pos, newName);
                 }
             }
         }
 
-
+        // If we would create conflicts, we ask the user first
+        if (registerAlreadyUsed && newName.toUpperCase() !== info.placeholder.toUpperCase()) {
+            const acceptOption = "Rename anyways";
+            let result = await vscode.window
+                .showWarningMessage(`Are you sure you want to rename ${info.placeholder} to ${newName}, which is already used in this function?`, acceptOption, "Cancel");
+            return result === acceptOption ? edit : new vscode.WorkspaceEdit()
+        }
         return edit;
     }
 }
