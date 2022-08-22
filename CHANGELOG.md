@@ -1,5 +1,8 @@
 # Change Log
 
+## [0.4.9] - 2022-06-06
+* Add "Debug program" button above main functions
+
 ## [0.4.8] - 2022-06-06
 * Add rename provider for registers
 
