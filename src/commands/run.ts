@@ -4,6 +4,8 @@ import { Definition, DefinitionFinder, OutOfWorkspaceException } from '../util/d
 import shellescape = require('shell-escape');
 
 export async function runCurrentFile(textEditor: vscode.TextEditor, edit: vscode.TextEditorEdit, ...args: any[]) {
+    let isDebug = args.length > 0 && args[0] == "debug";
+
     try {
         // Make sure we save all files before running
         vscode.workspace.textDocuments.forEach(async doc => {
@@ -40,6 +42,9 @@ export async function runCurrentFile(textEditor: vscode.TextEditor, edit: vscode
         const termName = "MemeAssembly";
         var term = vscode.window.terminals.find(t => t.name == termName) || vscode.window.createTerminal(termName);
 
+        // Send Ctrl+C to stop running programs and a "q\n" to quit gdb in case it's open
+        term.sendText("\u0003\u0003\nq\n")
+
         // cd to current path, but clear that "cd" instantly
         term.sendText(shellescape(["cd", shellDir]));
         term.sendText("clear");
@@ -64,7 +69,13 @@ export async function runCurrentFile(textEditor: vscode.TextEditor, edit: vscode
         term.show(!readsInput);
 
         const targetExecutable = "./main";
-        term.sendText(shellescape(["memeasm", "-o", targetExecutable, ...requiredFiles]) + " && " + targetExecutable);
+
+        if (isDebug) {
+            const sFile = targetExecutable + ".S";
+            term.sendText(shellescape(["memeasm", "-So", sFile, ...requiredFiles]) + " && gcc -g " + sFile + " -o " + targetExecutable + " && gdb -ex=\"set confirm off\" -ex=r -q " + targetExecutable);
+        } else {
+            term.sendText(shellescape(["memeasm", "-o", targetExecutable, ...requiredFiles]) + " && " + targetExecutable);
+        }
 
     } catch (e: any) {
         await vscode.window.showErrorMessage(e.toString());

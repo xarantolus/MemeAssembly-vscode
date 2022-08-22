@@ -3,12 +3,17 @@ import { DefinitionFinder } from '../util/definition_finder';
 import { CommandInfo, getCommandsByRef } from '../util/tm_util';
 
 export class Lense extends vscode.CodeLens {
-    constructor(range: vscode.Range) {
+    constructor(range: vscode.Range, debug: boolean) {
         super(range,
-            {
+            debug ? {
+                title: "Debug program",
+                command: "memeasm.run-file",
+                tooltip: "Runs the current file",
+                arguments: ["debug"]
+            } : {
                 title: "Run program",
                 command: "memeasm.run-file",
-                tooltip: "Runs the current file"
+                tooltip: "Runs the current file",
             }
         );
     }
@@ -22,7 +27,7 @@ export class LenseProvider implements vscode.CodeLensProvider<Lense> {
     }
 
     async provideCodeLenses(document: vscode.TextDocument, token: vscode.CancellationToken): Promise<Lense[]> {
-        var defs = await DefinitionFinder.withDefinitions(this.functionDefs, true).fromFile(document)
+        let defs = await DefinitionFinder.withDefinitions(this.functionDefs, true).fromFile(document)
 
         // There can only be one main function
         let mainFuncs = defs.filter(d => d.customName == 'main');
@@ -30,6 +35,9 @@ export class LenseProvider implements vscode.CodeLensProvider<Lense> {
             return [];
         }
 
-        return [new Lense(mainFuncs[0].location.range)];
+        return [
+            new Lense(mainFuncs[0].location.range, false),
+            new Lense(mainFuncs[0].location.range, true),
+        ];
     }
 }
