@@ -228,6 +228,46 @@
             "increment"
         ]
     },
+    "destroy stack": {
+        "scope": "memeasm",
+        "body": "Houston, we have a problem\n",
+        "prefix": [
+            "Houston, we have a problem",
+            "destroy stack"
+        ]
+    },
+    "endless loop": {
+        "scope": "memeasm",
+        "body": "you shall not pass!\n",
+        "prefix": [
+            "you shall not pass!",
+            "endless loop"
+        ]
+    },
+    "assert over 9000": {
+        "scope": "memeasm",
+        "body": "it's over 9000 ${1:rax}\n",
+        "prefix": [
+            "it's over 9000",
+            "assert over 9000",
+        ]
+    },
+    "random number": {
+        "scope": "memeasm",
+        "body": "it's dangerous to go alone, take ${1:rax}\n",
+        "prefix": [
+            "it's dangerous to go alone, take ...",
+            "random number"
+        ]
+    },
+    "unleave": {
+        "scope": "memeasm",
+        "body": "refuses to elaborate and leaves",
+        "prefix": [
+            "refuses to elaborate and leaves",
+            "unleave"
+        ]
+    },
     "decrement": {
         "scope": "memeasm",
         "body": "downvote ${1:rax}\n",

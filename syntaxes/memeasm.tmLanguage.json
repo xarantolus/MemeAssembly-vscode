@@ -460,6 +460,11 @@
 			"patterns": [
 				{
 					"name": "entity.name.function",
+					"hoverText": "Clear RSP, destroying the stack",
+					"match": "Houston, we have a problem"
+				},
+				{
+					"name": "entity.name.function",
 					"hoverText": "Increment $1 by one",
 					"match": "upvote (\\S+(?: do you know de wey)?)",
 					"captures": {
@@ -1059,6 +1064,67 @@
 		},
 		"random-commands": {
 			"patterns": [
+				{
+					"name": "keyword.control",
+					"match": "you shall not pass!",
+					"hoverText": "An endless loop"
+				},
+				{
+					"name": "entity.name.function",
+					"match": "it's over 9000 (\\S+(?: do you know de wey)?)",
+					"hoverText": "Asserts that $1 is over 9000, otherwise the program will halt",
+					"captures": {
+						"1": {
+							"patterns": [
+								{
+									"include": "#64bit-registers"
+								},
+								{
+									"include": "#32bit-registers"
+								},
+								{
+									"include": "#16bit-registers"
+								},
+								{
+									"include": "#8bit-registers"
+								},
+								{
+									"name": "invalid.illegal",
+									"match": ".+"
+								}
+							]
+						}
+					}
+				},
+				{
+					"name": "entity.name.function",
+					"match": "it's dangerous to go alone, take (\\S+(?: do you know de wey)?)",
+					"hoverText": "Write a random number to $1",
+					"captures": {
+						"1": {
+							"patterns": [
+								{
+									"include": "#64bit-registers"
+								},
+								{
+									"include": "#32bit-registers"
+								},
+								{
+									"include": "#16bit-registers"
+								},
+								{
+									"name": "invalid.illegal",
+									"match": ".+"
+								}
+							]
+						}
+					}
+				},
+				{
+					"name": "entity.name.function",
+					"match": "refuses to elaborate and leaves",
+					"hoverText": "I also refuse to elaborate"
+				},
 				{
 					"match": "oh no! anyway",
 					"name": "entity.name.function",
