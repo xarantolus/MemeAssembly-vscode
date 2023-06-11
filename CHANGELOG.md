@@ -1,5 +1,8 @@
 # Change Log
 
+## [0.5.0] - 2023-06-11
+* Initial support for new commands from v1.6.0
+
 ## [0.4.9] - 2022-06-06
 * Add "Debug program" button above main functions
 
